@@ -1,38 +1,48 @@
-import { useState } from "react";
-import { searchCombinedBooks } from "./api/combinedBooks";
+import { useBookStore } from "./hooks/useBookStore";
 
 function App() {
-  const [query, setQuery] = useState("");
-  interface Book {
-    image: string;
-    title: string;
-    author: string;
-    publisher: string;
-  }
-
-  const [books, setBooks] = useState<Book[]>([]);
-
-  const handleSearch = async () => {
-    console.log("검색 시작:", query);
-    const results = await searchCombinedBooks(query);
-    console.log("최종 결과:", results);
-    setBooks(results);
-  };
+  const {
+    query,
+    includeVariants,
+    books,
+    loading,
+    error,
+    setQuery,
+    setIncludeVariants,
+    search,
+  } = useBookStore();
 
   return (
     <div className="p-4">
-      <input
-        className="border p-2"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="책 제목 검색"
-      />
-      <button
-        className="ml-2 p-2 bg-blue-500 text-white"
-        onClick={handleSearch}
-      >
-        검색
-      </button>
+      <div className="flex items-center gap-2">
+        <input
+          className="border p-2 flex-1"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="책 제목 검색"
+        />
+        <button
+          className="p-2 bg-blue-500 text-white disabled:opacity-50"
+          onClick={() => search()}
+          disabled={loading}
+        >
+          {loading ? "검색 중..." : "검색"}
+        </button>
+        <label className="ml-2 inline-flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={includeVariants}
+            onChange={(e) => setIncludeVariants(e.target.checked)}
+          />
+          모든 판본 보기
+        </label>
+      </div>
+
+      {error && (
+        <div className="mt-2 text-sm text-red-600" role="alert">
+          {error}
+        </div>
+      )}
 
       <ul className="mt-4">
         {books.map((book, idx) => (
@@ -51,3 +61,4 @@ function App() {
 }
 
 export default App;
+
