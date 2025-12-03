@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { searchCombinedBooks, type Book } from "../api/combinedBooks";
+import type { Book } from "../lib/types";
+import { searchCombinedBooks } from "../api/searchCombinedBooks";
 
 interface BookState {
   query: string;
@@ -52,4 +53,3 @@ export const useBookStore = create<BookState>((set, get) => ({
     }
   },
 }));
-

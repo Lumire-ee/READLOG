@@ -11,6 +11,7 @@ export function filterLowQuality(books: ReadonlyArray<Book>): Book[] {
   );
 }
 // google결과에 메타데이터가 부족한 경우가 많음. 대량 필터링될 위험 존재.
+// 불완전한 메타데이터 책은 뒤로 보내는것도 고려해보자
 
 export function filterEditionVariants(
   books: ReadonlyArray<Book>,

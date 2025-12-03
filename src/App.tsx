@@ -1,4 +1,4 @@
-import { useBookStore } from "./hooks/useBookStore";
+import { useBookStore } from "./features/books/store/useBookSearchStore";
 
 function App() {
   const {
@@ -61,4 +61,3 @@ function App() {
 }
 
 export default App;
-

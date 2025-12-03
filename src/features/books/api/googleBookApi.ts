@@ -1,5 +1,7 @@
-import type { Book } from "./combinedBooks";
-import { fetchJson, normalizeIsbn, normalizeText } from "./apiUtils";
+import type { Book } from "../lib/types";
+import { fetchJson } from "@/shared/utils/fetchJson";
+import { normalizeCompactText, normalizeText } from "../lib/normalize";
+import { extractIsbn } from "../lib/isbn";
 
 interface GoogleBookItem {
   volumeInfo: {
@@ -13,23 +15,6 @@ interface GoogleBookItem {
   };
 }
 
-function extractIsbn(
-  identifiers?: { type: string; identifier: string }[]
-): string | undefined {
-  if (!identifiers?.length) return undefined;
-
-  const isbn13 = identifiers.find((item) => item.type === "ISBN_13");
-  const cleanedIsbn13 = normalizeIsbn(isbn13?.identifier);
-  if (cleanedIsbn13) return cleanedIsbn13;
-
-  for (const item of identifiers) {
-    const cleaned = normalizeIsbn(item.identifier);
-    if (cleaned) return cleaned;
-  }
-
-  return undefined;
-}
-
 /**
  * 구글 책 검색 API를 호출합니다.
  * @param query 검색어
@@ -37,6 +22,7 @@ function extractIsbn(
  */
 export async function searchGoogleBooks(query: string): Promise<Book[]> {
   const normalizedQuery = normalizeText(query);
+  const compactQuery = normalizeCompactText(query);
   if (!normalizedQuery) return [];
 
   try {
@@ -57,9 +43,15 @@ export async function searchGoogleBooks(query: string): Promise<Book[]> {
 
     return (
       data.items
-        ?.filter((item) =>
-          normalizeText(item.volumeInfo.title).includes(normalizedQuery)
-        )
+        ?.filter((item) => {
+          const normalizedTitle = normalizeText(item.volumeInfo.title);
+          const compactTitle = normalizeCompactText(item.volumeInfo.title);
+
+          return (
+            normalizedTitle.includes(normalizedQuery) ||
+            compactTitle.includes(compactQuery)
+          );
+        })
         .map((item) => ({
           title: item.volumeInfo.title,
           author: item.volumeInfo.authors?.join(", ") || "",

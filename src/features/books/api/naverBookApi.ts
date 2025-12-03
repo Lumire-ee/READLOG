@@ -1,11 +1,9 @@
-import type { Book } from "./combinedBooks";
-import {
-  API_BASE_URL,
-  fetchJson,
-  normalizeIsbn,
-  normalizeText,
-  stripHtml,
-} from "./apiUtils";
+import type { Book } from "../lib/types";
+import { fetchJson } from "@/shared/utils/fetchJson";
+import { normalizeCompactText, normalizeText } from "../lib/normalize";
+import { parseNaverIsbn } from "../lib/isbn";
+import { API_BASE_URL } from "@/shared/constants/apiBaseUrl";
+import { stripHtml } from "../lib/normalize";
 
 interface NaverBookItem {
   title: string;
@@ -15,18 +13,6 @@ interface NaverBookItem {
   isbn?: string;
 }
 
-function parseNaverIsbn(isbn?: string): string | undefined {
-  if (!isbn) return undefined;
-
-  const normalizedList = isbn
-    .split(/\s+/)
-    .map((value) => normalizeIsbn(value))
-    .filter((value): value is string => Boolean(value));
-
-  const isbn13 = normalizedList.find((code) => code.length === 13);
-  return isbn13 ?? normalizedList[0];
-}
-
 /**
  * 네이버 책 검색 API를 호출합니다.
  * @param query 검색어
@@ -34,6 +20,7 @@ function parseNaverIsbn(isbn?: string): string | undefined {
  */
 export async function searchNaverBooks(query: string): Promise<Book[]> {
   const normalizedQuery = normalizeText(query);
+  const compactQuery = normalizeCompactText(query);
   if (!normalizedQuery) return [];
 
   try {
@@ -48,7 +35,15 @@ export async function searchNaverBooks(query: string): Promise<Book[]> {
 
     return (
       data.items
-        ?.filter((item) => normalizeText(item.title).includes(normalizedQuery))
+        ?.filter((item) => {
+          const normalizedTitle = normalizeText(item.title);
+          const compactTitle = normalizeCompactText(item.title);
+
+          return (
+            normalizedTitle.includes(normalizedQuery) ||
+            compactTitle.includes(compactQuery)
+          );
+        })
         .map((item) => ({
           title: stripHtml(item.title),
           author: item.author,
