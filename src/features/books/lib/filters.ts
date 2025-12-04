@@ -1,7 +1,9 @@
-import type { Book } from "./types";
+import type { SearchBook } from "./types";
 import { isEditionVariant } from "./edition";
 
-export function filterLowQuality(books: ReadonlyArray<Book>): Book[] {
+export function filterLowQuality(
+  books: ReadonlyArray<SearchBook>
+): SearchBook[] {
   return books.filter(
     (book) =>
       Boolean(book.title?.trim()) &&
@@ -14,9 +16,9 @@ export function filterLowQuality(books: ReadonlyArray<Book>): Book[] {
 // 불완전한 메타데이터 책은 뒤로 보내는것도 고려해보자
 
 export function filterEditionVariants(
-  books: ReadonlyArray<Book>,
+  books: ReadonlyArray<SearchBook>,
   includeVariants?: boolean
-): Book[] {
+): SearchBook[] {
   if (includeVariants) return [...books];
 
   const baseExists = books.some((book) => !isEditionVariant(book.title || ""));
@@ -26,10 +28,10 @@ export function filterEditionVariants(
 }
 
 export function filterForeignEditions(
-  books: ReadonlyArray<Book>,
+  books: ReadonlyArray<SearchBook>,
   query: string,
   includeVariants?: boolean
-): Book[] {
+): SearchBook[] {
   if (includeVariants) return [...books];
 
   const hasKoreanInQuery = /[가-힣]/.test(query);

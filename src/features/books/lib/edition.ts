@@ -1,4 +1,4 @@
-import type { Book } from "./types";
+import type { SearchBook } from "./types";
 import { EDITION_KEYWORDS } from "./editionKeywords";
 import { normalizeText } from "./normalize";
 import { generateBookKey, qualityScore } from "./merge";
@@ -7,15 +7,17 @@ export function isEditionVariant(title: string): boolean {
   return EDITION_KEYWORDS.some((kw) => new RegExp(kw, "i").test(title));
 }
 
-function baseTitleKey(book: Book): string {
+function baseTitleKey(book: SearchBook): string {
   const baseTitle = stripEditionKeywords(book.title);
   const normalizedTitle = normalizeText(baseTitle);
   const normalizedAuthor = normalizeText(book.author);
   return [normalizedTitle, normalizedAuthor].filter(Boolean).join("::");
 }
 
-export function groupByBaseTitle(books: ReadonlyArray<Book>): Book[] {
-  const map = new Map<string, Book[]>();
+export function groupByBaseTitle(
+  books: ReadonlyArray<SearchBook>
+): SearchBook[] {
+  const map = new Map<string, SearchBook[]>();
 
   for (const book of books) {
     const key = baseTitleKey(book) || generateBookKey(book);
@@ -27,7 +29,7 @@ export function groupByBaseTitle(books: ReadonlyArray<Book>): Book[] {
     }
   }
 
-  const winners: Book[] = [];
+  const winners: SearchBook[] = [];
 
   for (const variants of map.values()) {
     const best = variants.reduce((prev, current) => {

@@ -1,4 +1,4 @@
-import type { Book } from "../lib/types";
+import type { SearchBook } from "../lib/types";
 import { fetchJson } from "@/shared/utils/fetchJson";
 import { normalizeCompactText, normalizeText } from "../lib/normalize";
 import { extractIsbn } from "../lib/isbn";
@@ -20,7 +20,7 @@ interface GoogleBookItem {
  * @param query 검색어
  * @returns 검색된 책 목록
  */
-export async function searchGoogleBooks(query: string): Promise<Book[]> {
+export async function searchGoogleBooks(query: string): Promise<SearchBook[]> {
   const normalizedQuery = normalizeText(query);
   const compactQuery = normalizeCompactText(query);
   if (!normalizedQuery) return [];

@@ -1,6 +1,6 @@
 export type BookSource = "naver" | "google";
 
-export interface Book {
+export interface SearchBook {
   title: string;
   author: string;
   image: string;

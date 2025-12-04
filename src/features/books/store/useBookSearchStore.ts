@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import type { Book } from "../lib/types";
+import type { SearchBook } from "../lib/types";
 import { searchCombinedBooks } from "../api/searchCombinedBooks";
 
 interface BookState {
   query: string;
   includeVariants: boolean;
-  books: Book[];
+  books: SearchBook[];
   loading: boolean;
   error?: string;
   setQuery: (value: string) => void;

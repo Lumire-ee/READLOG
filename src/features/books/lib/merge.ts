@@ -1,10 +1,10 @@
-import type { Book } from "./types";
+import type { SearchBook } from "./types";
 import { normalizeText } from "./normalize";
 import { normalizeIsbn } from "./isbn";
 
 export const KEY_SEPARATOR = "::";
 
-export function generateBookKey(book: Book): string {
+export function generateBookKey(book: SearchBook): string {
   const normalizedIsbn = normalizeIsbn(book.isbn);
   if (normalizedIsbn) {
     return normalizedIsbn;
@@ -28,7 +28,7 @@ export function generateBookKey(book: Book): string {
   return `${book.title}${KEY_SEPARATOR}${book.author}`.trim();
 }
 
-export function qualityScore(book: Book): number {
+export function qualityScore(book: SearchBook): number {
   let score = 0;
   if (book.isbn?.trim()) score += 5;
   if (book.image?.trim()) score += 2;
@@ -37,8 +37,8 @@ export function qualityScore(book: Book): number {
   return score;
 }
 
-export function mergeBooks(books: ReadonlyArray<Book>): Book[] {
-  const map = new Map<string, Book>();
+export function mergeBooks(books: ReadonlyArray<SearchBook>): SearchBook[] {
+  const map = new Map<string, SearchBook>();
 
   for (const book of books) {
     const key = generateBookKey(book);
