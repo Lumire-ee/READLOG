@@ -1,4 +1,4 @@
-import type { Book } from "../lib/types";
+import type { SearchBook } from "../lib/types";
 import type { SearchOptions } from "../lib/types";
 import { searchNaverBooks } from "./naverBookApi";
 import { searchGoogleBooks } from "./googleBookApi";
@@ -13,7 +13,7 @@ import { groupByBaseTitle } from "../lib/edition";
 export async function searchCombinedBooks(
   query: string,
   options?: SearchOptions
-): Promise<Book[]> {
+): Promise<SearchBook[]> {
   if (!query || !query.trim()) {
     throw new Error("Search query is empty.");
   }
@@ -23,7 +23,7 @@ export async function searchCombinedBooks(
     searchGoogleBooks(query),
   ]);
 
-  const allBooks: Book[] = [];
+  const allBooks: SearchBook[] = [];
 
   for (const result of results) {
     if (result.status === "fulfilled") {
