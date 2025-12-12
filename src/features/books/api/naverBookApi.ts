@@ -9,6 +9,7 @@ interface NaverBookItem {
   title: string;
   author: string;
   image: string;
+  description?: string;
   publisher: string;
   isbn?: string;
 }
@@ -48,6 +49,7 @@ export async function searchNaverBooks(query: string): Promise<SearchBook[]> {
           title: stripHtml(item.title),
           author: item.author,
           image: item.image,
+          discription: item.description ?? undefined,
           publisher: item.publisher,
           isbn: parseNaverIsbn(item.isbn),
           source: "naver",

@@ -8,6 +8,7 @@ interface GoogleBookItem {
     title: string;
     authors?: string[];
     publisher?: string;
+    description?: string;
     imageLinks?: {
       thumbnail?: string;
     };
@@ -57,6 +58,7 @@ export async function searchGoogleBooks(query: string): Promise<SearchBook[]> {
           author: item.volumeInfo.authors?.join(", ") || "",
           image: item.volumeInfo.imageLinks?.thumbnail || "",
           publisher: item.volumeInfo.publisher || "",
+          description: item.volumeInfo.description || undefined,
           isbn: extractIsbn(item.volumeInfo.industryIdentifiers),
           source: "google",
         })) || []
