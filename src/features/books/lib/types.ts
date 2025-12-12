@@ -5,6 +5,7 @@ export interface SearchBook {
   author: string;
   image: string;
   publisher: string;
+  description?: string;
   isbn?: string;
   source: BookSource;
 }
