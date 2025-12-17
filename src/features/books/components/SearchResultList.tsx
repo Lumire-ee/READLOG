@@ -13,7 +13,7 @@ export default function SearchResultList({
   onSelect,
 }: SearchResultListProps) {
   return (
-    <div className="w-[45%] overflow-y-auto pr-2">
+    <div className="w-[55%] overflow-hidden pr-2">
       {results.map((book) => (
         <SearchResultRow
           key={book.isbn}

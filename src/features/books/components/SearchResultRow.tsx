@@ -16,7 +16,7 @@ export default function SearchResultRow({
   return (
     <div
       onMouseEnter={onHover}
-      className="flex items-center gap-4 py-3 px-2 rounded-md cursor-pointer hover:bg-gray-50"
+      className="flex items-center gap-4 py-3 px-2 rounded-md cursor-pointer hover:bg-gray-6"
     >
       <img
         src={book.image || ""}
