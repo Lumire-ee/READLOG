@@ -19,7 +19,7 @@ export default function SearchDropdownPanel({
         "w-[70vw] max-w-[900px] min-w-[200px]",
         "rounded-2xl border border-gray-2",
         "flex gap-6 p-6",
-        "max-h-[500px] overflow-hidden"
+        "h-[550px] overflow-hidden"
       )}
     >
       {children}
