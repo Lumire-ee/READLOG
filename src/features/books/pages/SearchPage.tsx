@@ -16,6 +16,7 @@ export default function SearchPage() {
   const [hoveredBook, setHoveredBook] = useState<SearchBook | null>(null);
 
   const { query, setQuery, search, books } = useBookStore();
+  const hasResults = books.length > 0;
   const activeBook = hoveredBook ?? books[0] ?? null;
 
   const totalPages = Math.ceil(books.length / PAGE_SIZE);
@@ -73,7 +74,7 @@ export default function SearchPage() {
             onFocus={() => setOpen(true)}
           />
 
-          <SearchDropdownPanel open={open}>
+          <SearchDropdownPanel open={open && hasResults}>
             {/* Left / List, Pagination */}
             <div className="w-[55%] flex flex-col">
               <div className="flex-1 overflow-hidden pr-2 ">
