@@ -4,30 +4,27 @@ import { SignupWithEmail } from "../api/authApi";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { mapAuthErrorToKorean } from "../lib/mapAuthErrorToKorean";
-
-type SignupFormValues = {
-  email: string;
-  password: string;
-};
-
-type Feedback = { type: "error" | "success"; message: string } | null;
+import { useNavigate } from "react-router-dom";
+import type { FormValues, Feedback } from "../lib/types";
 
 export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<Feedback>(null);
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormValues>({
+  } = useForm<FormValues>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     shouldFocusError: true,
     defaultValues: { email: "", password: "" },
   });
 
-  async function onSignup(values: SignupFormValues) {
+  async function onSignup(values: FormValues) {
     setLoading(true);
 
     const { data, error } = await SignupWithEmail(
@@ -144,7 +141,7 @@ export default function SignupPage() {
           )}
           <Button
             type="submit"
-            className="w-full rounded-full btn-primary cursor-pointer py-2 typo-label-sm font-medium text-gray-6"
+            className="w-full rounded-xl btn-primary cursor-pointer py-2 typo-label-sm font-medium text-gray-6"
             disabled={loading}
           >
             회원가입
@@ -159,8 +156,9 @@ export default function SignupPage() {
             </p>
             <Button
               className="typo-label-sm text-label-primary cursor-pointer"
-              onClick={() => {}}
-              // 로그인페이지 리다이렉트 onclick이벤트 처리
+              onClick={() => {
+                navigate("/login");
+              }}
             >
               로그인
             </Button>
