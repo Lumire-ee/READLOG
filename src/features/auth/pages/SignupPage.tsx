@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { SignupWithEmail } from "../api/authApi";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { mapAuthErrorToKorean } from "../lib/mapAuthErrorToKorean";
 import { useNavigate } from "react-router-dom";
 import type { FormValues, Feedback } from "../lib/types";
+import UserLayout from "../components/UserLayout";
+import { EmailField, PasswordField } from "../components/UserFormFields";
+import { emailRules, signupPasswordRules } from "../lib/validation";
 
 export default function SignupPage() {
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ export default function SignupPage() {
 
     const { data, error } = await SignupWithEmail(
       values.email,
-      values.password
+      values.password,
     );
 
     setLoading(false);
@@ -52,119 +54,56 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex-1 flex items-center justify-center">
-      <div className="w-full max-w-sm">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="typo-heading-lg text-label-primary">
-            booklog 회원가입
-          </h1>
-          <p className="mt-2 typo-label-sm text-label-secondary">
-            독서 기록을 시작해보세요
+    <UserLayout
+      title="booklog 회원가입"
+      subtitle="독서 기록을 시작해보세요"
+      footer={
+        <div className="flex justify-center items-center mt-4 space-x-2">
+          <p className="typo-label-sm text-label-secondary">
+            이미 계정이 있으신가요?
           </p>
-        </div>
-
-        {/* Card */}
-        <form
-          onSubmit={handleSubmit(onSignup)}
-          className="border border-gray-4 bg-white rounded-xl p-6 space-y-6"
-        >
-          <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className={cn(
-                "typo-label-sm text-label-primary",
-                errors.email && "text-accent-red"
-              )}
-            >
-              Email
-            </label>
-
-            <input
-              id="email"
-              className="w-full rounded-md border border-gray-2 px-3 py-2 typo-label-sm"
-              autoComplete="email"
-              {...register("email", {
-                required: "이메일을 입력해주세요.",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "올바른 이메일 형식이 아닙니다.",
-                },
-              })}
-            />
-            {errors.email?.message && (
-              <p className="typo-label-sm text-accent-red">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className={cn(
-                "typo-label-sm text-label-primary",
-                errors.password && "text-accent-red"
-              )}
-            >
-              Password
-            </label>
-
-            <input
-              id="password"
-              className="w-full rounded-md border border-gray-2 px-3 py-2 typo-label-sm"
-              type="password"
-              autoComplete="new-password"
-              {...register("password", {
-                required: "비밀번호를 입력해주세요.",
-                minLength: {
-                  value: 6,
-                  message: "비밀번호는 최소 6자 이상이어야 합니다.",
-                },
-              })}
-            />
-            {errors.password?.message && (
-              <p className="typo-label-sm text-accent-red">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-          {feedback && (
-            <p
-              className={`typo-label-sm ${
-                feedback.type === "error"
-                  ? "text-accent-red"
-                  : "text-accent-green"
-              }`}
-            >
-              {feedback.message}
-            </p>
-          )}
           <Button
-            type="submit"
-            className="w-full rounded-xl btn-primary cursor-pointer py-2 typo-label-sm font-medium text-gray-6"
-            disabled={loading}
+            className="typo-label-sm text-label-primary cursor-pointer"
+            onClick={() => navigate("/login")}
           >
-            회원가입
+            로그인
           </Button>
-        </form>
-
-        {/* Footer */}
-        <div className="w-full max-w-sm">
-          <div className="flex justify-center items-center mt-4 space-x-2">
-            <p className="typo-label-sm text-label-primary">
-              이미 계정이 있으신가요?
-            </p>
-            <Button
-              className="typo-label-sm text-label-primary cursor-pointer"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              로그인
-            </Button>
-          </div>
         </div>
-      </div>
-    </div>
+      }
+    >
+      <form
+        onSubmit={handleSubmit(onSignup)}
+        className="border border-gray-4 bg-white rounded-xl p-6 space-y-6"
+      >
+        <EmailField register={register} errors={errors} rules={emailRules} />
+
+        <PasswordField
+          register={register}
+          errors={errors}
+          rules={signupPasswordRules}
+          autoComplete="new-password"
+        />
+
+        {feedback && (
+          <p
+            className={`typo-label-sm ${
+              feedback.type === "error"
+                ? "text-accent-red"
+                : "text-accent-green"
+            }`}
+          >
+            {feedback.message}
+          </p>
+        )}
+
+        <Button
+          type="submit"
+          className="w-full rounded-full btn-primary cursor-pointer py-2 typo-label-sm font-medium text-gray-6"
+          disabled={loading}
+        >
+          회원가입
+        </Button>
+      </form>
+    </UserLayout>
   );
 }
