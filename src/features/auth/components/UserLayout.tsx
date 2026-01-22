@@ -18,9 +18,9 @@ export default function UserLayout({
       <div className="w-full max-w-sm">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="typo-heading-lg text-label-primary">{title}</h1>
+          <h1 className="typo-heading-lg text-text-primary">{title}</h1>
           {subtitle && (
-            <p className="mt-2 typo-label-sm text-label-secondary">
+            <p className="mt-2 typo-label-sm text-text-secondary">
               {subtitle}
             </p>
           )}

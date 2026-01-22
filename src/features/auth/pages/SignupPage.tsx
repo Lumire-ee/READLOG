@@ -59,13 +59,10 @@ export default function SignupPage() {
       subtitle="독서 기록을 시작해보세요"
       footer={
         <div className="flex justify-center items-center mt-4 space-x-2">
-          <p className="typo-label-sm text-label-secondary">
+          <p className="typo-label-sm text-text-secondary">
             이미 계정이 있으신가요?
           </p>
-          <Button
-            className="typo-label-sm text-label-primary cursor-pointer"
-            onClick={() => navigate("/login")}
-          >
+          <Button variant="authText" onClick={() => navigate("/login")}>
             로그인
           </Button>
         </div>
@@ -73,7 +70,7 @@ export default function SignupPage() {
     >
       <form
         onSubmit={handleSubmit(onSignup)}
-        className="border border-gray-4 bg-white rounded-xl p-6 space-y-6"
+        className="border border-border-default bg-bg-surface rounded-xl p-6 space-y-6"
       >
         <EmailField register={register} errors={errors} rules={emailRules} />
 
@@ -88,19 +85,15 @@ export default function SignupPage() {
           <p
             className={`typo-label-sm ${
               feedback.type === "error"
-                ? "text-accent-red"
-                : "text-accent-green"
+                ? "text-status-danger"
+                : "text-status-success"
             }`}
           >
             {feedback.message}
           </p>
         )}
 
-        <Button
-          type="submit"
-          className="w-full rounded-full btn-primary cursor-pointer py-2 typo-label-sm font-medium text-gray-6"
-          disabled={loading}
-        >
+        <Button type="submit" variant="authPrimary" disabled={loading}>
           회원가입
         </Button>
       </form>

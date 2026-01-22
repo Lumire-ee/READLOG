@@ -11,9 +11,11 @@
   }
 }
 
-
-
 @theme {
+  /* Base */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
   /* System Gray Colors (Light) */
   --color-gray-1: rgb(142, 142, 147);
   --color-gray-2: rgb(174, 174, 178);
@@ -36,9 +38,51 @@
   --color-accent-yellow: #ffcc00;
   --color-accent-green: #34c759;
   --color-accent-indigo: #6155f5;
+
+  /* Semantic - Background */
+  --color-bg-base: var(--color-gray-6);
+  --color-bg-surface: var(--color-white);
+  --color-bg-elevated: var(--color-white);
+  --color-bg-inverse: var(--color-label-primary);
+
+  /* Semantic - Text */
+  --color-text-primary: var(--color-label-primary);
+  --color-text-secondary: var(--color-label-secondary);
+  --color-text-tertiary: var(--color-label-tertiary);
+  --color-text-disabled: var(--color-label-quaternary);
+  --color-text-inverse: var(--color-gray-6);
+
+  /* Semantic - Action */
+  --color-action-primary: var(--color-label-primary);
+  --color-action-primary-hover: var(--color-label-primary-hover);
+  --color-action-disabled: var(--color-label-quaternary);
+
+  /* Semantic - Background */
+  --color-bg-surface-subtle: var(--color-gray-5);
+  --color-bg-surface-hover: var(--color-gray-6);
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Semantic - Border/Divider */
+  --color-border-default: var(--color-gray-4);
+  --color-border-subtle: var(--color-gray-2);
+  --color-divider: var(--color-gray-4);
+
+  /* Semantic - Status */
+  --color-status-danger: var(--color-accent-red);
+  --color-status-success: var(--color-accent-green);
+
+  /* Brand */
+  --color-brand-google-bg: var(--color-white);
+  --color-brand-google-border: #747775;
+  --color-brand-kakao-bg: #FEE500;
+  --color-brand-kakao-text: rgba(0, 0, 0, 0.85);
 }
 
 .dark {
+  /* Base (Dark) */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
   /* System Gray Colors (Dark) */
   --color-gray-1: rgb(142, 142, 147);
   --color-gray-2: rgb(99, 99, 102);
@@ -61,17 +105,55 @@
   --color-accent-yellow: #ffd600;
   --color-accent-green: #35d158;
   --color-accent-indigo: #6d7cff;
+
+  /* Semantic - Background (Dark) */
+  --color-bg-base: var(--color-gray-6);
+  --color-bg-surface: var(--color-gray-5);
+  --color-bg-elevated: var(--color-gray-4);
+  --color-bg-inverse: var(--color-label-primary);
+
+  /* Semantic - Text (Dark) */
+  --color-text-primary: var(--color-label-primary);
+  --color-text-secondary: var(--color-label-secondary);
+  --color-text-tertiary: var(--color-label-tertiary);
+  --color-text-disabled: var(--color-label-quaternary);
+  --color-text-inverse: var(--color-gray-6);
+
+  /* Semantic - Action (Dark) */
+  --color-action-primary: var(--color-label-primary);
+  --color-action-primary-hover: var(--color-label-primary-hover);
+  --color-action-disabled: var(--color-label-quaternary);
+
+  /* Semantic - Background (Dark) */
+  --color-bg-surface-subtle: var(--color-gray-4);
+  --color-bg-surface-hover: var(--color-gray-5);
+  --color-bg-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Semantic - Border/Divider (Dark) */
+  --color-border-default: var(--color-gray-4);
+  --color-border-subtle: var(--color-gray-2);
+  --color-divider: var(--color-gray-4);
+
+  /* Semantic - Status (Dark) */
+  --color-status-danger: var(--color-accent-red);
+  --color-status-success: var(--color-accent-green);
+
+  /* Brand (Dark) */
+  --color-brand-google-bg: var(--color-white);
+  --color-brand-google-border: #747775;
+  --color-brand-kakao-bg: #FEE500;
+  --color-brand-kakao-text: rgba(0, 0, 0, 0.85);
 }
 
 @layer utilities {
   .btn-primary {
-    background-color: var(--color-label-primary);
-    color: var(--color-gray-6);
+    background-color: var(--color-action-primary);
+    color: var(--color-text-inverse);
     transition: background-color 0.15s ease, filter 0.15s ease;
   }
 
   .btn-primary:hover {
-    background-color: var(--color-label-primary-hover);
+    background-color: var(--color-action-primary-hover);
   }
 
   .btn-primary:disabled {
@@ -82,15 +164,19 @@
   /* typo token */
   /* Heading */
   .typo-heading-xl {
-    @apply text-3xl leading-tight font-semibold tracking-tight;
+    @apply text-3xl leading-snug font-semibold tracking-tight;
   }
 
   .typo-heading-lg {
-    @apply text-2xl leading-tight font-semibold tracking-tight;
+    @apply text-2xl leading-snug font-semibold tracking-tight;
   }
 
   .typo-heading-md {
     @apply text-xl leading-snug font-semibold tracking-tight;
+  }
+
+  .typo-heading-sm {
+    @apply text-lg leading-snug font-semibold;
   }
 
   /* Body */
@@ -108,15 +194,16 @@
 
   /* Label */
   .typo-label-md {
-    @apply text-sm leading-snug font-medium;
+    @apply text-sm leading-normal font-medium;
   }
 
   .typo-label-sm {
-    @apply text-xs leading-snug font-medium;
+    @apply text-xs leading-normal font-medium;
   }
 
   /* Caption */
   .typo-caption {
-    @apply text-xs leading-snug font-normal;
+    @apply text-xs leading-relaxed font-normal;
   }
+
 }

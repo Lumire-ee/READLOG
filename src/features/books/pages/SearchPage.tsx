@@ -94,7 +94,7 @@ export default function SearchPage() {
                     >
                       <ChevronLeft />
                     </Button>
-                    <span className="flex text-sm">
+                    <span className="flex typo-body-sm">
                       {pageIndex + 1} - {totalPages}
                     </span>
                     <Button

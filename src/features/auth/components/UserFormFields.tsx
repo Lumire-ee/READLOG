@@ -23,8 +23,8 @@ export function EmailField({
       <Label
         htmlFor="email"
         className={cn(
-          "typo-label-sm text-label-primary",
-          errors.email && "text-accent-red",
+          "typo-label-sm text-text-primary",
+          errors.email && "text-status-danger",
         )}
       >
         Email
@@ -32,12 +32,14 @@ export function EmailField({
       <Input
         id="email"
         type="email"
-        className="w-full rounded-md border border-gray-2 px-3 py-2 typo-label-sm"
+        className="w-full rounded-md border border-border-subtle px-3 py-2 typo-label-sm"
         autoComplete="email"
         {...register("email", rules)}
       />
       {errors.email?.message && (
-        <p className="typo-label-sm text-accent-red">{errors.email.message}</p>
+        <p className="typo-label-sm text-status-danger">
+          {errors.email.message}
+        </p>
       )}
     </div>
   );
@@ -57,8 +59,8 @@ export function PasswordField({
       <Label
         htmlFor="password"
         className={cn(
-          "typo-label-sm text-label-primary",
-          errors.password && "text-accent-red",
+          "typo-label-sm text-text-primary",
+          errors.password && "text-status-danger",
         )}
       >
         Password
@@ -67,13 +69,13 @@ export function PasswordField({
       <Input
         id="password"
         type="password"
-        className="w-full rounded-md border border-gray-2 px-3 py-2 typo-label-sm"
+        className="w-full rounded-md border border-border-subtle px-3 py-2 typo-label-sm"
         autoComplete={autoComplete}
         {...register("password", rules)}
       />
 
       {errors.password?.message && (
-        <p className="typo-label-sm text-accent-red">
+        <p className="typo-label-sm text-status-danger">
           {errors.password.message}
         </p>
       )}

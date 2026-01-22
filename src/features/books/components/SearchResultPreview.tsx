@@ -23,23 +23,23 @@ export default function SearchResultPreview({
 
       <div className="min-w-0 flex flex-col">
         <div className="gap-1 flex flex-col pb-4">
-          <h2 className="text-lg font-semibold text-label-primary line-clamp-2">
+          <h2 className="typo-heading-sm text-text-primary line-clamp-2">
             {book.title}
           </h2>
 
-          <p className="text-sm text-label-secondary line-clamp-1">
+          <p className="typo-body-sm text-text-secondary line-clamp-1">
             {book.author}
           </p>
         </div>
 
-        <div className="border-l-2 border-gray-2 pl-3">
+        <div className="border-l-2 border-border-subtle pl-3">
           {book.description ? (
-            <p className="text-xs text-label-secondary line-clamp-4 leading-relaxed break-keep">
+            <p className="typo-caption text-text-secondary line-clamp-4 break-keep">
               {book.description}
             </p>
           ) : (
-            <p className="text-xs text-label-secondary">
-              책 소개가 제공되지 않습니다.
+            <p className="typo-caption text-text-secondary">
+              �??�개가 ?�공?��? ?�습?�다.
             </p>
           )}
         </div>
@@ -47,3 +47,6 @@ export default function SearchResultPreview({
     </div>
   );
 }
+
+
+

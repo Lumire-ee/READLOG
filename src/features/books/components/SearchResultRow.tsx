@@ -16,20 +16,26 @@ export default function SearchResultRow({
   return (
     <div
       onMouseEnter={onHover}
-      className="flex items-center gap-4 py-3 px-2 rounded-md cursor-pointer hover:bg-gray-6"
+      className="flex items-center gap-4 py-3 px-2 rounded-md cursor-pointer hover:bg-bg-surface-hover"
     >
       <img
         src={book.image || ""}
         alt={book.title}
-        className="w-12 h-16 rounded-md object-cover bg-gray-200"
+        className="w-12 h-16 rounded-md object-cover bg-bg-surface-subtle"
       />
       <div className="flex-1">
-        <h3 className="text-sm font-medium line-clamp-1">{book.title}</h3>
-        <p className="text-xs text-gray-500 line-clamp-1">{book.author}</p>
-        {book.publisher && <p className="text-xs text-gray-400"></p>}
+        <h3 className="typo-label-md text-text-primary line-clamp-1">
+          {book.title}
+        </h3>
+        <p className="typo-label-sm text-text-secondary line-clamp-1">
+          {book.author}
+        </p>
+        {book.publisher && (
+          <p className="typo-label-sm text-text-tertiary"></p>
+        )}
       </div>
 
-      <Button size="sm" onClick={onSelect}>
+      <Button variant="iconGhost" size="sm" onClick={onSelect}>
         <BookPlus />
       </Button>
     </div>

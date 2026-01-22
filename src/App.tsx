@@ -6,7 +6,7 @@ import LoginPage from "./features/auth/pages/LoginPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen w-full bg-gray-6">
+      <div className="min-h-screen w-full bg-bg-base">
         <div className="min-h-screen flex flex-col">
           <main className="flex-1 flex justify-center items-center">
             <Routes>
