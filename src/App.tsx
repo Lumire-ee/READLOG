@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SearchPage from "./features/books/pages/SearchPage";
 import SignupPage from "./features/auth/pages/SignupPage";
 import LoginPage from "./features/auth/pages/LoginPage";
+import OnboardingPage from "./features/profile/pages/OnboardingPage";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <div className="min-h-screen flex flex-col">
           <main className="flex-1 flex justify-center items-center">
             <Routes>
+              <Route path="/onboarding" element={<OnboardingPage />} />
               <Route path="/" element={<SignupPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/search" element={<SearchPage />} />
