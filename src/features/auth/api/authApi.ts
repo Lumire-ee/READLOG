@@ -19,7 +19,6 @@ export async function getUser() {
 export async function signInWithOAuth(provider: "google" | "kakao") {
   return supabase.auth.signInWithOAuth({
     provider,
-    options: { redirectTo: undefined },
-    // Todo: 필요 시 redirectTo 설정
+    options: { redirectTo: `${window.location.origin}/onboarding` },
   });
 }

@@ -41,11 +41,7 @@ export default function LoginPage() {
     }
 
     if (data.user) {
-      // Todo: 닉네임 온보딩
-      // 1) Profile Table 프로필 조회
-      // 2) 닉네임이 없으면 닉네임 설정 모달 표시
-
-      navigate("/search");
+      navigate("/onboarding");
       return;
     }
   }
