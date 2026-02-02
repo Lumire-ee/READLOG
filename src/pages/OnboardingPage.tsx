@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProfileNickname, upsertProfileNickname } from "../api/profileApi";
-import { useAuth } from "@/features/auth/provider/useAuth";
-import SetNicknameModal from "../components/SetNicknameModal";
+import {
+  getProfileNickname,
+  upsertProfileNickname,
+} from "../features/profile/api/profileApi";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import SetNicknameModal from "../features/profile/components/SetNicknameModal";
 
 type SubmitResult = { ok: true } | { ok: false; message: string };
 

@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { LoginWithEmail, signInWithOAuth } from "../api/authApi";
-import { mapAuthErrorToKorean } from "../lib/mapAuthErrorToKorean";
+import { LoginWithEmail, signInWithOAuth } from "../features/auth/api/authApi";
+import { mapAuthErrorToKorean } from "../features/auth/lib/mapAuthErrorToKorean";
 import { Button } from "@/components/ui/button";
-import type { FormValues, Feedback } from "../lib/types";
+import type { FormValues, Feedback } from "../features/auth/lib/types";
 import { useNavigate } from "react-router-dom";
 import googleG from "@/assets/google_g.svg";
 import KakaoSymbol from "@/assets/kakao_symbol.svg";
-import UserLayout from "../components/UserLayout";
-import { EmailField, PasswordField } from "../components/UserFormFields";
-import { emailRules, loginPasswordRules } from "../lib/validation";
+import UserLayout from "../layouts/UserLayout";
+import {
+  EmailField,
+  PasswordField,
+} from "../features/auth/components/UserFormFields";
+import {
+  emailRules,
+  loginPasswordRules,
+} from "../features/auth/lib/validation";
+import { useAuthForm } from "../features/auth/hooks/useAuthForm";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -21,12 +27,7 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-    shouldFocusError: true,
-    defaultValues: { email: "", password: "" },
-  });
+  } = useAuthForm();
 
   async function onLogin(values: FormValues) {
     setLoading(true);

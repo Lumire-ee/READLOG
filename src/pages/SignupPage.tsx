@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { SignupWithEmail } from "../api/authApi";
+import { SignupWithEmail } from "../features/auth/api/authApi";
 import { Button } from "@/components/ui/button";
-import { mapAuthErrorToKorean } from "../lib/mapAuthErrorToKorean";
+import { mapAuthErrorToKorean } from "../features/auth/lib/mapAuthErrorToKorean";
 import { useNavigate } from "react-router-dom";
-import type { FormValues, Feedback } from "../lib/types";
-import UserLayout from "../components/UserLayout";
-import { EmailField, PasswordField } from "../components/UserFormFields";
-import { emailRules, signupPasswordRules } from "../lib/validation";
+import type { FormValues, Feedback } from "../features/auth/lib/types";
+import UserLayout from "../layouts/UserLayout";
+import {
+  EmailField,
+  PasswordField,
+} from "../features/auth/components/UserFormFields";
+import {
+  emailRules,
+  signupPasswordRules,
+} from "../features/auth/lib/validation";
+import { useAuthForm } from "../features/auth/hooks/useAuthForm";
 
 export default function SignupPage() {
   const [loading, setLoading] = useState(false);
@@ -19,12 +25,7 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-    shouldFocusError: true,
-    defaultValues: { email: "", password: "" },
-  });
+  } = useAuthForm();
 
   async function onSignup(values: FormValues) {
     setLoading(true);
