@@ -1,24 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SearchPage from "./features/books/pages/SearchPage";
-import SignupPage from "./features/auth/pages/SignupPage";
-import LoginPage from "./features/auth/pages/LoginPage";
-import OnboardingPage from "./features/profile/pages/OnboardingPage";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./features/auth/provider/AuthProvider";
+import AppRouter from "./router";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen w-full bg-bg-base">
-        <div className="min-h-screen flex flex-col">
-          <main className="flex-1 flex justify-center items-center">
-            <Routes>
-              <Route path="/onboarding" element={<OnboardingPage />} />
-              <Route path="/" element={<SignupPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/search" element={<SearchPage />} />
-            </Routes>
-          </main>
+      <AuthProvider>
+        <div className="min-h-screen w-full bg-bg-base">
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1 flex justify-center items-center">
+              <AppRouter />
+            </main>
+          </div>
         </div>
-      </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
