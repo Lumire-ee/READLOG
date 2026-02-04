@@ -4,7 +4,6 @@ import AuthGuard from "./AuthGuard";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import OnboardingPage from "./pages/OnboardingPage";
-import SearchPage from "./features/books/pages/SearchPage";
 import HomePage from "./pages/HomePage";
 
 export default function AppRouter() {
@@ -25,15 +24,6 @@ export default function AppRouter() {
         element={
           <AuthGuard>
             <HomePage />
-          </AuthGuard>
-        }
-      />
-
-      <Route
-        path="/search"
-        element={
-          <AuthGuard>
-            <SearchPage />
           </AuthGuard>
         }
       />

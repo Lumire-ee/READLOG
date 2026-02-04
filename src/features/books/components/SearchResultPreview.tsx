@@ -1,4 +1,4 @@
-import type { SearchBook } from "../lib/types";
+﻿import type { SearchBook } from "../lib/types";
 
 interface SearchResultPreviewProps {
   book: SearchBook | null;
@@ -39,7 +39,7 @@ export default function SearchResultPreview({
             </p>
           ) : (
             <p className="typo-caption text-text-secondary">
-              �??�개가 ?�공?��? ?�습?�다.
+              책 소개가 제공되지 않습니다.
             </p>
           )}
         </div>
@@ -47,6 +47,3 @@ export default function SearchResultPreview({
     </div>
   );
 }
-
-
-

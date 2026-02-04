@@ -16,9 +16,9 @@ export default function SearchBar({
   onFocus,
 }: SearchBarProps) {
   return (
-    <div className="relative flex items-center w-[90vw] md:w-[50vw] max-w-[550px] min-w-[200px] border border-border-subtle rounded-full">
+    <div className="flex items-center border border-border-subtle rounded-xl bg-bg-surface">
       <Input
-        className="bg-transparent text-text-primary placeholder:text-text-tertiary border-none focus-visible:ring-0 typo-body-sm"
+        className="bg-transparent text-text-primary placeholder:text-text-tertiary border-none focus-visible:ring-0 typo-label-sm"
         type="text"
         placeholder="책 제목 또는 저자를 입력하세요"
         value={query}
