@@ -36,8 +36,7 @@ export default function OnboardingPage() {
       }
 
       if (nickname) {
-        // TODO: /home 으로 이동
-        navigate("/search", { replace: true });
+        navigate("/home", { replace: true });
         return;
       }
 
@@ -57,7 +56,7 @@ export default function OnboardingPage() {
 
     if (error) return { ok: false, message: "닉네임 저장에 실패했습니다." };
 
-    navigate("/search", { replace: true });
+    navigate("/home", { replace: true });
     return { ok: true };
   }
 

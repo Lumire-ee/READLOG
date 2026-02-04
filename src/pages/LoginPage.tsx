@@ -60,11 +60,7 @@ export default function LoginPage() {
             <p className="typo-label-sm text-text-secondary">
               아직 계정이 없으신가요?
             </p>
-            <Button
-              variant="authText"
-              onClick={() => navigate("/")}
-              // Todo: SignupPage 라우팅 변경 후 수정
-            >
+            <Button variant="authText" onClick={() => navigate("/signup")}>
               회원가입
             </Button>
           </div>
