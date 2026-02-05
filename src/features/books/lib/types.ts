@@ -8,6 +8,7 @@ export interface SearchBook {
   description?: string;
   isbn?: string;
   source: BookSource;
+  pageCount?: number;
 }
 
 export interface SearchOptions {

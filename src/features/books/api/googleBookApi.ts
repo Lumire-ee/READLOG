@@ -13,6 +13,7 @@ interface GoogleBookItem {
       thumbnail?: string;
     };
     industryIdentifiers?: { type: string; identifier: string }[];
+    pageCount?: number;
   };
 }
 
@@ -33,13 +34,13 @@ export async function searchGoogleBooks(query: string): Promise<SearchBook[]> {
     }
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(
-      query
+      query,
     )}&key=${apiKey}`;
 
     const data = await fetchJson<{ items?: GoogleBookItem[] }>(
       url,
       undefined,
-      "Google Books API"
+      "Google Books API",
     );
 
     return (
@@ -61,6 +62,7 @@ export async function searchGoogleBooks(query: string): Promise<SearchBook[]> {
           description: item.volumeInfo.description || undefined,
           isbn: extractIsbn(item.volumeInfo.industryIdentifiers),
           source: "google",
+          pageCount: item.volumeInfo.pageCount || undefined,
         })) || []
     );
   } catch (error) {

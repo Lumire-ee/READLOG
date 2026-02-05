@@ -3,38 +3,20 @@ import type { SearchBook } from "./types";
 
 export async function registerBook(book: SearchBook) {
   const { data: userData, error: userError } = await supabase.auth.getUser();
-  if (userError || !userData.user) throw userError;
-  const user = userData.user;
-  if (!user) throw new Error("로그인이 필요합니다.");
+  if (userError || !userData.user) {
+    throw new Error("로그인이 필요합니다.");
+  }
 
-  const { data: upsertedBook, error: bookError } = await supabase
-    .from("books")
-    .upsert(
-      {
-        isbn: book.isbn,
-        title: book.title,
-        author: book.author,
-        thumbnail: book.image ?? null,
-        publisher: book.publisher ?? null,
-        page_count: null,
-      },
-      { onConflict: "isbn" },
-    )
-    .select("id")
-    .single();
+  const { data, error } = await supabase.rpc("add_book_to_user", {
+    p_isbn: book.isbn,
+    p_title: book.title,
+    p_author: book.author,
+    p_thumbnail: book.image ?? null,
+    p_publisher: book.publisher ?? null,
+    p_page_count: book.pageCount ?? null,
+  });
 
-  if (bookError) throw bookError;
+  if (error) throw error;
 
-  const { error: userBookError } = await supabase.from("user_books").upsert(
-    {
-      user_id: user.id,
-      book_id: upsertedBook.id,
-      status: "to_read",
-    },
-    { onConflict: "user_id, book_id" },
-  );
-
-  if (userBookError) throw userBookError;
-
-  return upsertedBook.id;
+  return data;
 }

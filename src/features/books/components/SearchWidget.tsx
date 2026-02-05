@@ -7,6 +7,7 @@ import type { SearchBook } from "../lib/types";
 import SearchResultPreview from "./SearchResultPreview";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { registerBook } from "../lib/registerBook";
 
 const PAGE_SIZE = 5;
 
@@ -71,10 +72,17 @@ export default function SearchWidget({ onSelectBook, className }: Props) {
     setOpen(true);
   }
 
-  function handleSelect(book: SearchBook) {
+  async function handleSelect(book: SearchBook) {
     setOpen(false);
     setHoveredBook(null);
-    onSelectBook?.(book);
+
+    try {
+      await registerBook(book);
+      onSelectBook?.(book);
+    } catch (err) {
+      // TODO: 에러 UI 처리
+      console.error("책 등록 실패", err);
+    }
   }
 
   return (

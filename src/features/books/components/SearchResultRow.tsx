@@ -30,12 +30,11 @@ export default function SearchResultRow({
         <p className="typo-label-sm text-text-secondary line-clamp-1">
           {book.author}
         </p>
-        {book.publisher && (
-          <p className="typo-label-sm text-text-tertiary"></p>
-        )}
+        {book.publisher && <p className="typo-label-sm text-text-tertiary"></p>}
       </div>
 
       <Button variant="iconGhost" size="sm" onClick={onSelect}>
+        {/* TODO(Optional): Row에 이벤트 추가 시, 이벤트 버블링 방지 필요 */}
         <BookPlus />
       </Button>
     </div>
