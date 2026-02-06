@@ -15,10 +15,10 @@ export default function UserLayout({
   footer,
 }: UserLayoutProps) {
   return (
-    <div className="flex-1 flex items-center justify-center">
+    <div className="flex flex-1 items-center justify-center">
       <div className="w-full max-w-sm">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="mb-8 text-center">
           {/* TODO(optional): 로고 클릭 시 "/"(홈)으로 이동 처리 */}
           <img
             src={MainSymbol}
@@ -27,7 +27,7 @@ export default function UserLayout({
           />
           <h1 className="typo-heading-lg text-text-primary">{title}</h1>
           {subtitle && (
-            <p className="mt-2 typo-label-sm text-text-secondary">{subtitle}</p>
+            <p className="typo-label-sm text-text-secondary mt-2">{subtitle}</p>
           )}
         </div>
 

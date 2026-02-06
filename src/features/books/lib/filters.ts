@@ -2,14 +2,14 @@ import type { SearchBook } from "./types";
 import { isEditionVariant } from "./edition";
 
 export function filterLowQuality(
-  books: ReadonlyArray<SearchBook>
+  books: ReadonlyArray<SearchBook>,
 ): SearchBook[] {
   return books.filter(
     (book) =>
       Boolean(book.title?.trim()) &&
       Boolean(book.author?.trim()) &&
       Boolean(book.publisher?.trim()) &&
-      Boolean(book.image?.trim())
+      Boolean(book.image?.trim()),
   );
 }
 // google결과에 메타데이터가 부족한 경우가 많음. 대량 필터링될 위험 존재.
@@ -17,7 +17,7 @@ export function filterLowQuality(
 
 export function filterEditionVariants(
   books: ReadonlyArray<SearchBook>,
-  includeVariants?: boolean
+  includeVariants?: boolean,
 ): SearchBook[] {
   if (includeVariants) return [...books];
 
@@ -30,7 +30,7 @@ export function filterEditionVariants(
 export function filterForeignEditions(
   books: ReadonlyArray<SearchBook>,
   query: string,
-  includeVariants?: boolean
+  includeVariants?: boolean,
 ): SearchBook[] {
   if (includeVariants) return [...books];
 

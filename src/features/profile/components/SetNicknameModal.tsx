@@ -39,7 +39,7 @@ export default function SetNicknameModal({
       }}
     >
       <DialogContent
-        className="sm:max-w-[420px] bg-bg-elevated"
+        className="bg-bg-elevated sm:max-w-[420px]"
         onEscapeKeyDown={(e) => e.preventDefault()}
         onPointerDownOutside={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
@@ -58,7 +58,7 @@ export default function SetNicknameModal({
             닉네임
           </Label>
           <Input
-            className="border border-border-subtle typo-label-sm w-full rounded-md"
+            className="border-border-subtle typo-label-sm w-full rounded-md border"
             id="nickname"
             value={value}
             onChange={(e) => {
@@ -73,7 +73,7 @@ export default function SetNicknameModal({
 
         <DialogFooter>
           <Button
-            className="w-full rounded-full btn-primary cursor-pointer py-2 typo-label-sm font-medium text-text-inverse"
+            className="btn-primary typo-label-sm text-text-inverse w-full cursor-pointer rounded-full py-2 font-medium"
             disabled={loading}
             onClick={async () => {
               const message = nicknameRules(value);

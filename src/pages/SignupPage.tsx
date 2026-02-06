@@ -59,7 +59,7 @@ export default function SignupPage() {
       title="booklog 회원가입"
       subtitle="독서 기록을 시작해보세요"
       footer={
-        <div className="flex justify-center items-center mt-4 space-x-2">
+        <div className="mt-4 flex items-center justify-center space-x-2">
           <p className="typo-label-sm text-text-secondary">
             이미 계정이 있으신가요?
           </p>
@@ -71,7 +71,7 @@ export default function SignupPage() {
     >
       <form
         onSubmit={handleSubmit(onSignup)}
-        className="border border-border-default bg-bg-surface rounded-xl p-6 space-y-6"
+        className="border-border-default bg-bg-surface space-y-6 rounded-xl border p-6"
       >
         <EmailField register={register} errors={errors} rules={emailRules} />
 

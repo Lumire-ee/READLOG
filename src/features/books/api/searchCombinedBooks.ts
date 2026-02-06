@@ -12,7 +12,7 @@ import { groupByBaseTitle } from "../lib/edition";
 
 export async function searchCombinedBooks(
   query: string,
-  options?: SearchOptions
+  options?: SearchOptions,
 ): Promise<SearchBook[]> {
   if (!query || !query.trim()) {
     throw new Error("Search query is empty.");
@@ -37,12 +37,12 @@ export async function searchCombinedBooks(
   const qualityFiltered = filterLowQuality(merged);
   const editionFiltered = filterEditionVariants(
     qualityFiltered,
-    options?.includeVariants
+    options?.includeVariants,
   );
   const localized = filterForeignEditions(
     editionFiltered,
     query,
-    options?.includeVariants
+    options?.includeVariants,
   );
 
   if (options?.includeVariants) {

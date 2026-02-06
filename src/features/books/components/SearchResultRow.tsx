@@ -16,12 +16,12 @@ export default function SearchResultRow({
   return (
     <div
       onMouseEnter={onHover}
-      className="flex items-center gap-4 py-3 px-2 rounded-md cursor-pointer hover:bg-bg-surface-hover"
+      className="hover:bg-bg-surface-hover flex cursor-pointer items-center gap-4 rounded-md px-2 py-3"
     >
       <img
         src={book.image || ""}
         alt={book.title}
-        className="w-12 h-16 rounded-md object-cover bg-bg-surface-subtle"
+        className="bg-bg-surface-subtle h-16 w-12 rounded-md object-cover"
       />
       <div className="flex-1">
         <h3 className="typo-label-md text-text-primary line-clamp-1">

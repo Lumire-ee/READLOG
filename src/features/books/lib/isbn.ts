@@ -17,7 +17,7 @@ export function parseNaverIsbn(isbn?: string): string | undefined {
 }
 
 export function extractIsbn(
-  identifiers?: { type: string; identifier: string }[]
+  identifiers?: { type: string; identifier: string }[],
 ): string | undefined {
   if (!identifiers?.length) return undefined;
 

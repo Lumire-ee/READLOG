@@ -16,7 +16,7 @@ app.use(cors());
 app.get("/api/books", async (req, res) => {
   const query = req.query.query;
   const url = `https://openapi.naver.com/v1/search/book.json?query=${encodeURIComponent(
-    query
+    query,
   )}`;
 
   const headers = {
@@ -41,5 +41,5 @@ app.get("/api/books", async (req, res) => {
 });
 
 app.listen(5000, () =>
-  console.log("✅ Proxy server running on http://localhost:5000")
+  console.log("✅ Proxy server running on http://localhost:5000"),
 );

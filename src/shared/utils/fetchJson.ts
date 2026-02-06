@@ -1,7 +1,7 @@
 export async function fetchJson<T>(
   url: RequestInfo | URL,
   init?: RequestInit,
-  label?: string
+  label?: string,
 ): Promise<T> {
   const res = await fetch(url, init);
   if (!res.ok) {

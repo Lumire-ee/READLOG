@@ -2,18 +2,17 @@
 @import "tw-animate-css";
 
 @layer base {
-
   html,
   body,
   #root {
-    font-family: 'Apple SD Gothic Neo', sans-serif;
+    font-family: "Apple SD Gothic Neo", sans-serif;
     height: 100%;
   }
 }
 
 @theme {
   /* Base */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
   --color-black: #000000;
 
   /* System Gray Colors (Light) */
@@ -26,7 +25,7 @@
 
   /* Label Colors (Light) */
   --color-label-primary: rgba(0, 0, 0, 0.85);
-  --color-label-primary-hover: rgba(0, 0, 0, 0.80);
+  --color-label-primary-hover: rgba(0, 0, 0, 0.8);
   --color-label-secondary: rgba(0, 0, 0, 0.5);
   --color-label-tertiary: rgba(0, 0, 0, 0.25);
   --color-label-quaternary: rgba(0, 0, 0, 0.1);
@@ -74,13 +73,13 @@
   /* Brand */
   --color-brand-google-bg: var(--color-white);
   --color-brand-google-border: #747775;
-  --color-brand-kakao-bg: #FEE500;
+  --color-brand-kakao-bg: #fee500;
   --color-brand-kakao-text: rgba(0, 0, 0, 0.85);
 }
 
 .dark {
   /* Base (Dark) */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
   --color-black: #000000;
 
   /* System Gray Colors (Dark) */
@@ -141,7 +140,7 @@
   /* Brand (Dark) */
   --color-brand-google-bg: var(--color-white);
   --color-brand-google-border: #747775;
-  --color-brand-kakao-bg: #FEE500;
+  --color-brand-kakao-bg: #fee500;
   --color-brand-kakao-text: rgba(0, 0, 0, 0.85);
 }
 
@@ -149,7 +148,9 @@
   .btn-primary {
     background-color: var(--color-action-primary);
     color: var(--color-text-inverse);
-    transition: background-color 0.15s ease, filter 0.15s ease;
+    transition:
+      background-color 0.15s ease,
+      filter 0.15s ease;
   }
 
   .btn-primary:hover {
@@ -205,5 +206,4 @@
   .typo-caption {
     @apply text-xs leading-relaxed font-normal;
   }
-
 }

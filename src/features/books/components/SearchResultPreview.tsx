@@ -11,18 +11,18 @@ export default function SearchResultPreview({
 
   return (
     <div className="flex flex-col gap-4 overflow-hidden">
-      <div className="flex gap-4 justify-center py-6">
+      <div className="flex justify-center gap-4 py-6">
         <div className="shrink-0">
           <img
             src={book.image ?? ""}
             alt={book.title}
-            className="w-40 h-56 object-cover rounded-md"
+            className="h-56 w-40 rounded-md object-cover"
           />
         </div>
       </div>
 
-      <div className="min-w-0 flex flex-col">
-        <div className="gap-1 flex flex-col pb-4">
+      <div className="flex min-w-0 flex-col">
+        <div className="flex flex-col gap-1 pb-4">
           <h2 className="typo-heading-sm text-text-primary line-clamp-2">
             {book.title}
           </h2>
@@ -32,7 +32,7 @@ export default function SearchResultPreview({
           </p>
         </div>
 
-        <div className="border-l-2 border-border-subtle pl-3">
+        <div className="border-border-subtle border-l-2 pl-3">
           {book.description ? (
             <p className="typo-caption text-text-secondary line-clamp-4 break-keep">
               {book.description}

@@ -31,7 +31,7 @@ export async function searchNaverBooks(query: string): Promise<SearchBook[]> {
     const data = await fetchJson<{ items?: NaverBookItem[] }>(
       url,
       undefined,
-      "Naver API"
+      "Naver API",
     );
 
     return (

@@ -99,8 +99,8 @@ export default function SearchWidget({ onSelectBook, className }: Props) {
 
       <SearchDropdownPanel open={open && hasResults}>
         {/* Left / List, Pagination */}
-        <div className="w-[55%] flex flex-col">
-          <div className="flex-1 overflow-hidden pr-2 ">
+        <div className="flex w-[55%] flex-col">
+          <div className="flex-1 overflow-hidden pr-2">
             <SearchResultList
               results={visibleBooks}
               onHover={setHoveredBook}
@@ -109,7 +109,7 @@ export default function SearchWidget({ onSelectBook, className }: Props) {
           </div>
 
           {/* Todo: Pagination 버튼 dropdown전체 기준 중앙정렬 */}
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             {totalPages > 1 && (
               <div className="flex items-center">
                 <Button
@@ -119,7 +119,7 @@ export default function SearchWidget({ onSelectBook, className }: Props) {
                 >
                   <ChevronLeft />
                 </Button>
-                <span className="flex typo-body-sm">
+                <span className="typo-body-sm flex">
                   {pageIndex + 1} - {totalPages}
                 </span>
                 <Button

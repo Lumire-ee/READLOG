@@ -16,9 +16,9 @@ export default function SearchDropdownPanel({
     // TODO: 모바일 환경에서 UI 개선 필요(Row, Preview)
     <div
       className={cn(
-        "absolute left-0 top-full mt-2 z-50",
+        "absolute top-full left-0 z-50 mt-2",
         "w-[70vw] max-w-[900px] min-w-[200px]",
-        "rounded-xl border border-border-subtle",
+        "border-border-subtle rounded-xl border",
         "bg-bg-elevated",
         "flex gap-6 p-6",
         "h-[550px] overflow-hidden",

@@ -15,7 +15,7 @@ function baseTitleKey(book: SearchBook): string {
 }
 
 export function groupByBaseTitle(
-  books: ReadonlyArray<SearchBook>
+  books: ReadonlyArray<SearchBook>,
 ): SearchBook[] {
   const map = new Map<string, SearchBook[]>();
 
@@ -50,7 +50,7 @@ export function stripEditionKeywords(title: string): string {
 
   cleaned = cleaned.replace(/\([^)]*\)/g, (segment) => {
     const hasKeyword = EDITION_KEYWORDS.some((kw) =>
-      new RegExp(kw, "i").test(segment)
+      new RegExp(kw, "i").test(segment),
     );
     return hasKeyword ? "" : segment;
   });

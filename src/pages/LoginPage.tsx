@@ -53,10 +53,10 @@ export default function LoginPage() {
       subtitle="독서 기록을 시작해보세요"
       footer={
         <>
-          <div className="flex justify-center items-center mt-4">
+          <div className="mt-4 flex items-center justify-center">
             <Button variant="authText">비밀번호를 잊으셨나요?</Button>
           </div>
-          <div className="flex justify-center items-center space-x-2">
+          <div className="flex items-center justify-center space-x-2">
             <p className="typo-label-sm text-text-secondary">
               아직 계정이 없으신가요?
             </p>
@@ -69,7 +69,7 @@ export default function LoginPage() {
     >
       <form
         onSubmit={handleSubmit(onLogin)}
-        className="border border-border-default bg-bg-surface rounded-xl p-6 space-y-6"
+        className="border-border-default bg-bg-surface space-y-6 rounded-xl border p-6"
       >
         <div className="space-y-2">
           <Button
@@ -78,12 +78,12 @@ export default function LoginPage() {
             onClick={() => signInWithOAuth("google")}
           >
             <img
-              className="h-5 w-5 shrink-0 select-none pointer-events-none"
+              className="pointer-events-none h-5 w-5 shrink-0 select-none"
               src={googleG}
               alt=""
               aria-hidden="true"
             />
-            <span className="select-none typo-label-sm text-text-primary">
+            <span className="typo-label-sm text-text-primary select-none">
               Google로 시작하기
             </span>
           </Button>
@@ -94,21 +94,21 @@ export default function LoginPage() {
           >
             <div className="flex items-center gap-2">
               <img
-                className="h-5 w-5 shrink-0 select-none pointer-events-none"
+                className="pointer-events-none h-5 w-5 shrink-0 select-none"
                 src={KakaoSymbol}
                 alt=""
                 aria-hidden="true"
               />
-              <span className="text-brand-kakao-text select-none typo-label-sm">
+              <span className="text-brand-kakao-text typo-label-sm select-none">
                 Kakao로 시작하기
               </span>
             </div>
           </Button>
           {/* TODO(optional): shadcn Separator 사용 검토 (중복 증가 시) */}
           <div className="flex items-center gap-3">
-            <div className="h-px flex-1 bg-divider" />
+            <div className="bg-divider h-px flex-1" />
             <span className="typo-label-sm text-text-tertiary">OR</span>
-            <div className="h-px flex-1 bg-divider" />
+            <div className="bg-divider h-px flex-1" />
           </div>
 
           <EmailField register={register} errors={errors} rules={emailRules} />
