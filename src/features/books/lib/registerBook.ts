@@ -1,7 +1,14 @@
 import { supabase } from "@/lib/supabaseClient";
 import type { SearchBook } from "./types";
 
-export async function registerBook(book: SearchBook) {
+export type AddBookToUserResult = {
+  userBookId: string;
+  isNew: boolean;
+};
+
+export async function registerBook(
+  book: SearchBook,
+): Promise<AddBookToUserResult> {
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData.user) {
     throw new Error("로그인이 필요합니다.");
@@ -18,5 +25,15 @@ export async function registerBook(book: SearchBook) {
 
   if (error) throw error;
 
-  return data;
+  if (!data || typeof data !== "object") {
+    throw new Error("책 등록에 실패했습니다.");
+  }
+
+  const result = data as AddBookToUserResult;
+
+  if (!result.userBookId) {
+    throw new Error("userBookId가 없습니다.");
+  }
+
+  return result;
 }
