@@ -6,8 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { getProfileNickname } from "@/features/profile/api/profileApi";
 import { Logout } from "@/features/auth/api/authApi";
 import SearchWidget from "@/features/books/components/SearchWidget";
+import { useToast } from "@/hooks/useToast";
+import type { SearchBook } from "@/features/books/lib/types";
 
 export default function HomePage() {
+  const { registerBookToast } = useToast();
+
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -43,6 +47,15 @@ export default function HomePage() {
     setIsLoggingOut(false);
     navigate("/login", { replace: true });
   }
+
+  async function handleRegister(book: SearchBook) {
+    await registerBookToast(book, {
+      onOpenDetail: (userBookId) => {
+        // TODO: 책 상세보기 Modal 구현
+        console.log("책 상세보기 Modal", userBookId);
+      },
+    });
+  }
   if (loading) return null;
 
   return (
@@ -57,7 +70,7 @@ export default function HomePage() {
     >
       {/* 검색 UI 영역 */}
       <section className="flex items-center justify-center">
-        <SearchWidget />
+        <SearchWidget onRegister={handleRegister} />
       </section>
 
       {/* main1: 읽고 있는 책 */}

@@ -7,16 +7,20 @@ import type { SearchBook } from "../lib/types";
 import SearchResultPreview from "./SearchResultPreview";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { registerBook } from "../lib/registerBook";
 
 const PAGE_SIZE = 5;
 
 type Props = {
   onSelectBook?: (book: SearchBook) => void;
+  onRegister?: (book: SearchBook) => Promise<void>;
   className?: string;
 };
 
-export default function SearchWidget({ onSelectBook, className }: Props) {
+export default function SearchWidget({
+  onSelectBook,
+  onRegister,
+  className,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(0);
   const [hoveredBook, setHoveredBook] = useState<SearchBook | null>(null);
@@ -77,7 +81,7 @@ export default function SearchWidget({ onSelectBook, className }: Props) {
     setHoveredBook(null);
 
     try {
-      await registerBook(book);
+      await onRegister?.(book);
       onSelectBook?.(book);
     } catch (err) {
       // TODO: 에러 UI 처리
