@@ -37,19 +37,23 @@ export async function searchNaverBooks(query: string): Promise<SearchBook[]> {
     return (
       data.items
         ?.filter((item) => {
-          const normalizedTitle = normalizeText(item.title);
-          const compactTitle = normalizeCompactText(item.title);
+          const title = item.title ?? "";
+          const author = item.author ?? "";
+          const searchText = `${title} ${author}`;
+
+          const normalizedsearchText = normalizeText(searchText);
+          const compactsearchText = normalizeCompactText(searchText);
 
           return (
-            normalizedTitle.includes(normalizedQuery) ||
-            compactTitle.includes(compactQuery)
+            normalizedsearchText.includes(normalizedQuery) ||
+            compactsearchText.includes(compactQuery)
           );
         })
         .map((item) => ({
           title: stripHtml(item.title),
           author: item.author,
           image: item.image,
-          discription: item.description ?? undefined,
+          description: item.description ?? undefined,
           publisher: item.publisher,
           isbn: parseNaverIsbn(item.isbn),
           source: "naver",

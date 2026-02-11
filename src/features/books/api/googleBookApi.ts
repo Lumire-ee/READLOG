@@ -33,7 +33,7 @@ export async function searchGoogleBooks(query: string): Promise<SearchBook[]> {
       throw new Error("구글 API 키 설정이 필요합니다.");
     }
 
-    const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
       query,
     )}&key=${apiKey}`;
 
@@ -46,12 +46,16 @@ export async function searchGoogleBooks(query: string): Promise<SearchBook[]> {
     return (
       data.items
         ?.filter((item) => {
-          const normalizedTitle = normalizeText(item.volumeInfo.title);
-          const compactTitle = normalizeCompactText(item.volumeInfo.title);
+          const title = item.volumeInfo.title ?? "";
+          const authors = item.volumeInfo.authors?.join(" ") ?? "";
+          const searchText = `${title} ${authors}`;
+
+          const normalizedsearchText = normalizeText(searchText);
+          const compactsearchText = normalizeCompactText(searchText);
 
           return (
-            normalizedTitle.includes(normalizedQuery) ||
-            compactTitle.includes(compactQuery)
+            normalizedsearchText.includes(normalizedQuery) ||
+            compactsearchText.includes(compactQuery)
           );
         })
         .map((item) => ({
