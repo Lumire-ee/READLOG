@@ -1,4 +1,6 @@
-﻿import type { SearchBook } from "../lib/types";
+import { THUMB_SIZES } from "@/shared/constants/thumbnail";
+import { toProxiedThumbnailSrc } from "../lib/thumbnailProxy";
+import type { SearchBook } from "../lib/types";
 
 interface SearchResultPreviewProps {
   book: SearchBook | null;
@@ -14,7 +16,7 @@ export default function SearchResultPreview({
       <div className="flex justify-center gap-4 py-6">
         <div className="shrink-0">
           <img
-            src={book.image ?? ""}
+            src={toProxiedThumbnailSrc(book.image, THUMB_SIZES.LARGE)}
             alt={book.title}
             className="h-56 w-40 rounded-md object-cover"
           />
@@ -47,3 +49,4 @@ export default function SearchResultPreview({
     </div>
   );
 }
+

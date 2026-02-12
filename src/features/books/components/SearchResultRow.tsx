@@ -1,6 +1,8 @@
 import type { SearchBook } from "../lib/types";
 import { Button } from "@/components/ui/button";
 import { BookPlus } from "lucide-react";
+import { toProxiedThumbnailSrc } from "../lib/thumbnailProxy";
+import { THUMB_SIZES } from "@/shared/constants/thumbnail";
 
 interface SearchResultRowProps {
   book: SearchBook;
@@ -19,7 +21,7 @@ export default function SearchResultRow({
       className="hover:bg-bg-surface-hover flex cursor-pointer items-center gap-4 rounded-md px-2 py-3"
     >
       <img
-        src={book.image || ""}
+        src={toProxiedThumbnailSrc(book.image, THUMB_SIZES.SMALL)}
         alt={book.title}
         className="bg-bg-surface-subtle h-16 w-12 rounded-md object-cover"
       />
@@ -35,6 +37,7 @@ export default function SearchResultRow({
 
       <Button variant="iconGhost" size="sm" onClick={onSelect}>
         {/* TODO(Optional): Row에 이벤트 추가 시, 이벤트 버블링 방지 필요 */}
+        {/* TODO: shadcn tooltip 추가, border 추가 */}
         <BookPlus />
       </Button>
     </div>
