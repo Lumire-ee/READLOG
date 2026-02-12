@@ -1,20 +1,27 @@
 import path from "path";
 import { fileURLToPath } from "url";
 
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import fetch from "node-fetch";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import express from "express";
-import fetch from "node-fetch";
-import cors from "cors";
-import dotenv from "dotenv";
-
 dotenv.config({ path: path.join(__dirname, ".env") });
+
 const app = express();
 app.use(cors());
 
+const { thumbRoute } = await import("./thumbRoute.js");
+
+app.use("/api", thumbRoute);
+
+// 네이버 API 프록시
 app.get("/api/books", async (req, res) => {
   const query = req.query.query;
+
   const url = `https://openapi.naver.com/v1/search/book.json?query=${encodeURIComponent(
     query,
   )}`;
@@ -24,7 +31,6 @@ app.get("/api/books", async (req, res) => {
     "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
   };
 
-  // 키가 안 불리면 바로 에러 반환 (로그는 필요 시만)
   if (!headers["X-Naver-Client-Id"] || !headers["X-Naver-Client-Secret"]) {
     return res
       .status(500)
@@ -35,11 +41,11 @@ app.get("/api/books", async (req, res) => {
     const response = await fetch(url, { headers });
     const data = await response.json();
     res.json(data);
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: "Failed to fetch data" });
   }
 });
 
-app.listen(5000, () =>
-  console.log("✅ Proxy server running on http://localhost:5000"),
-);
+app.listen(5000, () => {
+  console.log("✅ Proxy server running on http://localhost:5000");
+});
