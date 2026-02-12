@@ -24,6 +24,7 @@ export interface UserBook {
 
   notes_md: string | null;
   created_at: string;
+  page_count_override: number | null;
 }
 
 export interface ReadingStat {
@@ -34,6 +35,21 @@ export interface ReadingStat {
   date: string;
   pages_read: number;
 
+  created_at: string;
+}
+
+export interface Profile {
+  user_id: string;
+  nickname: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Note {
+  id: string;
+  user_book_id: string;
+  type: string;
+  content: string;
   created_at: string;
 }
 

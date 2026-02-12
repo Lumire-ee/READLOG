@@ -8,8 +8,10 @@ import { Logout } from "@/features/auth/api/authApi";
 import SearchWidget from "@/features/books/components/SearchWidget";
 import { useToast } from "@/hooks/useToast";
 import type { SearchBook } from "@/features/books/lib/types";
+import { useBookDetailModalStore } from "@/features/books/store/useBookDetailModalStore";
 
 export default function HomePage() {
+  const openBookDetail = useBookDetailModalStore((state) => state.open);
   const { registerBookToast } = useToast();
 
   const { user, loading } = useAuth();
@@ -51,7 +53,7 @@ export default function HomePage() {
   async function handleRegister(book: SearchBook) {
     await registerBookToast(book, {
       onOpenDetail: (userBookId) => {
-        // TODO: 책 상세보기 Modal 구현
+        openBookDetail(userBookId);
         console.log("책 상세보기 Modal", userBookId);
       },
     });
