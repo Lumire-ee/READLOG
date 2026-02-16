@@ -32,7 +32,7 @@ export function EmailField({
       <Input
         id="email"
         type="email"
-        className="border-border-subtle typo-label-sm w-full rounded-md border px-3 py-2"
+        className="border-border-subtitle typo-label-sm w-full rounded-md border px-3 py-2"
         autoComplete="email"
         {...register("email", rules)}
       />
@@ -69,7 +69,7 @@ export function PasswordField({
       <Input
         id="password"
         type="password"
-        className="border-border-subtle typo-label-sm w-full rounded-md border px-3 py-2"
+        className="border-border-subtitle typo-label-sm w-full rounded-md border px-3 py-2"
         autoComplete={autoComplete}
         {...register("password", rules)}
       />
@@ -82,3 +82,4 @@ export function PasswordField({
     </div>
   );
 }
+

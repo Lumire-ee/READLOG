@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @layer base {
+
   html,
   body,
   #root {
@@ -57,13 +58,13 @@
   --color-action-disabled: var(--color-label-quaternary);
 
   /* Semantic - Background */
-  --color-bg-surface-subtle: var(--color-gray-5);
+  --color-bg-surface-subtitle: var(--color-gray-5);
   --color-bg-surface-hover: var(--color-gray-6);
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* Semantic - Border/Divider */
   --color-border-default: var(--color-gray-4);
-  --color-border-subtle: var(--color-gray-2);
+  --color-border-subtitle: var(--color-gray-2);
   --color-divider: var(--color-gray-4);
 
   /* Semantic - Status */
@@ -124,13 +125,13 @@
   --color-action-disabled: var(--color-label-quaternary);
 
   /* Semantic - Background (Dark) */
-  --color-bg-surface-subtle: var(--color-gray-4);
+  --color-bg-surface-subtitle: var(--color-gray-4);
   --color-bg-surface-hover: var(--color-gray-5);
   --color-bg-overlay: rgba(0, 0, 0, 0.6);
 
   /* Semantic - Border/Divider (Dark) */
   --color-border-default: var(--color-gray-4);
-  --color-border-subtle: var(--color-gray-2);
+  --color-border-subtitle: var(--color-gray-2);
   --color-divider: var(--color-gray-4);
 
   /* Semantic - Status (Dark) */

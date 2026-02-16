@@ -18,7 +18,7 @@ export default function SearchDropdownPanel({
       className={cn(
         "absolute top-full left-0 z-50 mt-2",
         "w-[70vw] max-w-[900px] min-w-[200px]",
-        "border-border-subtle rounded-xl border",
+        "border-border-subtitle rounded-xl border",
         "bg-bg-elevated",
         "flex gap-6 p-6",
         "h-[550px] overflow-hidden",
@@ -28,3 +28,4 @@ export default function SearchDropdownPanel({
     </div>
   );
 }
+

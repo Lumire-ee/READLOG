@@ -58,7 +58,7 @@ export default function SetNicknameModal({
             닉네임
           </Label>
           <Input
-            className="border-border-subtle typo-label-sm w-full rounded-md border"
+            className="border-border-subtitle typo-label-sm w-full rounded-md border"
             id="nickname"
             value={value}
             onChange={(e) => {
@@ -95,3 +95,4 @@ export default function SetNicknameModal({
     </Dialog>
   );
 }
+

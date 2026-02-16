@@ -34,7 +34,7 @@ export default function SearchResultPreview({
           </p>
         </div>
 
-        <div className="border-border-subtle border-l-2 pl-3">
+        <div className="border-border-subtitle border-l-2 pl-3">
           {book.description ? (
             <p className="typo-caption text-text-secondary line-clamp-4 break-keep">
               {book.description}
@@ -49,4 +49,5 @@ export default function SearchResultPreview({
     </div>
   );
 }
+
 

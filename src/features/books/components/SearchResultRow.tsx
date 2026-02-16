@@ -23,7 +23,7 @@ export default function SearchResultRow({
       <img
         src={toProxiedThumbnailSrc(book.image, THUMB_SIZES.SMALL)}
         alt={book.title}
-        className="bg-bg-surface-subtle h-16 w-12 rounded-md object-cover"
+        className="bg-bg-surface-subtitle h-16 w-12 rounded-md object-cover"
       />
       <div className="flex-1">
         <h3 className="typo-label-md text-text-primary line-clamp-1">
