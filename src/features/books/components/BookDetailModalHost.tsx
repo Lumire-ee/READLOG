@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useBookDetailModalStore } from "@/features/books/store/useBookDetailModalStore";
 import BookDetailModalContent from "./BookDetailModalContent";
 
@@ -19,12 +14,7 @@ export default function BookDetailModalHost() {
         if (!nextOpen) close();
       }}
     >
-      <DialogContent className="bg-bg-elevated sm:max-w-[420px]">
-        <DialogHeader>
-          <DialogTitle className="typo-heading-md text-text-primary">
-            책 상세보기
-          </DialogTitle>
-        </DialogHeader>
+      <DialogContent className="bg-bg-elevated min-h-80 sm:max-w-[420px]">
         {selectedUserBookId ? (
           <BookDetailModalContent userBookId={selectedUserBookId} />
         ) : (
@@ -32,7 +22,6 @@ export default function BookDetailModalHost() {
             선택된 책이 없습니다.
           </p>
         )}
-        {/* TODO: 책 상세/수정 폼 */}
       </DialogContent>
     </Dialog>
   );
