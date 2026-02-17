@@ -48,9 +48,16 @@ export function useToast() {
     });
   }
 
+  function bookSaveSuccessToast() {
+    toast.success("저장되었습니다.", {
+      duration: 4000,
+    });
+  }
+
   return {
     registerBookToast,
     signupSuccessToast,
+    bookSaveSuccessToast,
     errorToast,
   };
 }

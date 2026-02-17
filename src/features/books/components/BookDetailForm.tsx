@@ -8,6 +8,7 @@ import { Star } from "lucide-react";
 import { useBookDetailForm } from "@/features/books/hooks/useBookDetailForm";
 import { useUpdateUserBook } from "@/features/books/hooks/useUpdateUserBook";
 import { Progress } from "@/components/ui/progress";
+import { useBookDetailModalStore } from "@/features/books/store/useBookDetailModalStore";
 import {
   Select,
   SelectContent,
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export default function BookDetailForm({ userBookId, data }: Props) {
+  const closeModal = useBookDetailModalStore((state) => state.close);
   const {
     form,
     currentPageText,
@@ -189,9 +191,15 @@ export default function BookDetailForm({ userBookId, data }: Props) {
           type="button"
           className="w-full"
           disabled={!isDirty || isPending}
-          onClick={() => mutate(patch)}
+          onClick={() =>
+            mutate(patch, {
+              onSuccess: () => {
+                closeModal();
+              },
+            })
+          }
         >
-          {isPending ? "저장 중..." : "저장"}
+          저장
         </Button>
       </div>
     </div>
