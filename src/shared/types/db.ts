@@ -19,7 +19,7 @@ export interface UserBook {
 
   start_date: string | null;
   end_date: string | null;
-  current_page: number;
+  current_page: number | null;
   rating: number | null;
 
   notes_md: string | null;
