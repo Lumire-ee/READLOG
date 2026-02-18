@@ -30,6 +30,8 @@ const buttonVariants = cva(
         iconRound: "rounded-full focus-visible:ring-0",
         iconGhost:
           "bg-transparent hover:bg-bg-surface-hover focus-visible:ring-0",
+        dateTrigger:
+          "h-10 w-full justify-between bg-bg-surface px-3 typo-body-sm font-normal hover:bg-bg-surface-hover focus-visible:ring-0",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
