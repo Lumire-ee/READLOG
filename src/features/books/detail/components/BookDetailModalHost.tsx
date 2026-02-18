@@ -1,5 +1,5 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { useBookDetailModalStore } from "@/features/books/store/useBookDetailModalStore";
+﻿import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useBookDetailModalStore } from "@/features/books/detail/store/useBookDetailModalStore";
 import BookDetailModalContent from "./BookDetailModalContent";
 
 export default function BookDetailModalHost() {
@@ -26,3 +26,4 @@ export default function BookDetailModalHost() {
     </Dialog>
   );
 }
+

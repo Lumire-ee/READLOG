@@ -1,9 +1,9 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./features/auth/provider/AuthProvider";
 import AppRouter from "./router";
 import { Toaster } from "./components/ui/sonner";
-import BookDetailModalHost from "./features/books/components/BookDetailModalHost";
+import BookDetailModalHost from "./features/books/detail/components/BookDetailModalHost";
 
 const queryClient = new QueryClient();
 
@@ -28,3 +28,4 @@ function App() {
 }
 
 export default App;
+

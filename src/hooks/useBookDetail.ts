@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchUserBookDetail } from "@/features/books/api/userBookApi";
+﻿import { useQuery } from "@tanstack/react-query";
+import { fetchUserBookDetail } from "@/features/books/detail/api/userBookApi";
 import type { UserBookWithInfo } from "@/shared/types/db";
 
 type UseBookDetailResult = {
@@ -24,3 +24,4 @@ export function useBookDetail(userBookId: string | null): UseBookDetailResult {
     refetch,
   };
 }
+

@@ -1,6 +1,6 @@
-import { supabase } from "@/lib/supabaseClient";
+﻿import { supabase } from "@/lib/supabaseClient";
 import type { UserBookWithInfo } from "@/shared/types/db";
-import type { UpdateUserBookPatch } from "@/features/books/lib/types";
+import type { UpdateUserBookPatch } from "@/features/books/detail/lib/types";
 
 export async function fetchUserBookDetail(userBookId: string) {
   const { data, error } = await supabase
@@ -29,3 +29,4 @@ export async function updateUserBook(
 
   return data as unknown as UserBookWithInfo;
 }
+

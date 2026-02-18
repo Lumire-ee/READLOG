@@ -1,6 +1,6 @@
-import BookDetailForm from "./BookDetailForm";
+﻿import BookDetailForm from "./BookDetailForm";
 import { useBookDetail } from "@/hooks/useBookDetail";
-import { toProxiedThumbnailSrc } from "../lib/thumbnailProxy";
+import { toProxiedThumbnailSrc } from "@/features/books/lib/thumbnailProxy";
 import { THUMB_SIZES } from "@/shared/constants/thumbnail";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Loader } from "lucide-react";
