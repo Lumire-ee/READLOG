@@ -1,7 +1,7 @@
-import type { SearchBook } from "../lib/types";
+﻿import type { SearchBook } from "../lib/types";
 import { Button } from "@/components/ui/button";
 import { BookPlus } from "lucide-react";
-import { toProxiedThumbnailSrc } from "../lib/thumbnailProxy";
+import { toProxiedThumbnailSrc } from "@/features/books/lib/thumbnailProxy";
 import { THUMB_SIZES } from "@/shared/constants/thumbnail";
 
 interface SearchResultRowProps {
@@ -43,3 +43,4 @@ export default function SearchResultRow({
     </div>
   );
 }
+

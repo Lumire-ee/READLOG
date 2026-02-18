@@ -1,6 +1,6 @@
-import { toast } from "sonner";
-import type { SearchBook } from "@/features/books/lib/types";
-import { registerBook } from "@/features/books/lib/registerBook";
+﻿import { toast } from "sonner";
+import type { SearchBook } from "@/features/books/search/lib/types";
+import { registerBook } from "@/features/books/search/lib/registerBook";
 
 type RegisterToastOptions = {
   duration?: number;
@@ -61,3 +61,4 @@ export function useToast() {
     errorToast,
   };
 }
+

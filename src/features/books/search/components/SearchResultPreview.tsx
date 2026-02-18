@@ -1,5 +1,5 @@
-import { THUMB_SIZES } from "@/shared/constants/thumbnail";
-import { toProxiedThumbnailSrc } from "../lib/thumbnailProxy";
+﻿import { THUMB_SIZES } from "@/shared/constants/thumbnail";
+import { toProxiedThumbnailSrc } from "@/features/books/lib/thumbnailProxy";
 import type { SearchBook } from "../lib/types";
 
 interface SearchResultPreviewProps {
@@ -49,5 +49,4 @@ export default function SearchResultPreview({
     </div>
   );
 }
-
 

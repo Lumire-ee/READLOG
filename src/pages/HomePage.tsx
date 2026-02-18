@@ -1,14 +1,14 @@
-import HomeLayout from "@/layouts/HomeLayout";
+﻿import HomeLayout from "@/layouts/HomeLayout";
 import HomeHeader from "@/features/profile/components/HomeHeader";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfileNickname } from "@/features/profile/api/profileApi";
 import { Logout } from "@/features/auth/api/authApi";
-import SearchWidget from "@/features/books/components/SearchWidget";
+import SearchWidget from "@/features/books/search/components/SearchWidget";
 import { useToast } from "@/hooks/useToast";
-import type { SearchBook } from "@/features/books/lib/types";
-import { useBookDetailModalStore } from "@/features/books/store/useBookDetailModalStore";
+import type { SearchBook } from "@/features/books/search/lib/types";
+import { useBookDetailModalStore } from "@/features/books/detail/store/useBookDetailModalStore";
 
 export default function HomePage() {
   const openBookDetail = useBookDetailModalStore((state) => state.open);
@@ -95,3 +95,4 @@ export default function HomePage() {
     </HomeLayout>
   );
 }
+
