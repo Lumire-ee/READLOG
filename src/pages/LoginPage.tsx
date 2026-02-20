@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LoginWithEmail, signInWithOAuth } from "../features/auth/api/authApi";
 import { mapAuthErrorToKorean } from "../features/auth/lib/mapAuthErrorToKorean";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import type { FormValues, Feedback } from "../features/auth/lib/types";
 import { useNavigate } from "react-router-dom";
 import googleG from "@/assets/google_g.svg";
@@ -83,7 +84,7 @@ export default function LoginPage() {
               alt=""
               aria-hidden="true"
             />
-            <span className="typo-label-sm text-text-primary select-none">
+            <span className="typo-label-sm text-text-black select-none">
               Google로 시작하기
             </span>
           </Button>
@@ -104,11 +105,10 @@ export default function LoginPage() {
               </span>
             </div>
           </Button>
-          {/* TODO(optional): shadcn Separator 사용 검토 (중복 증가 시) */}
           <div className="flex items-center gap-3">
-            <div className="bg-divider h-px flex-1" />
+            <Separator className="flex-1" />
             <span className="typo-label-sm text-text-tertiary">OR</span>
-            <div className="bg-divider h-px flex-1" />
+            <Separator className="flex-1" />
           </div>
 
           <EmailField register={register} errors={errors} rules={emailRules} />
@@ -139,3 +139,4 @@ export default function LoginPage() {
     </UserLayout>
   );
 }
+
