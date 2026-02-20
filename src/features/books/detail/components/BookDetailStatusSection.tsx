@@ -33,25 +33,25 @@ export default function BookDetailStatusSection({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="to_read">
-              <Badge variant="secondary">
+              <Badge variant="to_read">
                 <Clock />
                 읽기 전
               </Badge>
             </SelectItem>
             <SelectItem value="reading">
-              <Badge variant="secondary">
+              <Badge variant="reading">
                 <BookOpen />
                 읽는 중
               </Badge>
             </SelectItem>
             <SelectItem value="completed">
-              <Badge variant="secondary">
+              <Badge variant="completed">
                 <CircleCheck />
                 완독
               </Badge>
             </SelectItem>
             <SelectItem value="quit">
-              <Badge variant="secondary">
+              <Badge variant="quit">
                 <CircleSlash />
                 중단
               </Badge>
