@@ -59,7 +59,7 @@
 
   /* Semantic - Background */
   --color-bg-surface-subtitle: var(--color-gray-5);
-  --color-bg-surface-hover: var(--color-gray-6);
+  --color-bg-surface-hover: var(--color-gray-5);
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* Semantic - Border/Divider */
@@ -108,7 +108,7 @@
 
   /* Semantic - Background (Dark) */
   --color-bg-base: var(--color-gray-6);
-  --color-bg-surface: var(--color-gray-5);
+  --color-bg-surface: var(--color-gray-4);
   --color-bg-elevated: var(--color-gray-4);
   --color-bg-inverse: var(--color-label-primary);
 
@@ -125,7 +125,7 @@
   --color-action-disabled: var(--color-label-quaternary);
 
   /* Semantic - Background (Dark) */
-  --color-bg-surface-subtitle: var(--color-gray-4);
+  --color-bg-surface-subtitle: var(--color-gray-3);
   --color-bg-surface-hover: var(--color-gray-5);
   --color-bg-overlay: rgba(0, 0, 0, 0.6);
 

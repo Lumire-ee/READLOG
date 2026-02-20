@@ -44,8 +44,7 @@ export default function BookDetailPageSection({
 
       <BookDetailFormRow>
         <BookDetailFormLabel className="inline-flex items-center gap-1.5">
-          <Hash className="size-3.5" aria-hidden="true" />
-          총 페이지
+          <Hash className="size-3.5" aria-hidden="true" />총 페이지
         </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
@@ -66,7 +65,7 @@ export default function BookDetailPageSection({
           진행도
         </BookDetailFormLabel>
         <BookDetailFormContent className="flex h-10 items-center">
-          <span className="typo-label-sm text-text-secondary w-10 shrink-0 pl-3">
+          <span className="typo-label-sm text-text-primary w-10 shrink-0 pl-3">
             {progressValue}%
           </span>
           <Progress
