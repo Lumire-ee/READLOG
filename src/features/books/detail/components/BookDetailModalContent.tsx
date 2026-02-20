@@ -52,7 +52,7 @@ export default function BookDetailModalContent({
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-3">
+      <div className="flex gap-10 px-3">
         {data.book.thumbnail ? (
           <img
             src={toProxiedThumbnailSrc(data.book.thumbnail, THUMB_SIZES.SMALL)}
@@ -63,16 +63,20 @@ export default function BookDetailModalContent({
           <div className="bg-bg-surface-subtitle h-20 w-14 rounded-sm" />
         )}
 
-        <div className="min-w-0 flex-1 py-1">
-          <p className="typo-heading-sm text-text-primary truncate">
-            {data.book.title}
-          </p>
-          <p className="typo-label-sm text-text-secondary mt-1 truncate">
-            {data.book.author}
-          </p>
-          <p className="typo-label-sm text-text-tertiary mt-1 truncate">
-            {data.book.publisher ?? "출판사 정보 없음"}
-          </p>
+        <div className="flex min-w-0 flex-col justify-between py-1">
+          <div>
+            <p className="typo-heading-md text-text-primary truncate">
+              {data.book.title}
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <p className="typo-label-sm text-text-secondary truncate">
+              {data.book.author}
+            </p>
+            <p className="typo-label-sm text-text-secondary truncate">
+              {data.book.publisher ?? "출판사 정보 없음"}
+            </p>
+          </div>
         </div>
       </div>
 
