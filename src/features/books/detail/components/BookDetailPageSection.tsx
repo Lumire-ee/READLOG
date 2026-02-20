@@ -5,6 +5,7 @@ import {
   BookDetailFormLabel,
   BookDetailFormRow,
 } from "@/features/books/detail/components/BookDetailFormLayout";
+import { Activity, Hash } from "lucide-react";
 
 type Props = {
   currentPageText: string;
@@ -24,7 +25,10 @@ export default function BookDetailPageSection({
   return (
     <>
       <BookDetailFormRow>
-        <BookDetailFormLabel>읽은 페이지</BookDetailFormLabel>
+        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+          <Hash className="size-3.5" aria-hidden="true" />
+          읽은 페이지
+        </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
             variant="detailModal"
@@ -39,7 +43,10 @@ export default function BookDetailPageSection({
       </BookDetailFormRow>
 
       <BookDetailFormRow>
-        <BookDetailFormLabel>총 페이지</BookDetailFormLabel>
+        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+          <Hash className="size-3.5" aria-hidden="true" />
+          총 페이지
+        </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
             variant="detailModal"
@@ -54,7 +61,10 @@ export default function BookDetailPageSection({
       </BookDetailFormRow>
 
       <BookDetailFormRow>
-        <BookDetailFormLabel>진행도</BookDetailFormLabel>
+        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+          <Activity className="size-3.5" aria-hidden="true" />
+          진행도
+        </BookDetailFormLabel>
         <BookDetailFormContent className="flex h-10 items-center">
           <span className="typo-label-sm text-text-secondary w-10 shrink-0 pl-3">
             {progressValue}%
@@ -68,4 +78,3 @@ export default function BookDetailPageSection({
     </>
   );
 }
-

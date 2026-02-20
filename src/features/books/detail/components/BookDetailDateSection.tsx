@@ -12,7 +12,7 @@ import {
 } from "@/features/books/detail/components/BookDetailFormLayout";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarCheck2, CalendarPlus } from "lucide-react";
 
 type Props = {
   startDate: Date | null;
@@ -42,7 +42,10 @@ export default function BookDetailDateSection({
   return (
     <>
       <BookDetailFormRow>
-        <BookDetailFormLabel>시작일</BookDetailFormLabel>
+        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+          <CalendarPlus className="size-3.5" aria-hidden="true" />
+          시작일
+        </BookDetailFormLabel>
         <BookDetailFormContent>
           <Popover open={isStartDateOpen} onOpenChange={setIsStartDateOpen}>
             <PopoverTrigger asChild>
@@ -55,7 +58,6 @@ export default function BookDetailDateSection({
                 )}
               >
                 {startDate ? format(startDate, "yyyy-MM-dd") : "비어 있음"}
-                <CalendarIcon className="text-text-tertiary size-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -74,7 +76,10 @@ export default function BookDetailDateSection({
       </BookDetailFormRow>
 
       <BookDetailFormRow>
-        <BookDetailFormLabel>종료일</BookDetailFormLabel>
+        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+          <CalendarCheck2 className="size-3.5" aria-hidden="true" />
+          종료일
+        </BookDetailFormLabel>
         <BookDetailFormContent>
           <Popover open={isEndDateOpen} onOpenChange={setIsEndDateOpen}>
             <PopoverTrigger asChild>
@@ -87,7 +92,6 @@ export default function BookDetailDateSection({
                 )}
               >
                 {endDate ? format(endDate, "yyyy-MM-dd") : "비어 있음"}
-                <CalendarIcon className="text-text-tertiary size-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -107,3 +111,4 @@ export default function BookDetailDateSection({
     </>
   );
 }
+

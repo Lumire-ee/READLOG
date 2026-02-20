@@ -18,7 +18,10 @@ export default function BookDetailRatingSection({
 }: Props) {
   return (
     <BookDetailFormRow>
-      <BookDetailFormLabel>평점</BookDetailFormLabel>
+      <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+        <Star className="size-3.5" aria-hidden="true" />
+        평점
+      </BookDetailFormLabel>
       <BookDetailFormContent className="flex h-10 items-center gap-1 pl-1">
         {Array.from({ length: 5 }, (_, i) => {
           const value = i + 1;
@@ -46,4 +49,3 @@ export default function BookDetailRatingSection({
     </BookDetailFormRow>
   );
 }
-
