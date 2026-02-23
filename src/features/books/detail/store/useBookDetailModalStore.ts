@@ -8,10 +8,10 @@ type BookDetailModalState = {
 };
 
 export const useBookDetailModalStore = create<BookDetailModalState>((set) => ({
-  // DEV
-  isOpen: true,
-  selectedUserBookId: "92b84ef6-7dd6-4d38-8a3f-a79625726cf6",
+  isOpen: false,
+  selectedUserBookId: null,
   open: (userBookId: string) =>
     set({ isOpen: true, selectedUserBookId: userBookId }),
   close: () => set({ isOpen: false, selectedUserBookId: null }),
 }));
+
