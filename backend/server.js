@@ -13,10 +13,13 @@ dotenv.config({ path: path.join(__dirname, ".env") });
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const { thumbRoute } = await import("./thumbRoute.js");
+const { userBookRoute } = await import("./userBookRoute.js");
 
 app.use("/api", thumbRoute);
+app.use("/api", userBookRoute);
 
 // 네이버 API 프록시
 app.get("/api/books", async (req, res) => {
