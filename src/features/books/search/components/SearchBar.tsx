@@ -16,7 +16,7 @@ export default function SearchBar({
   onFocus,
 }: SearchBarProps) {
   return (
-    <div className="border-border-subtitle bg-bg-surface flex items-center rounded-xl border">
+    <div className="border-border-default bg-bg-surface flex items-center rounded-xl border">
       <Input
         className="text-text-primary placeholder:text-text-tertiary typo-label-sm border-none bg-transparent focus-visible:ring-0"
         type="text"

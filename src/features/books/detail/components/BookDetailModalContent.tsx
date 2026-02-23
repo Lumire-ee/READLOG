@@ -51,7 +51,7 @@ export default function BookDetailModalContent({
   if (!data) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="w-full min-w-0 space-y-4">
       <div className="flex gap-10 px-3">
         {data.book.thumbnail ? (
           <img
@@ -69,7 +69,7 @@ export default function BookDetailModalContent({
               {data.book.title}
             </p>
           </div>
-          <div className="flex flex-col">
+          <div>
             <p className="typo-label-sm text-text-secondary truncate">
               {data.book.author}
             </p>
