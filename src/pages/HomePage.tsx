@@ -9,12 +9,28 @@ import SearchWidget from "@/features/books/search/components/SearchWidget";
 import { useToast } from "@/hooks/useToast";
 import type { SearchBook } from "@/features/books/search/lib/types";
 import { useBookDetailModalStore } from "@/features/books/detail/store/useBookDetailModalStore";
+import { useUserBooks } from "@/hooks/useUserBooks";
+import { Badge } from "@/components/ui/badge";
+import type { BookStatus } from "@/shared/types/db";
+import HomeBookSection from "@/pages/home/components/HomeBookSection";
+import HomeRatingStars from "@/pages/home/components/HomeRatingStars";
+
+const STATUS_LABEL: Record<Exclude<BookStatus, "reading">, string> = {
+  to_read: "읽기 전",
+  completed: "완독",
+  quit: "중단",
+};
 
 export default function HomePage() {
   const openBookDetail = useBookDetailModalStore((state) => state.open);
   const { registerBookToast } = useToast();
 
   const { user, loading } = useAuth();
+  const {
+    data: userBooks,
+    loading: booksLoading,
+    isError: booksError,
+  } = useUserBooks(user?.id ?? null);
   const navigate = useNavigate();
 
   const [nickname, setNickname] = useState<string | null>(null);
@@ -54,11 +70,13 @@ export default function HomePage() {
     await registerBookToast(book, {
       onOpenDetail: (userBookId) => {
         openBookDetail(userBookId);
-        console.log("책 상세보기 Modal", userBookId);
       },
     });
   }
   if (loading) return null;
+
+  const section1 = userBooks.filter((item) => item.status === "reading");
+  const section2 = userBooks.filter((item) => item.status !== "reading");
 
   return (
     <HomeLayout
@@ -75,22 +93,39 @@ export default function HomePage() {
         <SearchWidget onRegister={handleRegister} />
       </section>
 
-      {/* main1: 읽고 있는 책 */}
+      {/* Section 1 */}
       <section className="border-border-default bg-bg-surface rounded-xl border p-6">
-        <h2 className="typo-heading-sm text-text-primary">읽고 있는 책</h2>
-        <div className="mt-4">
-          {/* TODO: 진행도 + Finish/Pause 포함 그리드 */}
-        </div>
+        {/* TODO: 진행도 + Finish/Pause 포함 그리드 */}
+        <HomeBookSection
+          title="읽고 있는 책"
+          loading={booksLoading}
+          isError={booksError}
+          items={section1}
+          emptyText="읽고 있는 책이 없습니다."
+          onOpenBook={openBookDetail}
+        />
       </section>
 
-      {/* main2: 읽을 책 / 다 읽은 책 */}
+      {/* Section 2 */}
       <section className="border-border-default bg-bg-surface rounded-xl border p-6">
-        <h2 className="typo-heading-sm text-text-primary">
-          읽을 책 / 다 읽은 책
-        </h2>
-        <div className="mt-4">
-          {/* TODO: 라벨(Finished/Quit 선택값) + 별점 포함 그리드 */}
-        </div>
+        <HomeBookSection
+          title="읽을 책 / 다 읽은 책"
+          loading={booksLoading}
+          isError={booksError}
+          items={section2}
+          emptyText="읽을 책 / 다 읽은 책이 없습니다."
+          onOpenBook={openBookDetail}
+          renderRight={(item) => (
+            <div className="flex flex-col items-end gap-1">
+              {item.status !== "reading" ? (
+                <Badge variant={item.status}>{STATUS_LABEL[item.status]}</Badge>
+              ) : null}
+              {item.rating !== null ? (
+                <HomeRatingStars value={item.rating} />
+              ) : null}
+            </div>
+          )}
+        />
       </section>
     </HomeLayout>
   );
