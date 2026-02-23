@@ -13,6 +13,7 @@ export function useUpdateUserBook(userBookId: string) {
       updateUserBook(userBookId, patch),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["userBookDetail", userBookId] });
+      qc.invalidateQueries({ queryKey: ["userBooks"] });
       bookSaveSuccessToast();
     },
     onError: (error) => {

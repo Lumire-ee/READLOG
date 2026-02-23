@@ -30,3 +30,15 @@ export async function updateUserBook(
   return data as unknown as UserBookWithInfo;
 }
 
+export async function fetchUserBooks(userId: string) {
+  const { data, error } = await supabase
+    .from("user_books")
+    .select(`*, book:books(*)`)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  return (data ?? []) as unknown as UserBookWithInfo[];
+}
+
