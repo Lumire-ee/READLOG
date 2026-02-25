@@ -97,19 +97,21 @@ export default function HomePage() {
       <section className="border-border-default bg-bg-surface rounded-xl border p-6">
         {/* TODO: 진행도 + Finish/Pause 포함 그리드 */}
         <HomeBookSection
-          title="읽고 있는 책"
+          title="나의 독서"
           loading={booksLoading}
           isError={booksError}
           items={section1}
           emptyText="읽고 있는 책이 없습니다."
           onOpenBook={openBookDetail}
+          layout="card"
+          showQuickActions
         />
       </section>
 
       {/* Section 2 */}
       <section className="border-border-default bg-bg-surface rounded-xl border p-6">
         <HomeBookSection
-          title="읽을 책 / 다 읽은 책"
+          title="나의 서재"
           loading={booksLoading}
           isError={booksError}
           items={section2}
