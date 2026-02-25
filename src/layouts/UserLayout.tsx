@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import MainSymbol from "@/assets/main_symbol.svg";
+import MainSymbolDark from "@/assets/main_symbol_dark.svg";
 
 type UserLayoutProps = {
   title: string;
@@ -23,7 +24,12 @@ export default function UserLayout({
           <img
             src={MainSymbol}
             alt="Booklog"
-            className="mx-auto mb-4 h-16 select-none"
+            className="mx-auto mb-4 h-16 select-none in-[.dark]:hidden"
+          />
+          <img
+            src={MainSymbolDark}
+            alt="Booklog"
+            className="mx-auto mb-4 hidden h-16 select-none in-[.dark]:block"
           />
           <h1 className="typo-heading-lg text-text-primary">{title}</h1>
           {subtitle && (
