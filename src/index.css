@@ -58,7 +58,7 @@
   --color-action-disabled: var(--color-label-quaternary);
 
   /* Semantic - Background */
-  --color-bg-surface-subtitle: var(--color-gray-5);
+  --color-bg-surface-subtitle: var(--color-gray-4);
   --color-bg-surface-hover: var(--color-gray-5);
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
 
