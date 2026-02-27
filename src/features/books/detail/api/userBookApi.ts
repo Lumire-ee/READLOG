@@ -57,3 +57,17 @@ export async function fetchUserBooks(userId: string) {
 
   return (data ?? []) as unknown as UserBookWithInfo[];
 }
+
+export async function deleteUserBook(userBookId: string) {
+  const headers = await getAuthHeaders();
+  const url = new URL(`/api/user-books/${userBookId}`, API_BASE_URL);
+
+  await fetchJson<void>(
+    url,
+    {
+      method: "DELETE",
+      headers,
+    },
+    "Delete user book",
+  );
+}

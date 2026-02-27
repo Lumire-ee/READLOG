@@ -91,3 +91,24 @@ userBookRoute.patch("/user-books/:userBookId", async (req, res) => {
 
   res.json(withDecryptedNote(data));
 });
+
+userBookRoute.delete("/user-books/:userBookId", async (req, res) => {
+  const user = await getAuthUser(req, res);
+  if (!user) return;
+
+  const { userBookId } = req.params;
+  const supabaseAdmin = getSupabaseAdmin();
+
+  const { error } = await supabaseAdmin
+    .from("user_books")
+    .delete()
+    .eq("id", userBookId)
+    .eq("user_id", user.id);
+
+  if (error) {
+    res.status(400).json({ error: error.message });
+    return;
+  }
+
+  res.status(204).send();
+});

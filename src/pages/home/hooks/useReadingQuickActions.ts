@@ -1,5 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateUserBook } from "@/features/books/detail/api/userBookApi";
+import {
+  deleteUserBook,
+  updateUserBook,
+} from "@/features/books/detail/api/userBookApi";
 
 type ReadingStatusAction = "completed" | "quit";
 
@@ -26,10 +29,20 @@ export function useReadingQuickActions() {
     },
   });
 
+  const { mutate: removeBook, variables: deletingBookId, isPending: isDeleting } =
+    useMutation({
+      mutationFn: async (userBookId: string) => deleteUserBook(userBookId),
+      onSuccess: () => {
+        qc.invalidateQueries({ queryKey: ["userBooks"] });
+      },
+    });
+
   return {
     updateStatus,
     pendingVariables,
     isUpdatingStatus,
+    removeBook,
+    deletingBookId,
+    isDeleting,
   };
 }
-

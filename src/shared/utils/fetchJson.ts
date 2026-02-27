@@ -7,5 +7,8 @@ export async function fetchJson<T>(
   if (!res.ok) {
     throw new Error(`${label ?? "Request"} failed: ${res.status}`);
   }
+  if (res.status === 204) {
+    return undefined as T;
+  }
   return (await res.json()) as T;
 }
