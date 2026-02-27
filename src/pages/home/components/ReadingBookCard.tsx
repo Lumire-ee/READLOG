@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { calculateProgressValue } from "@/features/books/detail/lib/bookDetailFormRules";
 import { toProxiedThumbnailSrc } from "@/features/books/lib/thumbnailProxy";
 import { THUMB_SIZES } from "@/shared/constants/thumbnail";
 import type { UserBookWithInfo } from "@/shared/types/db";
+import BookItemMenu from "./BookItemMenu";
 import ReadingQuickActions from "./ReadingQuickActions";
 
 type ReadingBookCardProps = {
@@ -14,6 +14,9 @@ type ReadingBookCardProps = {
   pendingUserBookId: string | undefined;
   onComplete: (userBookId: string) => void;
   onQuit: (userBookId: string) => void;
+  onDelete: (userBookId: string) => void;
+  isDeleting: boolean;
+  deletingUserBookId: string | undefined;
 };
 
 export default function ReadingBookCard({
@@ -24,23 +27,41 @@ export default function ReadingBookCard({
   pendingUserBookId,
   onComplete,
   onQuit,
+  onDelete,
+  isDeleting,
+  deletingUserBookId,
 }: ReadingBookCardProps) {
   const totalPageCount = item.page_count_override ?? item.book.page_count;
   const currentPage = item.current_page ?? 0;
   const hasPageInfo =
     item.current_page !== null && totalPageCount !== null && totalPageCount > 0;
   const progressValue = calculateProgressValue(item.current_page, totalPageCount);
+  const isDeletingCurrent = isDeleting && deletingUserBookId === item.id;
 
   return (
-    <Button
-      key={item.id}
-      type="button"
-      variant="ghost"
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => onOpenBook(item.id)}
-      className="border-border-default bg-bg-elevated hover:bg-bg-surface-hover has-[button[data-quick-action='true']:hover]:bg-bg-elevated h-88 w-full items-stretch justify-stretch gap-0 overflow-hidden rounded-xl border p-0 text-left whitespace-normal"
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpenBook(item.id);
+        }
+      }}
+      className="group border-border-default bg-bg-elevated hover:bg-bg-surface-hover has-[button[data-quick-action='true']:hover]:bg-bg-elevated has-[button[data-item-menu='true']:hover]:bg-bg-elevated focus-visible:ring-ring h-88 w-full cursor-pointer overflow-hidden rounded-xl border p-0 text-left whitespace-normal outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
     >
       <div className="grid h-full w-full grid-rows-5">
         <div className="bg-bg-surface-subtitle relative row-span-3 w-full overflow-hidden">
+          <div className="absolute top-2 right-2 z-20 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+            <BookItemMenu
+              bookTitle={item.book.title}
+              onEdit={() => onOpenBook(item.id)}
+              onDelete={() => onDelete(item.id)}
+              isDeleting={isDeletingCurrent}
+            />
+          </div>
+
           <img
             src={toProxiedThumbnailSrc(item.book.thumbnail, THUMB_SIZES.LARGE)}
             alt=""
@@ -82,7 +103,6 @@ export default function ReadingBookCard({
           ) : null}
         </div>
       </div>
-    </Button>
+    </div>
   );
 }
-

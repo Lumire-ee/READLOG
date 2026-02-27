@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import ReadingBookCard from "./ReadingBookCard";
 import HomeBookSectionSkeleton from "./HomeBookSectionSkeleton";
 import { useReadingQuickActions } from "../hooks/useReadingQuickActions";
+import BookItemMenu from "./BookItemMenu";
 
 type HomeBookSectionProps = {
   title: string;
@@ -29,8 +30,14 @@ export default function HomeBookSection({
   showQuickActions = false,
 }: HomeBookSectionProps) {
   const isCardLayout = layout === "card";
-  const { updateStatus, pendingVariables, isUpdatingStatus } =
-    useReadingQuickActions();
+  const {
+    updateStatus,
+    pendingVariables,
+    isUpdatingStatus,
+    removeBook,
+    deletingBookId,
+    isDeleting,
+  } = useReadingQuickActions();
 
   return (
     <div>
@@ -62,6 +69,9 @@ export default function HomeBookSection({
                     onQuit={(userBookId) =>
                       updateStatus({ userBookId, status: "quit" })
                     }
+                    onDelete={(userBookId) => removeBook(userBookId)}
+                    isDeleting={isDeleting}
+                    deletingUserBookId={deletingBookId}
                   />
                 ))}
               </div>
@@ -75,6 +85,15 @@ export default function HomeBookSection({
                     author={item.book.author}
                     onClick={() => onOpenBook(item.id)}
                     right={renderRight?.(item)}
+                    topRight={
+                      <BookItemMenu
+                        bookTitle={item.book.title}
+                        onEdit={() => onOpenBook(item.id)}
+                        onDelete={() => removeBook(item.id)}
+                        isDeleting={isDeleting && deletingBookId === item.id}
+                        triggerClassName="opacity-0 pointer-events-none transition-opacity group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
+                      />
+                    }
                   />
                 ))}
               </div>
