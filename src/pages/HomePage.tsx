@@ -1,11 +1,10 @@
 ﻿import HomeLayout from "@/layouts/HomeLayout";
-import HomeHeader from "@/features/profile/components/HomeHeader";
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getProfileNickname } from "@/features/profile/api/profileApi";
-import { Logout } from "@/features/auth/api/authApi";
+import HomeHeader from "@/pages/home/components/HomeHeader";
 import SearchWidget from "@/features/books/search/components/SearchWidget";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Logout } from "@/features/auth/api/authApi";
 import { useToast } from "@/hooks/useToast";
 import type { SearchBook } from "@/features/books/search/lib/types";
 import { useBookDetailModalStore } from "@/features/books/detail/store/useBookDetailModalStore";
@@ -33,31 +32,14 @@ export default function HomePage() {
   } = useUserBooks(user?.id ?? null);
   const navigate = useNavigate();
 
-  const [nickname, setNickname] = useState<string | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     if (loading) return;
     if (!user) {
       navigate("/login", { replace: true });
-      return;
     }
   }, [loading, user, navigate]);
-
-  useEffect(() => {
-    if (!user) return;
-
-    let mounted = true;
-    (async () => {
-      const { nickname } = await getProfileNickname(user.id);
-      if (!mounted) return;
-      setNickname(nickname);
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, [user]);
 
   async function handleLogout() {
     setIsLoggingOut(true);
@@ -73,6 +55,7 @@ export default function HomePage() {
       },
     });
   }
+
   if (loading) return null;
 
   const section1 = userBooks.filter((item) => item.status === "reading");
@@ -82,20 +65,17 @@ export default function HomePage() {
     <HomeLayout
       header={
         <HomeHeader
-          nickname={nickname}
+          user={user}
           onLogout={handleLogout}
           isLoggingOut={isLoggingOut}
         />
       }
     >
-      {/* 검색 UI 영역 */}
-      <section className="flex items-center justify-center">
+      <section className="flex w-full items-center justify-center">
         <SearchWidget onRegister={handleRegister} />
       </section>
 
-      {/* Section 1 */}
       <section className="border-border-default bg-bg-surface rounded-xl border p-6">
-        {/* TODO: 진행도 + Finish/Pause 포함 그리드 */}
         <HomeBookSection
           title="나의 독서"
           loading={booksLoading}
@@ -108,7 +88,6 @@ export default function HomePage() {
         />
       </section>
 
-      {/* Section 2 */}
       <section className="border-border-default bg-bg-surface rounded-xl border p-6">
         <HomeBookSection
           title="나의 서재"
