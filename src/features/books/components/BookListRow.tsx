@@ -21,10 +21,13 @@ function BookListRowContent({
   author,
   right,
   titleClassName,
+  hasTopRight,
 }: Pick<
   BookListRowProps,
   "thumbnail" | "title" | "author" | "right" | "titleClassName"
->) {
+> & {
+  hasTopRight: boolean;
+}) {
   return (
     <>
       <img
@@ -46,7 +49,14 @@ function BookListRowContent({
       </div>
 
       {right ? (
-        <div className="ml-auto flex shrink-0 flex-col items-end transition-[margin] duration-150 ease-out group-hover:mr-10 group-focus-within:mr-10">
+        <div
+          className={cn(
+            "ml-auto flex shrink-0 flex-col items-end",
+            hasTopRight
+              ? "transition-[margin] duration-150 ease-out group-hover:mr-10 group-focus-within:mr-10"
+              : "",
+          )}
+        >
           {right}
         </div>
       ) : null}
@@ -83,10 +93,7 @@ export default function BookListRow({
             onClick();
           }
         }}
-        className={cn(
-          "relative cursor-pointer whitespace-normal",
-          rowClassName,
-        )}
+        className={cn("relative cursor-pointer whitespace-normal", rowClassName)}
       >
         {topRight ? (
           <div className="absolute top-1/2 right-1 z-10 -translate-y-1/2">
@@ -99,16 +106,14 @@ export default function BookListRow({
           author={author}
           right={right}
           titleClassName={titleClassName}
+          hasTopRight={Boolean(topRight)}
         />
       </div>
     );
   }
 
   return (
-    <div
-      onMouseEnter={onHover}
-      className={cn("relative", rowClassName)}
-    >
+    <div onMouseEnter={onHover} className={cn("relative", rowClassName)}>
       {topRight ? (
         <div className="absolute top-1/2 right-1 z-10 -translate-y-1/2">
           {topRight}
@@ -120,6 +125,7 @@ export default function BookListRow({
         author={author}
         right={right}
         titleClassName={titleClassName}
+        hasTopRight={Boolean(topRight)}
       />
     </div>
   );

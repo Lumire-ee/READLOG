@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { SearchBook } from "../lib/types";
+import { useBookStore } from "../store/useBookSearchStore";
 import SearchBar from "./SearchBar";
 import SearchDropdownPanel from "./SearchDropdownPanel";
 import SearchResultList from "./SearchResultList";
-import { useBookStore } from "../store/useBookSearchStore";
-import type { SearchBook } from "../lib/types";
 import SearchResultPreview from "./SearchResultPreview";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const PAGE_SIZE = 5;
 
@@ -34,6 +34,7 @@ export default function SearchWidget({
     pageIndex * PAGE_SIZE,
     (pageIndex + 1) * PAGE_SIZE,
   );
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,11 +43,10 @@ export default function SearchWidget({
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        // log
-        console.log("click outside");
         setOpen(false);
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -61,6 +61,7 @@ export default function SearchWidget({
         setOpen(false);
       }
     }
+
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
@@ -68,8 +69,6 @@ export default function SearchWidget({
   }, [open]);
 
   function handleSubmit() {
-    // log
-    console.log("submit");
     search();
     setPageIndex(0);
     setHoveredBook(null);
@@ -92,7 +91,7 @@ export default function SearchWidget({
   return (
     <div
       ref={containerRef}
-      className={className ?? "relative w-full max-w-xl min-w-[300px]"}
+      className={className ?? "relative w-full max-w-full min-w-[300px]"}
     >
       <SearchBar
         query={query}
@@ -101,10 +100,18 @@ export default function SearchWidget({
         onFocus={() => setOpen(true)}
       />
 
+      {open && hasResults ? (
+        <div
+          className="fixed inset-0 z-40"
+          aria-hidden="true"
+          onMouseDown={() => setOpen(false)}
+        />
+      ) : null}
+
       <SearchDropdownPanel open={open && hasResults}>
         {/* Left / List, Pagination */}
-        <div className="flex w-[55%] flex-col">
-          <div className="flex-1 overflow-hidden pr-2">
+        <div className="flex w-full min-w-0 flex-col md:w-[55%]">
+          <div className="flex-1 overflow-y-auto md:overflow-hidden md:pr-2">
             <SearchResultList
               results={visibleBooks}
               onHover={setHoveredBook}
@@ -112,7 +119,6 @@ export default function SearchWidget({
             />
           </div>
 
-          {/* Todo: Pagination 버튼 dropdown전체 기준 중앙정렬 */}
           <div className="flex items-center justify-center">
             {totalPages > 1 && (
               <div className="flex items-center">
@@ -139,10 +145,11 @@ export default function SearchWidget({
         </div>
 
         {/* Right / Preview */}
-        <div className="w-[45%]">
+        <div className="hidden w-[45%] md:block">
           <SearchResultPreview book={activeBook} />
         </div>
       </SearchDropdownPanel>
     </div>
   );
 }
+

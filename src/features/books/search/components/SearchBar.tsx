@@ -16,11 +16,11 @@ export default function SearchBar({
   onFocus,
 }: SearchBarProps) {
   return (
-    <div className="border-border-default bg-bg-surface flex items-center rounded-xl border">
+    <div className="border-accent-indigo/65 bg-bg-surface flex items-center rounded-full border-2 px-4 py-2">
       <Input
-        className="text-text-primary placeholder:text-text-tertiary typo-label-sm border-none bg-transparent focus-visible:ring-0"
+        className="text-text-primary placeholder:text-text-secondary typo-label-sm border-none bg-transparent focus-visible:ring-0"
         type="text"
-        placeholder="책 제목 또는 저자를 입력하세요"
+        placeholder="책 제목 또는 저자를 입력해주세요."
         value={query}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && onSubmit()}
