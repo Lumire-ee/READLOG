@@ -19,7 +19,7 @@ export default function ReadingQuickActions({
         size="sm"
         variant="outline"
         data-quick-action="true"
-        className="hover:bg-bg-surface-hover bg-transparent"
+        className="hover:bg-bg-surface-hover typo-label-sm bg-transparent"
         disabled={disabled}
         onClick={(event) => {
           event.stopPropagation();
@@ -35,7 +35,7 @@ export default function ReadingQuickActions({
         size="sm"
         variant="outline"
         data-quick-action="true"
-        className="hover:bg-bg-surface-hover bg-transparent"
+        className="hover:bg-bg-surface-hover typo-label-sm bg-transparent"
         disabled={disabled}
         onClick={(event) => {
           event.stopPropagation();

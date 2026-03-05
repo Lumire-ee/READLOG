@@ -7,11 +7,13 @@ export default function HomeBookSectionSkeleton({
 }: HomeBookSectionSkeletonProps) {
   if (layout === "card") {
     return (
-      <div className="grid w-full min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid w-full min-w-0 gap-3 md:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 3 }, (_, index) => (
           <div
             key={`card-skeleton-${index}`}
-            className="border-border-default bg-bg-elevated h-88 overflow-hidden rounded-xl border"
+            className={`border-border-default bg-bg-elevated h-88 overflow-hidden rounded-xl border ${
+              index === 1 ? "hidden md:block" : ""
+            } ${index === 2 ? "hidden lg:block" : ""}`}
           >
             <div className="bg-bg-surface-subtitle h-3/5 animate-pulse" />
             <div className="space-y-2 p-3">
