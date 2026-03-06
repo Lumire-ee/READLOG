@@ -1,5 +1,5 @@
 ﻿import HomeLayout from "@/layouts/HomeLayout";
-import HomeHeader from "@/pages/home/components/HomeHeader";
+import HomeHeader from "@/features/home/components/HomeHeader";
 import SearchWidget from "@/features/books/search/components/SearchWidget";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -11,8 +11,8 @@ import { useBookDetailModalStore } from "@/features/books/detail/store/useBookDe
 import { useUserBooks } from "@/hooks/useUserBooks";
 import { Badge } from "@/components/ui/badge";
 import type { BookStatus } from "@/shared/types/db";
-import HomeBookSection from "@/pages/home/components/HomeBookSection";
-import HomeRatingStars from "@/pages/home/components/HomeRatingStars";
+import HomeBookSection from "@/features/home/components/HomeBookSection";
+import HomeRatingStars from "@/features/home/components/HomeRatingStars";
 
 const STATUS_LABEL: Record<Exclude<BookStatus, "reading">, string> = {
   to_read: "읽기 전",
@@ -111,4 +111,5 @@ export default function HomePage() {
     </HomeLayout>
   );
 }
+
 
