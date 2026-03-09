@@ -31,7 +31,7 @@ export default function BookDetailPageSection({
         </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
-            variant="detailModal"
+            variant="interactiveRow"
             type="text"
             inputMode="numeric"
             className="h-10 px-3"
@@ -48,7 +48,7 @@ export default function BookDetailPageSection({
         </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
-            variant="detailModal"
+            variant="interactiveRow"
             type="text"
             inputMode="numeric"
             className="h-10 px-3"

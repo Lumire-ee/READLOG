@@ -10,7 +10,7 @@ const inputVariants = cva(
       variant: {
         default:
           "border border-input focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-2",
-        detailModal:
+        interactiveRow:
           "border-0 bg-bg-surface hover:bg-bg-surface-hover focus-visible:shadow-sm",
       },
     },
