@@ -45,7 +45,7 @@ export default function HomePage() {
     setIsLoggingOut(true);
     await Logout();
     setIsLoggingOut(false);
-    navigate("/login", { replace: true });
+    // TODO: "/" 리다이렉트
   }
 
   async function handleRegister(book: SearchBook) {
