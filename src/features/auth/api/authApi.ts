@@ -12,6 +12,10 @@ export async function Logout() {
   return supabase.auth.signOut();
 }
 
+export async function requestPasswordReset(email: string) {
+  return supabase.auth.resetPasswordForEmail(email);
+}
+
 export async function getUser() {
   return supabase.auth.getUser();
 }

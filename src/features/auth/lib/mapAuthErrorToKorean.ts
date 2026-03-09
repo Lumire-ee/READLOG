@@ -14,21 +14,31 @@ export function mapAuthErrorToKorean(error: AuthErrorLike): string {
       return "올바른 이메일 형식이 아닙니다.";
 
     case "email_address_not_authorized":
-      return "허용되지 않은 이메일 주소입니다. 관리자에게 문의해주세요";
+      return "허용되지 않은 이메일 주소입니다. 관리자에게 문의해주세요.";
 
     case "signup_disabled":
     case "email_provider_disabled":
-      return "현재 회원가입이 불가능합니다. 잠시 후 다시 시도해주세요";
+      return "현재 회원가입이 불가능합니다. 잠시 후 다시 시도해주세요.";
 
     // Login Errors
     case "invalid_credentials":
       return "이메일 또는 비밀번호가 올바르지 않습니다.";
 
     case "email_not_confirmed":
-      return "이메일 인증이 완료되지 않았습니다. 메일을 확인해주세요";
+      return "이메일 인증이 완료되지 않았습니다. 메일을 확인해주세요.";
 
     case "user_disabled":
       return "비활성화된 계정입니다. 관리자에게 문의해주세요.";
+
+    // Password Reset Errors
+    case "same_password":
+      return "기존 비밀번호와 동일한 비밀번호로는 변경할 수 없습니다.";
+
+    case "over_email_send_reate_limit":
+      return "해당 이메일 주소로 너무 많은 이메일이 전송되었습니다. 잠시 후 다시 시도해주세요.";
+
+    case "user_not_found":
+      return "해당 이메일로 가입된 계정을 찾을 수 없습니다.";
 
     default:
       return (
