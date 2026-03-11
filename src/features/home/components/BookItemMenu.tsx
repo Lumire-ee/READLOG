@@ -48,7 +48,7 @@ export default function BookItemMenu({
               data-item-menu="true"
               aria-label="항목 메뉴 열기"
               className={cn(
-                "hover:bg-bg-surface-hover border-0 bg-transparent shadow-none",
+                "hover:bg-bg-surface-hover text-text-primary border-0 bg-transparent shadow-none",
                 triggerClassName,
               )}
               onClick={(event) => event.stopPropagation()}

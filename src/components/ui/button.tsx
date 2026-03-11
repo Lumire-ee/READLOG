@@ -27,7 +27,7 @@ const buttonVariants = cva(
           "w-full h-10 rounded-xl border border-brand-google-border bg-brand-google-bg flex items-center justify-center gap-2",
         oauthKakao:
           "w-full h-10 rounded-xl bg-brand-kakao-bg flex items-center justify-center gap-2",
-        iconRound: "rounded-full focus-visible:ring-0",
+        iconRound: "rounded-full focus-visible:ring-0 text-text-primary",
         iconGhost:
           "bg-transparent hover:bg-bg-surface-hover focus-visible:ring-0",
         dateTrigger:
