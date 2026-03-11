@@ -11,7 +11,7 @@ export default function HomeBookSectionSkeleton({
         {Array.from({ length: 3 }, (_, index) => (
           <div
             key={`card-skeleton-${index}`}
-            className={`border-border-default bg-bg-elevated h-88 overflow-hidden rounded-xl border ${
+            className={`border-border-default bg-bg-elevated h-100 overflow-hidden rounded-xl border ${
               index === 1 ? "hidden md:block" : ""
             } ${index === 2 ? "hidden lg:block" : ""}`}
           >
@@ -45,4 +45,3 @@ export default function HomeBookSectionSkeleton({
     </div>
   );
 }
-
