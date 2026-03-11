@@ -87,7 +87,7 @@ export default function HomeHeader({
                   </div>
                 )}
 
-                <p className="typo-label-md text-text-primary text-center">
+                <p className="typo-body-md text-text-primary text-center">
                   안녕하세요, {displayNickname}님
                 </p>
 
