@@ -1,4 +1,5 @@
 ﻿import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 import type { SearchBook } from "@/features/books/search/lib/types";
 import { registerBook } from "@/features/books/search/lib/registerBook";
 
@@ -8,6 +9,8 @@ type RegisterToastOptions = {
 };
 
 export function useToast() {
+  const queryClient = useQueryClient();
+
   // 책 등록 + Toast
   async function registerBookToast(
     book: SearchBook,
@@ -15,6 +18,10 @@ export function useToast() {
   ): Promise<string> {
     const { duration = 4000, onOpenDetail } = options;
     const { userBookId, isNew } = await registerBook(book);
+
+    if (isNew) {
+      await queryClient.invalidateQueries({ queryKey: ["userBooks"] });
+    }
 
     const message = isNew ? "책이 추가되었습니다." : "이미 등록된 책입니다.";
 
@@ -61,4 +68,3 @@ export function useToast() {
     errorToast,
   };
 }
-
