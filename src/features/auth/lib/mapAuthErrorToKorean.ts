@@ -34,8 +34,8 @@ export function mapAuthErrorToKorean(error: AuthErrorLike): string {
     case "same_password":
       return "기존 비밀번호와 동일한 비밀번호로는 변경할 수 없습니다.";
 
-    case "over_email_send_reate_limit":
-      return "해당 이메일 주소로 너무 많은 이메일이 전송되었습니다. 잠시 후 다시 시도해주세요.";
+    case "over_email_send_rate_limit":
+      return "이메일 요청이 너무 많습니다. 잠시 후 다시 시도해주세요.";
 
     case "user_not_found":
       return "해당 이메일로 가입된 계정을 찾을 수 없습니다.";
