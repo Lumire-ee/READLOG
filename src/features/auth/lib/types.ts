@@ -3,4 +3,13 @@ export type FormValues = {
   password: string;
 };
 
+export type EmailOnlyFormValues = {
+  email: string;
+};
+
+export type ResetPasswordFormValues = {
+  password: string;
+  passwordConfirm: string;
+};
+
 export type Feedback = { type: "error" | "success"; message: string } | null;

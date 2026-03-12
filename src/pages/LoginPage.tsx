@@ -55,7 +55,9 @@ export default function LoginPage() {
       footer={
         <>
           <div className="mt-4 flex items-center justify-center">
-            <Button variant="authText">비밀번호를 잊으셨나요?</Button>
+            <Button variant="authText" onClick={() => navigate("/forgot-password")}>
+              비밀번호를 잊으셨나요?
+            </Button>
           </div>
           <div className="flex items-center justify-center space-x-2">
             <p className="typo-label-sm text-text-secondary">
@@ -139,4 +141,3 @@ export default function LoginPage() {
     </UserLayout>
   );
 }
-

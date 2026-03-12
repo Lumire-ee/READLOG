@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { FormValues } from "../lib/types";
+import type { EmailOnlyFormValues, FormValues } from "../lib/types";
 import type {
   FieldErrors,
   RegisterOptions,
@@ -13,11 +13,50 @@ type CommonFieldProps = {
   errors: FieldErrors<FormValues>;
 };
 
+type EmailOnlyFieldProps = {
+  register: UseFormRegister<EmailOnlyFormValues>;
+  errors: FieldErrors<EmailOnlyFormValues>;
+};
+
 export function EmailField({
   register,
   errors,
   rules,
 }: CommonFieldProps & { rules: RegisterOptions<FormValues, "email"> }) {
+  return (
+    <div className="space-y-2">
+      <Label
+        htmlFor="email"
+        className={cn(
+          "typo-label-sm text-text-primary",
+          errors.email && "text-status-danger",
+        )}
+      >
+        Email
+      </Label>
+      <Input
+        id="email"
+        type="email"
+        className="border-border-subtitle typo-label-sm w-full rounded-md border px-3 py-2"
+        autoComplete="email"
+        {...register("email", rules)}
+      />
+      {errors.email?.message && (
+        <p className="typo-label-sm text-status-danger">
+          {errors.email.message}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export function EmailOnlyField({
+  register,
+  errors,
+  rules,
+}: EmailOnlyFieldProps & {
+  rules: RegisterOptions<EmailOnlyFormValues, "email">;
+}) {
   return (
     <div className="space-y-2">
       <Label
