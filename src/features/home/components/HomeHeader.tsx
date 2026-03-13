@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import type { User } from "@supabase/supabase-js";
 import { LogOut, UserPen } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,12 +18,22 @@ import {
   getUserTextAvatar,
   resolveDisplayNickname,
 } from "@/features/profile/lib/avatar";
+import { cn } from "@/lib/utils";
 
 type HomeHeaderProps = {
   user: User | null;
   onLogout: () => void;
   isLoggingOut?: boolean;
 };
+
+function headerNavLinkClass(isActive: boolean): string {
+  return cn(
+    "rounded-lg px-3 py-1.5 typo-label-sm transition-colors",
+    isActive
+      ? "bg-bg-surface text-text-primary"
+      : "text-text-secondary hover:bg-bg-surface hover:text-text-primary",
+  );
+}
 
 export default function HomeHeader({
   user,
@@ -38,10 +49,31 @@ export default function HomeHeader({
 
   return (
     <>
-      <header className="flex w-full items-center justify-between gap-4">
-        <Link to="/" className="text-text-primary typo-title-md">
-          BookLog
-        </Link>
+      <header className="flex w-full flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-4">
+          <Link to="/home" className="typo-heading-sm text-text-primary">
+            BookLog
+          </Link>
+
+          <nav
+            aria-label="주요 메뉴"
+            className="border-border-default bg-bg-elevated flex items-center gap-1 rounded-xl border p-1"
+          >
+            <NavLink
+              to="/home"
+              end
+              className={({ isActive }) => headerNavLinkClass(isActive)}
+            >
+              홈
+            </NavLink>
+            <NavLink
+              to="/stats"
+              className={({ isActive }) => headerNavLinkClass(isActive)}
+            >
+              통계
+            </NavLink>
+          </nav>
+        </div>
 
         <div className="flex items-center justify-end">
           <DropdownMenu>
@@ -49,7 +81,7 @@ export default function HomeHeader({
               <Button
                 type="button"
                 variant="iconGhost"
-                size="icon-sm"
+                size="icon-lg"
                 aria-label="프로필 메뉴 열기"
                 className="rounded-full"
               >
@@ -57,11 +89,11 @@ export default function HomeHeader({
                   <img
                     src={avatarImageUrl}
                     alt="User avatar"
-                    className="border-border-default size-8 rounded-full border object-cover"
+                    className="border-border-default size-10 rounded-full border object-cover"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="bg-bg-elevated text-text-primary border-border-default flex size-8 items-center justify-center rounded-full border text-sm font-semibold">
+                  <div className="bg-bg-elevated text-text-primary border-border-default flex size-10 items-center justify-center rounded-full border text-sm font-semibold">
                     {textAvatar}
                   </div>
                 )}
@@ -128,4 +160,3 @@ export default function HomeHeader({
     </>
   );
 }
-

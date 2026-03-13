@@ -6,6 +6,7 @@ import SignupPage from "./pages/SignupPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import HomePage from "./pages/HomePage";
+import StatsPage from "./pages/StatsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 export default function AppRouter() {
@@ -28,6 +29,14 @@ export default function AppRouter() {
         element={
           <AuthGuard>
             <HomePage />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path="/stats"
+        element={
+          <AuthGuard>
+            <StatsPage />
           </AuthGuard>
         }
       />
