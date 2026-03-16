@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ThemeToggleButton from "@/features/home/components/ThemeToggleButton";
 import EditProfileModal from "@/features/profile/components/EditProfileModal";
 import { useProfileNickname } from "@/features/profile/hooks/useProfileNickname";
 import {
@@ -28,7 +29,7 @@ type HomeHeaderProps = {
 
 function headerNavLinkClass(isActive: boolean): string {
   return cn(
-    "px-3 py-1.5 typo-label-md transition-colors",
+    "typo-label-sm shrink-0 rounded-md px-2 py-1 transition-colors sm:typo-label-md sm:px-3 sm:py-1.5",
     isActive
       ? "text-text-primary"
       : "text-text-secondary hover:text-text-primary",
@@ -49,13 +50,19 @@ export default function HomeHeader({
 
   return (
     <>
-      <header className="flex w-full flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-14">
-          <Link to="/home" className="typo-heading-lg text-accent-indigo">
+      <header className="relative flex w-full items-center justify-between gap-1.5 sm:gap-3">
+        <div className="flex items-center">
+          <Link
+            to="/home"
+            className="typo-heading-md sm:typo-heading-lg text-accent-indigo shrink-0"
+          >
             BookLog
           </Link>
 
-          <nav aria-label="주요 메뉴" className="flex items-center gap-4 p-1">
+          <nav
+            aria-label="주요 메뉴"
+            className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 p-0.5 sm:static sm:ml-6 sm:translate-x-0 sm:gap-4 sm:p-1"
+          >
             <NavLink
               to="/home"
               end
@@ -72,7 +79,8 @@ export default function HomeHeader({
           </nav>
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex shrink-0 items-center justify-end gap-2">
+          <ThemeToggleButton />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -80,17 +88,17 @@ export default function HomeHeader({
                 variant="iconGhost"
                 size="icon-lg"
                 aria-label="프로필 메뉴 열기"
-                className="rounded-full"
+                className="size-8 rounded-full sm:size-10"
               >
                 {avatarImageUrl ? (
                   <img
                     src={avatarImageUrl}
                     alt="User avatar"
-                    className="border-border-default size-10 rounded-full border object-cover"
+                    className="border-border-default size-8 rounded-full border object-cover sm:size-10"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="bg-bg-elevated text-text-primary border-border-default flex size-10 items-center justify-center rounded-full border text-sm font-semibold">
+                  <div className="bg-bg-elevated text-text-primary border-border-default flex size-8 items-center justify-center rounded-full border text-xs font-semibold sm:size-10 sm:text-sm">
                     {textAvatar}
                   </div>
                 )}
