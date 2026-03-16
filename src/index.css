@@ -37,7 +37,7 @@
   --color-accent-orange: #ff8d28;
   --color-accent-yellow: #ffcc00;
   --color-accent-green: #34c759;
-  --color-accent-indigo: #6155f5;
+  --color-accent-indigo: #8880EA;
 
   /* Semantic - Background */
   --color-bg-base: var(--color-gray-6);
@@ -104,7 +104,7 @@
   --color-accent-orange: #ff9230;
   --color-accent-yellow: #ffd600;
   --color-accent-green: #35d158;
-  --color-accent-indigo: #6d7cff;
+  --color-accent-indigo: #606AC0;
 
   /* Semantic - Background (Dark) */
   --color-bg-base: var(--color-gray-6);
@@ -166,11 +166,11 @@
   /* typo token */
   /* Heading */
   .typo-heading-xl {
-    @apply text-3xl leading-snug font-semibold tracking-tight;
+    @apply text-3xl leading-snug font-bold tracking-tight;
   }
 
   .typo-heading-lg {
-    @apply text-2xl leading-snug font-semibold tracking-tight;
+    @apply text-2xl leading-snug font-bold tracking-tight;
   }
 
   .typo-heading-md {

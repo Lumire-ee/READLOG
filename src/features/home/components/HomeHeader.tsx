@@ -28,10 +28,10 @@ type HomeHeaderProps = {
 
 function headerNavLinkClass(isActive: boolean): string {
   return cn(
-    "rounded-lg px-3 py-1.5 typo-label-sm transition-colors",
+    "px-3 py-1.5 typo-label-md transition-colors",
     isActive
-      ? "bg-bg-surface text-text-primary"
-      : "text-text-secondary hover:bg-bg-surface hover:text-text-primary",
+      ? "text-text-primary"
+      : "text-text-secondary hover:text-text-primary",
   );
 }
 
@@ -50,15 +50,12 @@ export default function HomeHeader({
   return (
     <>
       <header className="flex w-full flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-4">
-          <Link to="/home" className="typo-heading-sm text-text-primary">
+        <div className="flex items-center gap-14">
+          <Link to="/home" className="typo-heading-lg text-accent-indigo">
             BookLog
           </Link>
 
-          <nav
-            aria-label="주요 메뉴"
-            className="border-border-default bg-bg-elevated flex items-center gap-1 rounded-xl border p-1"
-          >
+          <nav aria-label="주요 메뉴" className="flex items-center gap-4 p-1">
             <NavLink
               to="/home"
               end
