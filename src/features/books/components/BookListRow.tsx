@@ -4,6 +4,7 @@ import { THUMB_SIZES } from "@/shared/constants/thumbnail";
 import type { ReactNode } from "react";
 
 type BookListRowProps = {
+  leading?: ReactNode;
   thumbnail: string;
   title: string;
   author: string;
@@ -16,6 +17,7 @@ type BookListRowProps = {
 };
 
 function BookListRowContent({
+  leading,
   thumbnail,
   title,
   author,
@@ -24,12 +26,17 @@ function BookListRowContent({
   hasTopRight,
 }: Pick<
   BookListRowProps,
-  "thumbnail" | "title" | "author" | "right" | "titleClassName"
+  "leading" | "thumbnail" | "title" | "author" | "right" | "titleClassName"
 > & {
   hasTopRight: boolean;
 }) {
   return (
     <>
+      {leading ? (
+        <div className="shrink-0">
+          {leading}
+        </div>
+      ) : null}
       <img
         src={toProxiedThumbnailSrc(thumbnail, THUMB_SIZES.SMALL)}
         alt={title}
@@ -65,6 +72,7 @@ function BookListRowContent({
 }
 
 export default function BookListRow({
+  leading,
   thumbnail,
   title,
   author,
@@ -101,6 +109,7 @@ export default function BookListRow({
           </div>
         ) : null}
         <BookListRowContent
+          leading={leading}
           thumbnail={thumbnail}
           title={title}
           author={author}
@@ -120,6 +129,7 @@ export default function BookListRow({
         </div>
       ) : null}
       <BookListRowContent
+        leading={leading}
         thumbnail={thumbnail}
         title={title}
         author={author}
