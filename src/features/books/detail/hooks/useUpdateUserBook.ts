@@ -14,6 +14,7 @@ export function useUpdateUserBook(userBookId: string) {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["userBookDetail", userBookId] });
       qc.invalidateQueries({ queryKey: ["userBooks"] });
+      qc.invalidateQueries({ queryKey: ["libraryFolders"] });
       bookSaveSuccessToast();
     },
     onError: (error) => {

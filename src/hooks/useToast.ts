@@ -21,6 +21,7 @@ export function useToast() {
 
     if (isNew) {
       await queryClient.invalidateQueries({ queryKey: ["userBooks"] });
+      await queryClient.invalidateQueries({ queryKey: ["libraryFolders"] });
     }
 
     const message = isNew ? "책이 추가되었습니다." : "이미 등록된 책입니다.";

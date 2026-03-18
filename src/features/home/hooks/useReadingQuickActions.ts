@@ -23,6 +23,7 @@ export function useReadingQuickActions() {
     }) => updateUserBook(userBookId, { status }),
     onSuccess: (_data, variables) => {
       qc.invalidateQueries({ queryKey: ["userBooks"] });
+      qc.invalidateQueries({ queryKey: ["libraryFolders"] });
       qc.invalidateQueries({
         queryKey: ["userBookDetail", variables.userBookId],
       });
@@ -34,6 +35,7 @@ export function useReadingQuickActions() {
       mutationFn: async (userBookId: string) => deleteUserBook(userBookId),
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: ["userBooks"] });
+        qc.invalidateQueries({ queryKey: ["libraryFolders"] });
       },
     });
 

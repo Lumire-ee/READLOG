@@ -15,6 +15,7 @@ export interface UserBook {
   id: string;
   user_id: string;
   book_id: string;
+  folder_id: string | null;
   status: BookStatus;
 
   start_date: string | null;
@@ -25,6 +26,15 @@ export interface UserBook {
   notes_md: string | null;
   created_at: string;
   page_count_override: number | null;
+}
+
+export interface LibraryFolder {
+  id: string;
+  user_id: string;
+  name: string;
+  cover_user_book_id: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ReadingStat {
