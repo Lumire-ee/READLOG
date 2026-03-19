@@ -65,9 +65,9 @@
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* Semantic - Border/Divider */
-  --color-border-default: var(--color-gray-4);
-  --color-border-subtitle: var(--color-gray-2);
-  --color-divider: var(--color-gray-4);
+  --color-border-default: var(--color-gray-3);
+  --color-border-subtitle: var(--color-gray-4);
+  --color-divider: var(--color-gray-3);
 
   /* Semantic - Status */
   --color-status-danger: var(--color-accent-red);
@@ -132,9 +132,9 @@
   --color-bg-overlay: rgba(0, 0, 0, 0.6);
 
   /* Semantic - Border/Divider (Dark) */
-  --color-border-default: var(--color-gray-2);
-  --color-border-subtitle: var(--color-gray-4);
-  --color-divider: var(--color-gray-2);
+  --color-border-default: var(--color-gray-3);
+  --color-border-subtitle: var(--color-gray-2);
+  --color-divider: var(--color-gray-3);
 
   /* Semantic - Status (Dark) */
   --color-status-danger: var(--color-accent-red);
