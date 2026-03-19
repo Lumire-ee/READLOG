@@ -263,14 +263,54 @@ export default function HomeLibrarySection({
       <div>
         <div className="flex items-center justify-between gap-2">
           <h2 className="typo-heading-sm text-text-primary">나의 서재</h2>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={handleToggleEditMode}
-          >
-            {isEditMode ? "저장" : "편집"}
-          </Button>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            {isEditMode ? (
+              <>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  disabled={selectedCount === 0}
+                  onClick={() => {
+                    setMoveDialogSession((prev) => prev + 1);
+                    setIsMoveDialogOpen(true);
+                  }}
+                >
+                  폴더로 이동
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  disabled={selectedCount === 0}
+                  onClick={() => {
+                    setCreateDialogSession((prev) => prev + 1);
+                    setIsCreateDialogOpen(true);
+                  }}
+                >
+                  폴더 만들기
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  className="hover:text-accent-red focus:text-accent-red"
+                  variant="outline"
+                  disabled={selectedCount === 0}
+                  onClick={() => setIsDeleteBooksDialogOpen(true)}
+                >
+                  책 삭제
+                </Button>
+              </>
+            ) : null}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleToggleEditMode}
+            >
+              {isEditMode ? "저장" : "편집"}
+            </Button>
+          </div>
         </div>
 
         <div className="mt-4 space-y-4">
@@ -284,56 +324,12 @@ export default function HomeLibrarySection({
             <p className="typo-label-sm text-text-secondary">{emptyText}</p>
           ) : (
             <>
-              {isEditMode ? (
-                <div className="bg-bg-elevated border-border-default flex flex-col gap-2 rounded-xl border p-3 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="typo-label-sm text-text-secondary">
-                    {selectedCount}권 선택됨
-                  </p>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      disabled={selectedCount === 0}
-                      onClick={() => {
-                        setMoveDialogSession((prev) => prev + 1);
-                        setIsMoveDialogOpen(true);
-                      }}
-                    >
-                      폴더로 이동
-                    </Button>
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      disabled={selectedCount === 0}
-                      onClick={() => {
-                        setCreateDialogSession((prev) => prev + 1);
-                        setIsCreateDialogOpen(true);
-                      }}
-                    >
-                      폴더 만들기
-                    </Button>
-                    <Button
-                      type="button"
-                      size="sm"
-                      className="hover:text-accent-red focus:text-accent-red"
-                      variant="outline"
-                      disabled={selectedCount === 0}
-                      onClick={() => setIsDeleteBooksDialogOpen(true)}
-                    >
-                      책 삭제
-                    </Button>
-                  </div>
-                </div>
-              ) : null}
-
               {folderEntries.length > 0 ? (
                 <div className="space-y-3">
                   <div className="grid gap-2 sm:grid-cols-2">
                     {folderEntries.map(({ folder, books }) => {
                       const isExpanded =
-                        isEditMode || effectiveExpandedFolderId === folder.id;
+                        effectiveExpandedFolderId === folder.id;
 
                       return (
                         <div
@@ -341,7 +337,6 @@ export default function HomeLibrarySection({
                           tabIndex={0}
                           key={folder.id}
                           onClick={() => {
-                            if (isEditMode) return;
                             setExpandedFolderId((prev) =>
                               prev === folder.id ? null : folder.id,
                             );
@@ -349,7 +344,6 @@ export default function HomeLibrarySection({
                           onKeyDown={(event) => {
                             if (event.key === "Enter" || event.key === " ") {
                               event.preventDefault();
-                              if (isEditMode) return;
                               setExpandedFolderId((prev) =>
                                 prev === folder.id ? null : folder.id,
                               );
@@ -358,19 +352,30 @@ export default function HomeLibrarySection({
                           className={cn(
                             "border-border-default bg-bg-elevated hover:bg-bg-surface-hover group flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
                             isExpanded
-                              ? "ring-accent-indigo/40 ring-1"
+                              ? "bg-bg-surface-hover ring-accent-indigo/40 ring-1"
                               : undefined,
                           )}
                         >
                           <FolderCover folder={folder} books={books} />
 
-                          <div className="min-w-0 flex-1">
-                            <p className="typo-label-md text-text-primary truncate">
-                              {folder.name}
-                            </p>
-                            <p className="typo-label-sm text-text-secondary mt-1">
-                              {books.length}권
-                            </p>
+                          <div className="flex min-w-0 flex-1 items-stretch gap-2">
+                            <div
+                              aria-hidden
+                              className={cn(
+                                "w-0.5 shrink-0 rounded-full",
+                                isExpanded
+                                  ? "bg-accent-indigo"
+                                  : "bg-border-default",
+                              )}
+                            />
+                            <div className="min-w-0 flex-1">
+                              <p className="typo-label-md text-text-primary truncate">
+                                {folder.name}
+                              </p>
+                              <p className="typo-label-sm text-text-secondary mt-1">
+                                {books.length}권
+                              </p>
+                            </div>
                           </div>
 
                           {isExpanded ? (
@@ -419,12 +424,12 @@ export default function HomeLibrarySection({
                   <div className="space-y-3">
                     {folderEntries.map(({ folder, books }) => {
                       const shouldShow =
-                        isEditMode || effectiveExpandedFolderId === folder.id;
+                        effectiveExpandedFolderId === folder.id;
                       if (!shouldShow) return null;
 
                       return (
                         <div key={`${folder.id}-books`} className="space-y-2">
-                          <p className="typo-label-sm text-text-secondary px-1">
+                          <p className="typo-label-sm text-text-primary px-1">
                             {folder.name}
                           </p>
                           <div className="grid gap-2 md:grid-cols-2">
@@ -437,8 +442,15 @@ export default function HomeLibrarySection({
                 </div>
               ) : null}
 
-              <div className="space-y-2">
-                <p className="typo-label-sm text-text-secondary px-1">미분류</p>
+              <div
+                className={cn(
+                  "space-y-2",
+                  folderEntries.length > 0
+                    ? "border-border-default mt-6 border-t pt-4"
+                    : undefined,
+                )}
+              >
+                <p className="typo-label-sm text-text-primary px-1">미분류</p>
                 {unfiledBooks.length > 0 ? (
                   <div className="grid gap-2 md:grid-cols-2">
                     {unfiledBooks.map((item) => renderBookRow(item))}
