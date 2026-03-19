@@ -63,17 +63,23 @@ export default function LibraryDeleteFolderDialog({
           <DialogHeader>
             <DialogTitle>폴더를 삭제할까요?</DialogTitle>
             <DialogDescription>
-              <span className="text-text-primary block truncate font-semibold">
-                {targetFolder?.name}
+              <span className="mb-1 flex items-center gap-2">
+                <span
+                  aria-hidden
+                  className="bg-accent-indigo h-4 w-0.5 shrink-0 rounded-full"
+                />
+                <span className="text-text-primary block truncate font-semibold">
+                  {targetFolder?.name}
+                </span>
               </span>
               폴더만 삭제하거나, 폴더와 책을 함께 삭제할 수 있습니다.
             </DialogDescription>
           </DialogHeader>
 
-          <DialogFooter className="flex-col gap-2 sm:flex-col">
+          <DialogFooter>
             <Button
               type="button"
-              variant="outline"
+              variant="destructive"
               disabled={isPending}
               onClick={handleDeleteFolderOnly}
             >
@@ -81,7 +87,7 @@ export default function LibraryDeleteFolderDialog({
             </Button>
             <Button
               type="button"
-              variant="outline"
+              variant="destructive"
               disabled={isPending}
               onClick={() => {
                 handleMainDialogOpenChange(false);
@@ -117,7 +123,6 @@ export default function LibraryDeleteFolderDialog({
             <AlertDialogAction
               disabled={isPending}
               onClick={handleDeleteFolderWithBooks}
-              className="bg-destructive hover:bg-destructive/90 text-white"
             >
               삭제
             </AlertDialogAction>

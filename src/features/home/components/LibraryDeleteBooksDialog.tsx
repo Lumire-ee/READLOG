@@ -39,11 +39,7 @@ export default function LibraryDeleteBooksDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isPending}>취소</AlertDialogCancel>
-          <AlertDialogAction
-            disabled={isPending}
-            onClick={handleConfirm}
-            className="bg-destructive hover:bg-destructive/90 text-white"
-          >
+          <AlertDialogAction disabled={isPending} onClick={handleConfirm}>
             삭제
           </AlertDialogAction>
         </AlertDialogFooter>

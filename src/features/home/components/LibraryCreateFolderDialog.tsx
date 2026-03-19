@@ -83,6 +83,7 @@ export default function LibraryCreateFolderDialog({
           </DialogDescription>
         </DialogHeader>
 
+        {/* TODO: Input Style 조정 */}
         <div className="space-y-3">
           <div className="space-y-1.5">
             <Label htmlFor="folder-name">폴더 이름</Label>
@@ -97,7 +98,10 @@ export default function LibraryCreateFolderDialog({
 
           <div className="space-y-1.5">
             <Label htmlFor="cover-book">대표 책</Label>
-            <Select value={effectiveCoverUserBookId} onValueChange={setCoverUserBookId}>
+            <Select
+              value={effectiveCoverUserBookId}
+              onValueChange={setCoverUserBookId}
+            >
               <SelectTrigger id="cover-book" className="w-full">
                 <SelectValue placeholder="대표 책을 선택하세요." />
               </SelectTrigger>
@@ -113,7 +117,7 @@ export default function LibraryCreateFolderDialog({
         </div>
 
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
+          <Button type="button" onClick={() => handleOpenChange(false)}>
             취소
           </Button>
           <Button

@@ -87,9 +87,15 @@ export default function BookItemMenu({
         >
           <AlertDialogHeader>
             <AlertDialogTitle>도서를 삭제할까요?</AlertDialogTitle>
-            <span className="text-text-primary mb-3 block truncate font-semibold">
-              {bookTitle}
-            </span>
+            <div className="mb-3 flex items-center gap-2">
+              <span
+                aria-hidden
+                className="bg-accent-indigo h-4 w-0.5 shrink-0 rounded-full"
+              />
+              <span className="text-text-primary block truncate font-semibold">
+                {bookTitle}
+              </span>
+            </div>
             <AlertDialogDescription>
               목록에서 삭제하면 기록하신 독서 활동 데이터가 함께 삭제되며,
               <br />
@@ -97,17 +103,8 @@ export default function BookItemMenu({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              disabled={isDeleting}
-              className="hover:bg-bg-surface-hover border-0 bg-transparent shadow-none"
-            >
-              취소
-            </AlertDialogCancel>
-            <AlertDialogAction
-              disabled={isDeleting}
-              onClick={onDelete}
-              className="hover:bg-bg-surface-hover text-text-primary hover:text-accent-red focus:text-accent-red border-0 bg-transparent shadow-none"
-            >
+            <AlertDialogCancel disabled={isDeleting}>취소</AlertDialogCancel>
+            <AlertDialogAction disabled={isDeleting} onClick={onDelete}>
               삭제
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -116,4 +113,3 @@ export default function BookItemMenu({
     </>
   );
 }
-

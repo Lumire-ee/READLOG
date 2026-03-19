@@ -82,11 +82,16 @@ export default function LibraryMoveBooksDialog({
         </div>
 
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleOpenChange(false)}
+          >
             취소
           </Button>
           <Button
             type="button"
+            variant="outline"
             onClick={handleConfirm}
             disabled={isPending || selectedCount === 0}
           >
