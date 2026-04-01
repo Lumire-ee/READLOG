@@ -25,13 +25,16 @@ export default function BookDetailStatusSection({
 }: Props) {
   return (
     <BookDetailFormRow>
-      <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+      <BookDetailFormLabel
+        htmlFor="status"
+        className="inline-flex items-center gap-1.5"
+      >
         <Tag className="size-3.5" aria-hidden="true" />
         상태
       </BookDetailFormLabel>
       <BookDetailFormContent>
         <Select value={status} onValueChange={onStatusChange}>
-          <SelectTrigger className="h-10 w-full px-3">
+          <SelectTrigger id="status" className="h-10 w-full px-3">
             <SelectValue placeholder="상태" />
           </SelectTrigger>
           <SelectContent>

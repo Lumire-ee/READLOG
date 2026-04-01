@@ -25,12 +25,16 @@ export default function BookDetailPageSection({
   return (
     <>
       <BookDetailFormRow>
-        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+        <BookDetailFormLabel
+          htmlFor="current-page"
+          className="inline-flex items-center gap-1.5"
+        >
           <Hash className="size-3.5" aria-hidden="true" />
           읽은 페이지
         </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
+            id="current-page"
             variant="interactiveRow"
             type="text"
             inputMode="numeric"
@@ -43,11 +47,15 @@ export default function BookDetailPageSection({
       </BookDetailFormRow>
 
       <BookDetailFormRow>
-        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+        <BookDetailFormLabel
+          htmlFor="page-count"
+          className="inline-flex items-center gap-1.5"
+        >
           <Hash className="size-3.5" aria-hidden="true" />총 페이지
         </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
+            id="page-count"
             variant="interactiveRow"
             type="text"
             inputMode="numeric"
@@ -60,7 +68,10 @@ export default function BookDetailPageSection({
       </BookDetailFormRow>
 
       <BookDetailFormRow>
-        <BookDetailFormLabel className="inline-flex items-center gap-1.5">
+        <BookDetailFormLabel
+          htmlFor="progress"
+          className="inline-flex items-center gap-1.5"
+        >
           <Activity className="size-3.5" aria-hidden="true" />
           진행도
         </BookDetailFormLabel>
