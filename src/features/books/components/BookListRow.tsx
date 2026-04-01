@@ -6,6 +6,10 @@ import type { ReactNode } from "react";
 type BookListRowProps = {
   leading?: ReactNode;
   thumbnail: string;
+  thumbnailOverlay?: ReactNode;
+  centerOverlay?: ReactNode;
+  hideThumbnailOnMobile?: boolean;
+  hideAuthorOnMobile?: boolean;
   title: string;
   author: string;
   right?: ReactNode;
@@ -19,6 +23,9 @@ type BookListRowProps = {
 function BookListRowContent({
   leading,
   thumbnail,
+  thumbnailOverlay,
+  hideThumbnailOnMobile,
+  hideAuthorOnMobile,
   title,
   author,
   right,
@@ -26,7 +33,15 @@ function BookListRowContent({
   hasTopRight,
 }: Pick<
   BookListRowProps,
-  "leading" | "thumbnail" | "title" | "author" | "right" | "titleClassName"
+  | "leading"
+  | "thumbnail"
+  | "thumbnailOverlay"
+  | "hideThumbnailOnMobile"
+  | "hideAuthorOnMobile"
+  | "title"
+  | "author"
+  | "right"
+  | "titleClassName"
 > & {
   hasTopRight: boolean;
 }) {
@@ -37,11 +52,23 @@ function BookListRowContent({
           {leading}
         </div>
       ) : null}
-      <img
-        src={toProxiedThumbnailSrc(thumbnail, THUMB_SIZES.SMALL)}
-        alt={title}
-        className="bg-bg-surface-subtitle h-16 w-12 shrink-0 rounded-md object-cover"
-      />
+      <div
+        className={cn(
+          "relative shrink-0",
+          hideThumbnailOnMobile ? "hidden sm:block" : undefined,
+        )}
+      >
+        <img
+          src={toProxiedThumbnailSrc(thumbnail, THUMB_SIZES.SMALL)}
+          alt={title}
+          className="bg-bg-surface-subtitle h-16 w-12 rounded-md object-cover"
+        />
+        {thumbnailOverlay ? (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+            {thumbnailOverlay}
+          </div>
+        ) : null}
+      </div>
 
       <div className="min-w-0 flex-1">
         <p
@@ -52,7 +79,14 @@ function BookListRowContent({
         >
           {title}
         </p>
-        <p className="typo-label-sm text-text-secondary truncate">{author}</p>
+        <p
+          className={cn(
+            "typo-label-sm text-text-secondary truncate",
+            hideAuthorOnMobile ? "hidden sm:block" : undefined,
+          )}
+        >
+          {author}
+        </p>
       </div>
 
       {right ? (
@@ -74,6 +108,10 @@ function BookListRowContent({
 export default function BookListRow({
   leading,
   thumbnail,
+  thumbnailOverlay,
+  centerOverlay,
+  hideThumbnailOnMobile,
+  hideAuthorOnMobile,
   title,
   author,
   right,
@@ -108,9 +146,17 @@ export default function BookListRow({
             {topRight}
           </div>
         ) : null}
+        {centerOverlay ? (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+            {centerOverlay}
+          </div>
+        ) : null}
         <BookListRowContent
           leading={leading}
           thumbnail={thumbnail}
+          thumbnailOverlay={thumbnailOverlay}
+          hideThumbnailOnMobile={hideThumbnailOnMobile}
+          hideAuthorOnMobile={hideAuthorOnMobile}
           title={title}
           author={author}
           right={right}
@@ -128,9 +174,17 @@ export default function BookListRow({
           {topRight}
         </div>
       ) : null}
+      {centerOverlay ? (
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+          {centerOverlay}
+        </div>
+      ) : null}
       <BookListRowContent
         leading={leading}
         thumbnail={thumbnail}
+        thumbnailOverlay={thumbnailOverlay}
+        hideThumbnailOnMobile={hideThumbnailOnMobile}
+        hideAuthorOnMobile={hideAuthorOnMobile}
         title={title}
         author={author}
         right={right}

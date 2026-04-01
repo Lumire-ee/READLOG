@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import {
+  Check,
   EllipsisVertical,
   Folder,
   FolderOpen,
@@ -61,7 +62,6 @@ function FolderCover({
     );
   }
 
-  // TODO: 폴더 구분 확실하게
   return (
     <img
       src={toProxiedThumbnailSrc(coverBook.book.thumbnail, THUMB_SIZES.SMALL)}
@@ -205,7 +205,11 @@ export default function HomeLibrarySection({
     return (
       <div className="flex flex-col items-end gap-1">
         <Badge variant={item.status}>{STATUS_LABEL[item.status]}</Badge>
-        {item.rating !== null ? <HomeRatingStars value={item.rating} /> : null}
+        {item.rating !== null ? (
+          <span className="hidden sm:block">
+            <HomeRatingStars value={item.rating} />
+          </span>
+        ) : null}
       </div>
     );
   }
@@ -216,19 +220,17 @@ export default function HomeLibrarySection({
       <BookListRow
         key={item.id}
         thumbnail={item.book.thumbnail ?? ""}
-        title={item.book.title}
-        author={item.book.author}
         leading={
-          isEditMode ? (
-            <input
-              type="checkbox"
-              checked={isSelected}
-              readOnly
-              aria-label={`${item.book.title} 선택`}
-              className="accent-accent-indigo size-4 cursor-pointer"
-            />
+          isEditMode && isSelected ? (
+            <span className="bg-accent-indigo/90 flex size-5 items-center justify-center rounded-sm text-white shadow-sm">
+              <Check className="size-3.5" />
+            </span>
           ) : undefined
         }
+        hideThumbnailOnMobile
+        hideAuthorOnMobile
+        title={item.book.title}
+        author={item.book.author}
         onClick={
           isEditMode
             ? () => toggleBookSelected(item.id)
@@ -236,9 +238,7 @@ export default function HomeLibrarySection({
         }
         right={renderRight(item)}
         className={cn(
-          isEditMode && isSelected
-            ? "ring-accent-indigo/50 bg-bg-surface-hover ring-1"
-            : undefined,
+          isEditMode && isSelected ? "bg-bg-surface-hover" : undefined,
         )}
         topRight={
           !isEditMode ? (
@@ -438,7 +438,10 @@ export default function HomeLibrarySection({
                       if (!shouldShow) return null;
 
                       return (
-                        <div key={`${folder.id}-books`} className="space-y-2">
+                        <div
+                          key={`${folder.id}-books`}
+                          className="border-accent-indigo/40 ring-accent-indigo/40 bg-bg-surface-hover space-y-2 rounded-lg border p-2 ring-1"
+                        >
                           <p className="typo-label-sm text-text-primary px-1">
                             {folder.name}
                           </p>
@@ -515,4 +518,3 @@ export default function HomeLibrarySection({
     </>
   );
 }
-
