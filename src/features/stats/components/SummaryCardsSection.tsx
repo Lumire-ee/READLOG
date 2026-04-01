@@ -9,7 +9,7 @@ type SummaryCardsSectionProps = {
 type SummaryCardProps = {
   title: string;
   value: string;
-  description: string;
+  description?: string;
 };
 
 function SummaryCard({ title, value, description }: SummaryCardProps) {
@@ -35,23 +35,23 @@ export default function SummaryCardsSection({
   summary,
 }: SummaryCardsSectionProps) {
   return (
-    <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
       <SummaryCard
         title="총 읽은 페이지 수"
         value={formatCount(summary.totalReadPages, "p")}
-        description="등록된 current_page 합계"
+        description="등록된 페이지 합계"
       />
       <SummaryCard
         title="총 완독 책 수"
         value={formatCount(summary.completedCount, "권")}
-        description='status가 "completed"인 책'
+        description="완독 상태의 책 수"
       />
       <SummaryCard
         title="평균 평점"
         value={formatAverage(summary.averageRating, " / 5")}
         description={
           summary.ratedCount > 0
-            ? `평점 입력 ${numberFormatter.format(summary.ratedCount)}권 기준`
+            ? `평점 입력된 ${numberFormatter.format(summary.ratedCount)}권 기준`
             : "평점 입력 데이터 없음"
         }
       />
@@ -60,7 +60,7 @@ export default function SummaryCardsSection({
         value={formatAverage(summary.averageCompletionDays, "일")}
         description={
           summary.completionDaysCount > 0
-            ? `유효 완독 ${numberFormatter.format(summary.completionDaysCount)}권 기준`
+            ? `완독 책 ${numberFormatter.format(summary.completionDaysCount)}권 기준`
             : "유효 완독 기간 데이터 없음"
         }
       />

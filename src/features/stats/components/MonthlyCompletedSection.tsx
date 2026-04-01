@@ -1,5 +1,4 @@
 import {
-  CartesianGrid,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -12,10 +11,12 @@ import type { MonthlyCompletedPoint } from "@/features/stats/lib/types";
 
 type MonthlyCompletedSectionProps = {
   monthlyCompleted: MonthlyCompletedPoint[];
+  countAxisMax: number;
 };
 
 export default function MonthlyCompletedSection({
   monthlyCompleted,
+  countAxisMax,
 }: MonthlyCompletedSectionProps) {
   return (
     <article className="border-border-default bg-bg-surface rounded-xl border p-6">
@@ -34,14 +35,13 @@ export default function MonthlyCompletedSection({
               data={monthlyCompleted}
               margin={{ top: 8, right: 12, left: 0, bottom: 8 }}
             >
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis
                 dataKey="monthLabel"
                 tickLine={false}
                 axisLine={false}
                 minTickGap={20}
               />
-              <YAxis allowDecimals={false} />
+              <YAxis allowDecimals={false} domain={[0, countAxisMax]} />
               <Tooltip cursor={{ stroke: "var(--color-border-default)" }} />
               <Line
                 type="monotone"

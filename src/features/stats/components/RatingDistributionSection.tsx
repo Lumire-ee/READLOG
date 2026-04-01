@@ -1,7 +1,6 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -13,11 +12,13 @@ import type { RatingDistributionPoint } from "@/features/stats/lib/types";
 type RatingDistributionSectionProps = {
   ratingDistribution: RatingDistributionPoint[];
   hasBooks: boolean;
+  countAxisMax: number;
 };
 
 export default function RatingDistributionSection({
   ratingDistribution,
   hasBooks,
+  countAxisMax,
 }: RatingDistributionSectionProps) {
   return (
     <article className="border-border-default bg-bg-surface rounded-xl border p-6">
@@ -34,21 +35,27 @@ export default function RatingDistributionSection({
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={ratingDistribution}
-              layout="vertical"
-              margin={{ top: 4, right: 12, left: 0, bottom: 4 }}
+              margin={{ top: 8, right: 12, left: 0, bottom: 8 }}
             >
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis type="number" allowDecimals={false} />
-              <YAxis
-                type="category"
+              <XAxis
                 dataKey="label"
-                width={64}
                 tickLine={false}
                 axisLine={false}
+                interval={0}
               />
-              <Tooltip cursor={{ fill: "transparent" }} />
+              <YAxis
+                allowDecimals={false}
+                domain={[0, countAxisMax]}
+              />
+              <Tooltip
+                cursor={{
+                  fill: "var(--color-bg-surface-hover)",
+                  fillOpacity: 0.8,
+                }}
+              />
               <Bar
                 dataKey="count"
+                name="권 수"
                 fill="var(--color-accent-indigo)"
                 radius={4}
               />

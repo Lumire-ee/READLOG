@@ -42,6 +42,12 @@ export default function StatsDashboard({
     );
   }
 
+  const countAxisMax = Math.max(
+    1,
+    ...stats.ratingDistribution.map((point) => point.count),
+    ...stats.monthlyCompleted.map((point) => point.count),
+  );
+
   return (
     <div className="space-y-8">
       <SummaryCardsSection summary={stats.summary} />
@@ -50,8 +56,12 @@ export default function StatsDashboard({
         <RatingDistributionSection
           ratingDistribution={stats.ratingDistribution}
           hasBooks={hasBooks}
+          countAxisMax={countAxisMax}
         />
-        <MonthlyCompletedSection monthlyCompleted={stats.monthlyCompleted} />
+        <MonthlyCompletedSection
+          monthlyCompleted={stats.monthlyCompleted}
+          countAxisMax={countAxisMax}
+        />
       </section>
     </div>
   );

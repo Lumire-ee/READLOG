@@ -42,7 +42,7 @@ function computeRatingDistribution(
   userBooks: UserBookWithInfo[],
 ): RatingDistributionPoint[] {
   const buckets: RatingDistributionPoint[] = [
-    { label: "별점 없음", count: 0 },
+    { label: "없음", count: 0 },
     { label: "1점", count: 0 },
     { label: "2점", count: 0 },
     { label: "3점", count: 0 },
