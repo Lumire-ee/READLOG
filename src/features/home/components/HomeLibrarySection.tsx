@@ -173,13 +173,13 @@ export default function HomeLibrarySection({
     }
   }
 
-  async function handleDeleteFolder(deleteBooks: boolean) {
+  async function handleDeleteFolder() {
     if (!folderDeleteTarget) return false;
 
     try {
       await removeFolder({
         folderId: folderDeleteTarget.id,
-        deleteBooks,
+        deleteBooks: true,
       });
       setIsFolderDeleteDialogOpen(false);
       setFolderDeleteTarget(null);
