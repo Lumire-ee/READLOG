@@ -1,16 +1,7 @@
 import { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import type { LibraryFolder } from "@/shared/types/db";
 import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import {
   Dialog,
   DialogContent,
@@ -60,10 +51,14 @@ export default function LibraryDeleteFolderDialog({
     <>
       <Dialog open={open} onOpenChange={handleMainDialogOpenChange}>
         <DialogContent className="bg-bg-elevated sm:max-w-[440px]">
-          <DialogHeader>
+          <DialogHeader className="items-center text-center sm:text-center">
+            <AlertTriangle
+              aria-hidden="true"
+              className="text-accent-red/80 mb-1 size-9"
+            />
             <DialogTitle>폴더를 삭제할까요?</DialogTitle>
             <DialogDescription>
-              <span className="mb-1 flex items-center gap-2">
+              <span className="mb-1 flex items-center justify-center gap-2">
                 <span
                   aria-hidden
                   className="bg-accent-indigo h-4 w-0.5 shrink-0 rounded-full"
@@ -76,10 +71,10 @@ export default function LibraryDeleteFolderDialog({
             </DialogDescription>
           </DialogHeader>
 
-          <DialogFooter>
+          <DialogFooter className="flex-row flex-wrap justify-center sm:justify-center">
             <Button
               type="button"
-              variant="destructive"
+              variant="dialogDanger"
               disabled={isPending}
               onClick={handleDeleteFolderOnly}
             >
@@ -87,7 +82,7 @@ export default function LibraryDeleteFolderDialog({
             </Button>
             <Button
               type="button"
-              variant="destructive"
+              variant="dialogDanger"
               disabled={isPending}
               onClick={() => {
                 handleMainDialogOpenChange(false);
@@ -98,6 +93,7 @@ export default function LibraryDeleteFolderDialog({
             </Button>
             <Button
               type="button"
+              variant="dialogCancel"
               disabled={isPending}
               onClick={() => handleMainDialogOpenChange(false)}
             >
@@ -107,28 +103,41 @@ export default function LibraryDeleteFolderDialog({
         </DialogContent>
       </Dialog>
 
-      <AlertDialog
+      <Dialog
         open={isDeleteBooksConfirmOpen}
         onOpenChange={setIsDeleteBooksConfirmOpen}
       >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>폴더와 책을 함께 삭제할까요?</AlertDialogTitle>
-            <AlertDialogDescription>
+        <DialogContent className="bg-bg-elevated sm:max-w-[440px]">
+          <DialogHeader className="items-center text-center sm:text-center">
+            <AlertTriangle
+              aria-hidden="true"
+              className="text-accent-red/80 mb-1 size-9"
+            />
+            <DialogTitle>폴더와 책을 함께 삭제할까요?</DialogTitle>
+            <DialogDescription>
               이 작업은 되돌릴 수 없습니다.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isPending}>취소</AlertDialogCancel>
-            <AlertDialogAction
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-row justify-center sm:justify-center">
+            <Button
+              type="button"
+              variant="dialogCancel"
+              disabled={isPending}
+              onClick={() => setIsDeleteBooksConfirmOpen(false)}
+            >
+              취소
+            </Button>
+            <Button
+              type="button"
+              variant="dialogDanger"
               disabled={isPending}
               onClick={handleDeleteFolderWithBooks}
             >
               삭제
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

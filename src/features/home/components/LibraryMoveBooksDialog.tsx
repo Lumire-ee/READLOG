@@ -57,14 +57,14 @@ export default function LibraryMoveBooksDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="bg-bg-elevated sm:max-w-[420px]">
-        <DialogHeader>
+        <DialogHeader className="items-center text-center sm:text-center">
           <DialogTitle>폴더로 이동</DialogTitle>
           <DialogDescription>
             선택한 {selectedCount}권을 이동할 폴더를 선택하세요.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-center">
           <Label htmlFor="move-target">이동할 위치</Label>
           <Select value={moveTarget} onValueChange={setMoveTarget}>
             <SelectTrigger id="move-target" className="w-full">
@@ -81,17 +81,17 @@ export default function LibraryMoveBooksDialog({
           </Select>
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="flex-row justify-center sm:justify-center">
           <Button
             type="button"
-            variant="outline"
+            variant="dialogCancel"
             onClick={() => handleOpenChange(false)}
           >
             취소
           </Button>
           <Button
             type="button"
-            variant="outline"
+            variant="dialogPositive"
             onClick={handleConfirm}
             disabled={isPending || selectedCount === 0}
           >

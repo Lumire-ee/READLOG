@@ -350,7 +350,7 @@ export default function HomeLibrarySection({
                             }
                           }}
                           className={cn(
-                            "border-border-default bg-bg-elevated hover:bg-bg-surface-hover group flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
+                            "border-border-default bg-bg-elevated hover:bg-bg-surface-hover group relative flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
                             isExpanded
                               ? "bg-bg-surface-hover ring-accent-indigo/40 ring-1"
                               : undefined,
@@ -378,15 +378,24 @@ export default function HomeLibrarySection({
                             </div>
                           </div>
 
-                          {isExpanded ? (
-                            <FolderOpen className="text-text-secondary size-4 shrink-0" />
-                          ) : (
-                            <Folder className="text-text-secondary size-4 shrink-0" />
-                          )}
+                          <div
+                            className={cn(
+                              "text-text-secondary ml-auto flex shrink-0 items-center transition-[margin] duration-150 ease-out",
+                              !isEditMode
+                                ? "group-focus-within:mr-10 group-hover:mr-10"
+                                : undefined,
+                            )}
+                          >
+                            {isExpanded ? (
+                              <FolderOpen className="size-4" />
+                            ) : (
+                              <Folder className="size-4" />
+                            )}
+                          </div>
 
                           {!isEditMode ? (
                             <div
-                              className="shrink-0"
+                              className="absolute top-1/2 right-1 z-10 -translate-y-1/2"
                               onClick={(event) => event.stopPropagation()}
                             >
                               <DropdownMenu>
@@ -395,8 +404,9 @@ export default function HomeLibrarySection({
                                     type="button"
                                     variant="iconGhost"
                                     size="icon-sm"
+                                    data-item-menu="true"
                                     aria-label={`${folder.name} 메뉴 열기`}
-                                    className="hover:bg-bg-surface-hover border-0 bg-transparent shadow-none"
+                                    className="hover:bg-bg-surface-hover text-text-primary pointer-events-none border-0 bg-transparent opacity-0 shadow-none transition-opacity group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:opacity-100"
                                   >
                                     <EllipsisVertical className="size-4" />
                                   </Button>
@@ -490,6 +500,7 @@ export default function HomeLibrarySection({
         open={isDeleteBooksDialogOpen}
         onOpenChange={setIsDeleteBooksDialogOpen}
         selectedCount={selectedCount}
+        selectedBookTitle={selectedBooks[0]?.book.title ?? ""}
         isPending={isDeletingBooks}
         onConfirm={handleDeleteSelectedBooks}
       />
@@ -504,3 +515,4 @@ export default function HomeLibrarySection({
     </>
   );
 }
+

@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
+import { AlertTriangle, EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 
 type BookItemMenuProps = {
   bookTitle: string;
@@ -77,17 +75,19 @@ export default function BookItemMenu({
         </DropdownMenu>
       </div>
 
-      <AlertDialog
-        open={isDeleteDialogOpen}
-        onOpenChange={setIsDeleteDialogOpen}
-      >
-        <AlertDialogContent
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent
+          className="bg-bg-elevated"
           onClick={(event) => event.stopPropagation()}
           onEscapeKeyDown={() => setIsDeleteDialogOpen(false)}
         >
-          <AlertDialogHeader>
-            <AlertDialogTitle>도서를 삭제할까요?</AlertDialogTitle>
-            <div className="mb-3 flex items-center gap-2">
+          <DialogHeader className="items-center text-center sm:text-center">
+            <AlertTriangle
+              aria-hidden="true"
+              className="text-accent-red/80 mb-1 size-9"
+            />
+            <DialogTitle>도서를 삭제할까요?</DialogTitle>
+            <div className="mb-3 flex items-center justify-center gap-2">
               <span
                 aria-hidden
                 className="bg-accent-indigo h-4 w-0.5 shrink-0 rounded-full"
@@ -96,20 +96,32 @@ export default function BookItemMenu({
                 {bookTitle}
               </span>
             </div>
-            <AlertDialogDescription>
+            <DialogDescription>
               목록에서 삭제하면 기록하신 독서 활동 데이터가 함께 삭제되며,
               <br />
               다시 복구하실 수 없습니다.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>취소</AlertDialogCancel>
-            <AlertDialogAction disabled={isDeleting} onClick={onDelete}>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-row justify-center sm:justify-center">
+            <Button
+              type="button"
+              variant="dialogCancel"
+              disabled={isDeleting}
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              취소
+            </Button>
+            <Button
+              type="button"
+              variant="dialogDanger"
+              disabled={isDeleting}
+              onClick={onDelete}
+            >
               삭제
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

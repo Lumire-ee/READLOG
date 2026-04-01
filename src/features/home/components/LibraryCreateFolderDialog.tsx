@@ -76,18 +76,19 @@ export default function LibraryCreateFolderDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="bg-bg-elevated sm:max-w-[460px]">
-        <DialogHeader>
+        <DialogHeader className="items-center text-center sm:text-center">
           <DialogTitle>폴더 만들기</DialogTitle>
           <DialogDescription>
             선택한 책 중 대표 책을 고르면 폴더 이미지로 사용됩니다.
           </DialogDescription>
         </DialogHeader>
 
-        {/* TODO: Input Style 조정 */}
-        <div className="space-y-3">
+        <div className="space-y-3 text-center">
           <div className="space-y-1.5">
             <Label htmlFor="folder-name">폴더 이름</Label>
             <Input
+              variant="interactiveRow"
+              type="text"
               id="folder-name"
               value={folderName}
               onChange={(event) => setFolderName(event.target.value)}
@@ -97,13 +98,13 @@ export default function LibraryCreateFolderDialog({
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="cover-book">대표 책</Label>
+            <Label htmlFor="cover-book">대표책</Label>
             <Select
               value={effectiveCoverUserBookId}
               onValueChange={setCoverUserBookId}
             >
               <SelectTrigger id="cover-book" className="w-full">
-                <SelectValue placeholder="대표 책을 선택하세요." />
+                <SelectValue placeholder="대표책을 선택하세요" />
               </SelectTrigger>
               <SelectContent>
                 {selectedBooks.map((book) => (
@@ -116,12 +117,17 @@ export default function LibraryCreateFolderDialog({
           </div>
         </div>
 
-        <DialogFooter>
-          <Button type="button" onClick={() => handleOpenChange(false)}>
+        <DialogFooter className="flex-row justify-center sm:justify-center">
+          <Button
+            type="button"
+            variant="dialogCancel"
+            onClick={() => handleOpenChange(false)}
+          >
             취소
           </Button>
           <Button
             type="button"
+            variant="dialogPositive"
             onClick={handleConfirm}
             disabled={
               isPending ||
