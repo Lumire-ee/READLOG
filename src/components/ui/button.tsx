@@ -32,6 +32,12 @@ const buttonVariants = cva(
           "bg-transparent hover:bg-bg-surface-hover focus-visible:ring-0",
         dateTrigger:
           "h-10 w-full justify-between bg-bg-surface px-3 typo-body-sm font-normal hover:bg-bg-surface-hover focus-visible:ring-0",
+        dialogCancel:
+          "min-w-28 border border-border-default rounded-xl bg-bg-surface text-text-primary shadow-none hover:bg-bg-surface-hover",
+        dialogDanger:
+          "min-w-28 border border-border-default rounded-xl bg-accent-red/65 text-white shadow-none hover:bg-accent-red/75",
+        dialogPositive:
+          "min-w-28 border border-border-default rounded-xl bg-accent-green/65 text-white shadow-none hover:bg-accent-green/75",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
