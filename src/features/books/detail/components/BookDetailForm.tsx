@@ -22,12 +22,16 @@ export default function BookDetailForm({ userBookId, data }: Props) {
     form,
     currentPageText,
     pageCountText,
+    pageCountError,
     totalPageCount,
     patch,
     isDirty,
     onStatusChange,
     onCurrentPageTextChange,
+    onCurrentPageBlur,
     onPageCountTextChange,
+    onPageCountBlur,
+    validatePageCount,
     onRatingToggle,
     onStartDateChange,
     onEndDateChange,
@@ -64,9 +68,12 @@ export default function BookDetailForm({ userBookId, data }: Props) {
         <BookDetailPageSection
           currentPageText={currentPageText}
           pageCountText={pageCountText}
+          pageCountError={pageCountError}
           progressValue={progressValue}
           onCurrentPageTextChange={onCurrentPageTextChange}
+          onCurrentPageBlur={onCurrentPageBlur}
           onPageCountTextChange={onPageCountTextChange}
+          onPageCountBlur={onPageCountBlur}
         />
 
         <BookDetailRatingSection
@@ -97,14 +104,17 @@ export default function BookDetailForm({ userBookId, data }: Props) {
         <Button
           type="button"
           className="w-full"
-          disabled={!isDirty || isPending}
-          onClick={() =>
+          disabled={!isDirty || isPending || Boolean(pageCountError)}
+          onClick={() => {
+            const isValidPageCount = validatePageCount();
+            if (!isValidPageCount) return;
+
             mutate(patch, {
               onSuccess: () => {
                 closeModal();
               },
-            })
-          }
+            });
+          }}
         >
           저장
         </Button>
@@ -112,4 +122,3 @@ export default function BookDetailForm({ userBookId, data }: Props) {
     </div>
   );
 }
-

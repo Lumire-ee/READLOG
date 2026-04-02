@@ -10,17 +10,23 @@ import { Activity, Hash } from "lucide-react";
 type Props = {
   currentPageText: string;
   pageCountText: string;
+  pageCountError: string | null;
   progressValue: number;
   onCurrentPageTextChange: (text: string) => void;
+  onCurrentPageBlur: (text: string) => void;
   onPageCountTextChange: (text: string) => void;
+  onPageCountBlur: (text: string) => void;
 };
 
 export default function BookDetailPageSection({
   currentPageText,
   pageCountText,
+  pageCountError,
   progressValue,
   onCurrentPageTextChange,
+  onCurrentPageBlur,
   onPageCountTextChange,
+  onPageCountBlur,
 }: Props) {
   return (
     <>
@@ -42,6 +48,7 @@ export default function BookDetailPageSection({
             value={currentPageText}
             placeholder="비어 있음"
             onChange={(e) => onCurrentPageTextChange(e.target.value)}
+            onBlur={(e) => onCurrentPageBlur(e.target.value)}
           />
         </BookDetailFormContent>
       </BookDetailFormRow>
@@ -51,7 +58,8 @@ export default function BookDetailPageSection({
           htmlFor="page-count"
           className="inline-flex items-center gap-1.5"
         >
-          <Hash className="size-3.5" aria-hidden="true" />총 페이지
+          <Hash className="size-3.5" aria-hidden="true" />
+          총 페이지
         </BookDetailFormLabel>
         <BookDetailFormContent>
           <Input
@@ -62,10 +70,22 @@ export default function BookDetailPageSection({
             className="h-10 px-3"
             value={pageCountText}
             placeholder="비어 있음"
+            aria-invalid={Boolean(pageCountError)}
+            aria-describedby={pageCountError ? "page-count-error" : undefined}
             onChange={(e) => onPageCountTextChange(e.target.value)}
+            onBlur={(e) => onPageCountBlur(e.target.value)}
           />
         </BookDetailFormContent>
       </BookDetailFormRow>
+
+      {pageCountError ? (
+        <BookDetailFormRow className="mt-1">
+          <div aria-hidden />
+          <p id="page-count-error" className="typo-label-sm text-status-danger px-1">
+            {pageCountError}
+          </p>
+        </BookDetailFormRow>
+      ) : null}
 
       <BookDetailFormRow>
         <BookDetailFormLabel

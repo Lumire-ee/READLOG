@@ -23,12 +23,19 @@ type UseBookDetailFormResult = {
   form: EditableUserBookFields;
   currentPageText: string;
   pageCountText: string;
+  pageCountError: string | null;
   totalPageCount: number | null;
   patch: UpdateUserBookPatch;
   isDirty: boolean;
   onStatusChange: (status: EditableUserBookFields["status"]) => void;
   onCurrentPageTextChange: (text: string) => void;
+  onCurrentPageBlur: (text: string) => void;
   onPageCountTextChange: (text: string) => void;
+  onPageCountBlur: (text: string) => void;
+  validatePageCount: (
+    nextPageCountText?: string,
+    nextCurrentPageText?: string,
+  ) => boolean;
   onRatingToggle: (value: number) => void;
   onStartDateChange: (value: string) => void;
   onEndDateChange: (value: string) => void;
@@ -47,6 +54,7 @@ export function useBookDetailForm({
   const [pageCountText, setPageCountText] = useState<string>(() =>
     createPageCountText(initial, data.book.page_count),
   );
+  const [pageCountError, setPageCountError] = useState<string | null>(null);
 
   const totalPageCount = useMemo(
     () => getTotalPageCount(form, data.book.page_count),
@@ -60,6 +68,34 @@ export function useBookDetailForm({
 
   const isDirty = Object.keys(patch).length > 0;
 
+  const getPageCountError = useCallback(
+    (text: string, currentPageTextValue: string) => {
+      const nextOverride = toIntOrNull(text);
+      const nextTotalPageCount = nextOverride ?? data.book.page_count ?? null;
+      const currentPage = toIntOrNull(currentPageTextValue);
+      if (
+        currentPage !== null &&
+        nextTotalPageCount !== null &&
+        nextTotalPageCount < currentPage
+      ) {
+        return "총 페이지는 읽은 페이지보다 크거나 같아야 합니다.";
+      }
+      return null;
+    },
+    [data.book.page_count],
+  );
+
+  const validatePageCount = useCallback(
+    (nextPageCountText?: string, nextCurrentPageText?: string) => {
+      const pageCountCandidate = nextPageCountText ?? pageCountText;
+      const currentPageCandidate = nextCurrentPageText ?? currentPageText;
+      const error = getPageCountError(pageCountCandidate, currentPageCandidate);
+      setPageCountError(error);
+      return error === null;
+    },
+    [currentPageText, getPageCountError, pageCountText],
+  );
+
   const onStatusChange = useCallback(
     (status: EditableUserBookFields["status"]) => {
       setForm((prev) => applyStatusChange(prev, status));
@@ -70,6 +106,8 @@ export function useBookDetailForm({
   const onCurrentPageTextChange = useCallback(
     (text: string) => {
       if (!/^\d*$/.test(text)) return;
+      setCurrentPageText(text);
+      setPageCountError(null);
 
       const nextPage = text.trim() === "" ? null : Number(text);
       if (
@@ -80,27 +118,29 @@ export function useBookDetailForm({
         return;
       }
 
-      setCurrentPageText(text);
       setForm((prev) => applyCurrentPageChange(prev, nextPage, totalPageCount));
     },
     [totalPageCount],
   );
 
+  const onCurrentPageBlur = useCallback(
+    (text: string) => {
+      validatePageCount(undefined, text);
+    },
+    [validatePageCount],
+  );
+
   const onPageCountTextChange = useCallback(
     (text: string) => {
+      if (!/^\d*$/.test(text)) return;
+      setPageCountText(text);
+      setPageCountError(null);
+
       const nextOverride = toIntOrNull(text);
       const nextTotalPageCount = nextOverride ?? data.book.page_count ?? null;
-      const currentPage = form.current_page ?? null;
-
-      if (
-        currentPage !== null &&
-        nextTotalPageCount !== null &&
-        nextTotalPageCount < currentPage
-      ) {
+      if (getPageCountError(text, currentPageText)) {
         return;
       }
-
-      setPageCountText(text);
 
       setForm((prev) => {
         const base = { ...prev, page_count_override: nextOverride };
@@ -112,7 +152,14 @@ export function useBookDetailForm({
         );
       });
     },
-    [data.book.page_count, form.current_page],
+    [currentPageText, data.book.page_count, getPageCountError],
+  );
+
+  const onPageCountBlur = useCallback(
+    (text: string) => {
+      validatePageCount(text);
+    },
+    [validatePageCount],
   );
 
   const onRatingToggle = useCallback((value: number) => {
@@ -147,16 +194,19 @@ export function useBookDetailForm({
     form,
     currentPageText,
     pageCountText,
+    pageCountError,
     totalPageCount,
     patch,
     isDirty,
     onStatusChange,
     onCurrentPageTextChange,
+    onCurrentPageBlur,
     onPageCountTextChange,
+    onPageCountBlur,
+    validatePageCount,
     onRatingToggle,
     onStartDateChange,
     onEndDateChange,
     onNotesChange,
   };
 }
-

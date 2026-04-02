@@ -19,7 +19,7 @@ export default function BookDetailModalHost() {
         if (!nextOpen) close();
       }}
     >
-      <DialogContent className="bg-bg-elevated min-h-80 sm:max-w-[420px] md:max-w-[560px] lg:max-w-[640px]">
+      <DialogContent className="bg-bg-elevated min-h-80 max-h-[85dvh] overflow-y-auto sm:max-w-[420px] md:max-w-[560px] lg:max-w-[640px]">
         {/* 접근성 경고 대응용 title, description */}
         <DialogTitle className="sr-only">책 상세 정보</DialogTitle>
         <DialogDescription className="sr-only">
@@ -37,4 +37,3 @@ export default function BookDetailModalHost() {
     </Dialog>
   );
 }
-
