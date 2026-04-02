@@ -86,8 +86,6 @@ thumbRoute.get("/thumb", async (req, res) => {
         "user-agent": "ReadLogThumbProxy/1.0",
       },
     });
-    console.log("Upstream status:", upstream.status);
-    console.log("Content-Type:", upstream.headers.get("content-type"));
   } catch {
     return res.status(502).json({ message: "upstream_fetch_failed" });
   }

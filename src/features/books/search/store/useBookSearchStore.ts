@@ -29,20 +29,18 @@ export const useBookStore = create<BookState>((set, get) => ({
     const includeVariants = override?.includeVariants ?? get().includeVariants;
 
     if (!currentQuery.trim()) {
-      set({ error: "검색어를 입력하세요.", books: [] });
+      set({
+        error: "찾으시는 책이 무엇인가요?\n제목이나 저자를 입력해보세요",
+        books: [],
+      });
       return;
     }
 
     set({ loading: true, error: undefined });
     try {
-      console.log("검색 시작 (store):", {
-        query: currentQuery,
-        includeVariants,
-      });
       const results = await searchCombinedBooks(currentQuery, {
         includeVariants,
       });
-      console.log("최종 결과 (store):", results);
       set({ books: results });
     } catch (err) {
       const message =

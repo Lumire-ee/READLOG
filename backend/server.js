@@ -49,6 +49,4 @@ app.get("/api/books", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("✅ Proxy server running on http://localhost:5000");
-});
+app.listen(5000);

@@ -28,8 +28,6 @@ export async function searchCombinedBooks(
   for (const result of results) {
     if (result.status === "fulfilled") {
       allBooks.push(...result.value);
-    } else if (import.meta.env.DEV) {
-      console.warn("Book search API call failed", result.reason);
     }
   }
 
