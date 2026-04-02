@@ -6,6 +6,7 @@ import {
   deleteLibraryBooks,
   deleteLibraryFolder,
   moveLibraryBooks,
+  renameLibraryFolder,
 } from "@/features/home/api/libraryFolderApi";
 import { toLibraryErrorMessage } from "@/features/home/lib/librarySectionError";
 
@@ -23,6 +24,11 @@ type MoveBooksArgs = {
 type DeleteFolderArgs = {
   folderId: string;
   deleteBooks: boolean;
+};
+
+type RenameFolderArgs = {
+  folderId: string;
+  name: string;
 };
 
 export function useHomeLibraryMutations() {
@@ -80,15 +86,26 @@ export function useHomeLibraryMutations() {
     onError,
   });
 
+  const renameFolderMutation = useMutation({
+    mutationFn: renameLibraryFolder,
+    onSuccess: async () => {
+      await invalidateLibraryQueries();
+      toast.success("폴더 이름을 변경했습니다.");
+    },
+    onError,
+  });
+
   return {
     createFolder: (args: CreateFolderArgs) => createFolderMutation.mutateAsync(args),
     moveBooks: (args: MoveBooksArgs) => moveBooksMutation.mutateAsync(args),
     removeBooks: (userBookIds: string[]) =>
       deleteBooksMutation.mutateAsync(userBookIds),
     removeFolder: (args: DeleteFolderArgs) => deleteFolderMutation.mutateAsync(args),
+    renameFolder: (args: RenameFolderArgs) => renameFolderMutation.mutateAsync(args),
     isCreatingFolder: createFolderMutation.isPending,
     isMovingBooks: moveBooksMutation.isPending,
     isDeletingBooks: deleteBooksMutation.isPending,
     isDeletingFolder: deleteFolderMutation.isPending,
+    isRenamingFolder: renameFolderMutation.isPending,
   };
 }

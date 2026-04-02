@@ -5,6 +5,7 @@ import {
   Folder,
   FolderOpen,
   ImageOff,
+  Pencil,
   Trash2,
 } from "lucide-react";
 import type { LibraryFolder, UserBookWithInfo } from "@/shared/types/db";
@@ -27,6 +28,7 @@ import LibraryCreateFolderDialog from "@/features/home/components/LibraryCreateF
 import LibraryDeleteBooksDialog from "@/features/home/components/LibraryDeleteBooksDialog";
 import LibraryDeleteFolderDialog from "@/features/home/components/LibraryDeleteFolderDialog";
 import LibraryMoveBooksDialog from "@/features/home/components/LibraryMoveBooksDialog";
+import LibraryRenameFolderDialog from "@/features/home/components/LibraryRenameFolderDialog";
 import { useHomeLibraryMutations } from "@/features/home/hooks/useHomeLibraryMutations";
 import { useLibraryFolders } from "@/features/home/hooks/useLibraryFolders";
 import { useLibraryMultiSelect } from "@/features/home/hooks/useLibraryMultiSelect";
@@ -94,10 +96,12 @@ export default function HomeLibrarySection({
     moveBooks,
     removeBooks,
     removeFolder,
+    renameFolder,
     isCreatingFolder,
     isMovingBooks,
     isDeletingBooks,
     isDeletingFolder,
+    isRenamingFolder,
   } = useHomeLibraryMutations();
   const {
     isEditMode,
@@ -120,6 +124,11 @@ export default function HomeLibrarySection({
     useState<LibraryFolder | null>(null);
   const [isFolderDeleteDialogOpen, setIsFolderDeleteDialogOpen] =
     useState(false);
+  const [folderRenameTarget, setFolderRenameTarget] =
+    useState<LibraryFolder | null>(null);
+  const [isFolderRenameDialogOpen, setIsFolderRenameDialogOpen] =
+    useState(false);
+  const [renameDialogSession, setRenameDialogSession] = useState(0);
 
   const folders = useMemo(() => foldersData ?? [], [foldersData]);
   const { folderEntries, folderOptions, unfiledBooks } = useMemo(
@@ -189,6 +198,29 @@ export default function HomeLibrarySection({
     }
   }
 
+  async function handleRenameFolder(name: string) {
+    if (!folderRenameTarget) return false;
+
+    try {
+      await renameFolder({
+        folderId: folderRenameTarget.id,
+        name,
+      });
+      setIsFolderRenameDialogOpen(false);
+      setFolderRenameTarget(null);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function handleRenameDialogOpenChange(nextOpen: boolean) {
+    setIsFolderRenameDialogOpen(nextOpen);
+    if (!nextOpen) {
+      setFolderRenameTarget(null);
+    }
+  }
+
   function handleToggleEditMode() {
     if (isEditMode) {
       clearSelection();
@@ -203,13 +235,8 @@ export default function HomeLibrarySection({
     if (item.status === "reading") return null;
 
     return (
-      <div className="flex flex-col items-end gap-1">
+      <div className="flex items-center">
         <Badge variant={item.status}>{STATUS_LABEL[item.status]}</Badge>
-        {item.rating !== null ? (
-          <span className="hidden sm:block">
-            <HomeRatingStars value={item.rating} />
-          </span>
-        ) : null}
       </div>
     );
   }
@@ -231,6 +258,13 @@ export default function HomeLibrarySection({
         hideAuthorOnMobile
         title={item.book.title}
         author={item.book.author}
+        rating={
+          item.rating !== null ? (
+            <span className="hidden sm:inline-flex">
+              <HomeRatingStars value={item.rating} />
+            </span>
+          ) : undefined
+        }
         onClick={
           isEditMode
             ? () => toggleBookSelected(item.id)
@@ -413,6 +447,16 @@ export default function HomeLibrarySection({
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuItem
+                                    onClick={() => {
+                                      setFolderRenameTarget(folder);
+                                      setRenameDialogSession((prev) => prev + 1);
+                                      setIsFolderRenameDialogOpen(true);
+                                    }}
+                                  >
+                                    <Pencil className="size-4" />
+                                    폴더 이름 변경
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
                                     className="hover:text-accent-red focus:text-accent-red"
                                     onClick={() => {
                                       setFolderDeleteTarget(folder);
@@ -514,6 +558,15 @@ export default function HomeLibrarySection({
         targetFolder={folderDeleteTarget}
         isPending={isDeletingFolder}
         onConfirm={handleDeleteFolder}
+      />
+
+      <LibraryRenameFolderDialog
+        key={`rename-${renameDialogSession}`}
+        open={isFolderRenameDialogOpen}
+        onOpenChange={handleRenameDialogOpenChange}
+        initialName={folderRenameTarget?.name ?? ""}
+        isPending={isRenamingFolder}
+        onConfirm={handleRenameFolder}
       />
     </>
   );

@@ -60,3 +60,16 @@ export async function deleteLibraryFolder(params: {
 
   if (error) throw error;
 }
+
+export async function renameLibraryFolder(params: {
+  folderId: string;
+  name: string;
+}) {
+  const trimmedName = params.name.trim();
+  const { error } = await supabase
+    .from("library_folders")
+    .update({ name: trimmedName })
+    .eq("id", params.folderId);
+
+  if (error) throw error;
+}

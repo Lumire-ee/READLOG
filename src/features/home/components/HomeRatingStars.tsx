@@ -6,7 +6,7 @@ type HomeRatingStarsProps = {
 
 export default function HomeRatingStars({ value }: HomeRatingStarsProps) {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }, (_, index) => {
         const active = index < value;
         return (
@@ -14,8 +14,8 @@ export default function HomeRatingStars({ value }: HomeRatingStarsProps) {
             key={index}
             className={
               active
-                ? "fill-accent-yellow text-accent-yellow"
-                : "text-text-tertiary"
+                ? "fill-accent-yellow text-accent-yellow size-3.5"
+                : "text-text-tertiary size-3.5"
             }
             aria-hidden="true"
           />

@@ -12,6 +12,7 @@ type BookListRowProps = {
   hideAuthorOnMobile?: boolean;
   title: string;
   author: string;
+  rating?: ReactNode;
   right?: ReactNode;
   topRight?: ReactNode;
   onClick?: () => void;
@@ -28,6 +29,7 @@ function BookListRowContent({
   hideAuthorOnMobile,
   title,
   author,
+  rating,
   right,
   titleClassName,
   hasTopRight,
@@ -40,6 +42,7 @@ function BookListRowContent({
   | "hideAuthorOnMobile"
   | "title"
   | "author"
+  | "rating"
   | "right"
   | "titleClassName"
 > & {
@@ -87,6 +90,7 @@ function BookListRowContent({
         >
           {author}
         </p>
+        {rating ? <div className="mt-1">{rating}</div> : null}
       </div>
 
       {right ? (
@@ -114,6 +118,7 @@ export default function BookListRow({
   hideAuthorOnMobile,
   title,
   author,
+  rating,
   right,
   topRight,
   onClick,
@@ -159,6 +164,7 @@ export default function BookListRow({
           hideAuthorOnMobile={hideAuthorOnMobile}
           title={title}
           author={author}
+          rating={rating}
           right={right}
           titleClassName={titleClassName}
           hasTopRight={Boolean(topRight)}
@@ -187,6 +193,7 @@ export default function BookListRow({
         hideAuthorOnMobile={hideAuthorOnMobile}
         title={title}
         author={author}
+        rating={rating}
         right={right}
         titleClassName={titleClassName}
         hasTopRight={Boolean(topRight)}

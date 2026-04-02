@@ -93,7 +93,7 @@ export default function LibraryCreateFolderDialog({
               value={folderName}
               onChange={(event) => setFolderName(event.target.value)}
               maxLength={30}
-              placeholder="예: 이번 달 완독"
+              placeholder="ex) 해리포터 시리즈, 좋아하는 책"
             />
           </div>
 
