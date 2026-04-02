@@ -7,6 +7,12 @@ import {
   YAxis,
 } from "recharts";
 
+import {
+  statsChartAxisTickStyle,
+  statsChartTooltipContentStyle,
+  statsChartTooltipItemStyle,
+  statsChartTooltipLabelStyle,
+} from "@/features/stats/lib/chartStyles";
 import type { MonthlyCompletedPoint } from "@/features/stats/lib/types";
 
 type MonthlyCompletedSectionProps = {
@@ -40,9 +46,19 @@ export default function MonthlyCompletedSection({
                 tickLine={false}
                 axisLine={false}
                 minTickGap={20}
+                tick={statsChartAxisTickStyle}
               />
-              <YAxis allowDecimals={false} domain={[0, countAxisMax]} />
-              <Tooltip cursor={{ stroke: "var(--color-border-default)" }} />
+              <YAxis
+                allowDecimals={false}
+                domain={[0, countAxisMax]}
+                tick={statsChartAxisTickStyle}
+              />
+              <Tooltip
+                cursor={{ stroke: "var(--color-border-default)" }}
+                contentStyle={statsChartTooltipContentStyle}
+                labelStyle={statsChartTooltipLabelStyle}
+                itemStyle={statsChartTooltipItemStyle}
+              />
               <Line
                 type="monotone"
                 dataKey="count"

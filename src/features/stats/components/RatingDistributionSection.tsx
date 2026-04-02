@@ -7,6 +7,12 @@ import {
   YAxis,
 } from "recharts";
 
+import {
+  statsChartAxisTickStyle,
+  statsChartTooltipContentStyle,
+  statsChartTooltipItemStyle,
+  statsChartTooltipLabelStyle,
+} from "@/features/stats/lib/chartStyles";
 import type { RatingDistributionPoint } from "@/features/stats/lib/types";
 
 type RatingDistributionSectionProps = {
@@ -42,16 +48,21 @@ export default function RatingDistributionSection({
                 tickLine={false}
                 axisLine={false}
                 interval={0}
+                tick={statsChartAxisTickStyle}
               />
               <YAxis
                 allowDecimals={false}
                 domain={[0, countAxisMax]}
+                tick={statsChartAxisTickStyle}
               />
               <Tooltip
                 cursor={{
                   fill: "var(--color-bg-surface-hover)",
                   fillOpacity: 0.8,
                 }}
+                contentStyle={statsChartTooltipContentStyle}
+                labelStyle={statsChartTooltipLabelStyle}
+                itemStyle={statsChartTooltipItemStyle}
               />
               <Bar
                 dataKey="count"
