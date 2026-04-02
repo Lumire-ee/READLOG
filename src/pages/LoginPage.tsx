@@ -55,7 +55,10 @@ export default function LoginPage() {
       footer={
         <>
           <div className="mt-4 flex items-center justify-center">
-            <Button variant="authText" onClick={() => navigate("/forgot-password")}>
+            <Button
+              variant="authText"
+              onClick={() => navigate("/forgot-password")}
+            >
               비밀번호를 잊으셨나요?
             </Button>
           </div>
@@ -86,7 +89,7 @@ export default function LoginPage() {
               alt=""
               aria-hidden="true"
             />
-            <span className="typo-label-sm text-text-black select-none">
+            <span className="typo-label-sm text-black select-none">
               Google로 시작하기
             </span>
           </Button>
