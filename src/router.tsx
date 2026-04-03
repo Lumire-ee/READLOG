@@ -8,10 +8,12 @@ import OnboardingPage from "./pages/OnboardingPage";
 import HomePage from "./pages/HomePage";
 import StatsPage from "./pages/StatsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import LandingPage from "./pages/LandingPage";
 
 export default function AppRouter() {
   return (
     <Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -41,7 +43,7 @@ export default function AppRouter() {
         }
       />
 
-      <Route path="*" element={<Navigate to="/home" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
