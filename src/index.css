@@ -148,6 +148,21 @@
 }
 
 @layer utilities {
+  @keyframes demo-caret-blink {
+    0%,
+    100% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .demo-caret {
+    animation: demo-caret-blink 1s steps(1, end) infinite;
+  }
+
   .btn-primary {
     background-color: var(--color-action-primary);
     color: var(--color-text-inverse);
@@ -168,7 +183,7 @@
   /* typo token */
   /* Heading */
   .typo-heading-xl {
-    @apply text-3xl leading-snug font-bold tracking-tight;
+    @apply text-4xl leading-normal font-bold tracking-tight;
   }
 
   .typo-heading-lg {
