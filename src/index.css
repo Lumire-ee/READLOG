@@ -67,6 +67,7 @@
   /* Semantic - Border/Divider */
   --color-border-default: var(--color-gray-3);
   --color-border-subtitle: var(--color-gray-4);
+  --color-border-skeleton: color-mix(in srgb, var(--color-border-default), transparent 55%);
   --color-divider: var(--color-gray-3);
 
   /* Semantic - Status */
@@ -134,6 +135,7 @@
   /* Semantic - Border/Divider (Dark) */
   --color-border-default: var(--color-gray-3);
   --color-border-subtitle: var(--color-gray-2);
+  --color-border-skeleton: color-mix(in srgb, var(--color-border-default), transparent 55%);
   --color-divider: var(--color-gray-3);
 
   /* Semantic - Status (Dark) */
@@ -149,6 +151,7 @@
 
 @layer utilities {
   @keyframes demo-caret-blink {
+
     0%,
     100% {
       opacity: 0;

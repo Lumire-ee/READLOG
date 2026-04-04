@@ -5,7 +5,7 @@ export default function StatsDashboardSkeleton() {
         {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
-            className="border-border-default bg-bg-surface rounded-xl border p-5"
+            className="border border-border-skeleton bg-bg-surface rounded-xl p-5"
           >
             <div className="bg-bg-surface-hover h-3 w-24 animate-pulse rounded" />
             <div className="bg-bg-surface-hover mt-4 h-8 w-20 animate-pulse rounded" />
@@ -18,7 +18,7 @@ export default function StatsDashboardSkeleton() {
         {Array.from({ length: 2 }).map((_, index) => (
           <div
             key={index}
-            className="border-border-default bg-bg-surface rounded-xl border p-6"
+            className="border border-border-skeleton bg-bg-surface rounded-xl p-6"
           >
             <div className="bg-bg-surface-hover mb-4 h-5 w-36 animate-pulse rounded" />
             <div className="bg-bg-surface-hover h-72 w-full animate-pulse rounded" />
