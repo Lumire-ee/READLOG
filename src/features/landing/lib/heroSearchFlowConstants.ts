@@ -1,8 +1,12 @@
-import type { DemoSearchBook } from "@/features/landing/lib/heroSearchFlowTypes";
+import type {
+  DemoSearchBook,
+  FlowScene,
+} from "@/features/landing/lib/heroSearchFlowTypes";
 
-export const DEMO_QUERY = "하루키";
+export const DEMO_QUERY = "노르웨이의 숲";
 export const INITIAL_BOOK_ID = "norwegian-wood";
-export const DEV_ONLY_SEARCH_FLOW = true;
+
+export const DEV_ONLY_SCENE: FlowScene | null = null;
 
 export const FLOW_TIMINGS = {
   centered: 700,
@@ -15,8 +19,9 @@ export const FLOW_TIMINGS = {
   hovering: 700,
   adding: 500,
   added: 500,
+  homeEmpty: 700,
+  homeAdded: 1000,
   loopPause: 900,
-  // TODO: 책 정보 입력 / home 페이지 Scene추가
 } as const;
 
 export const DEMO_SEARCH_RESULTS: DemoSearchBook[] = [
@@ -27,6 +32,14 @@ export const DEMO_SEARCH_RESULTS: DemoSearchBook[] = [
     publisher: "문학사상",
     preview:
       "하루키 월드의 빛나는 다이아몬드 무라카미 하루키를 만나기 위해 가장 먼저 읽어야 할 책!",
+  },
+  {
+    id: "maskerade-game",
+    title: "매스커레이드 게임",
+    author: "히가시노 게이고",
+    publisher: "현대문학",
+    preview:
+      "누적 판매 부수 1억 권, 출간작 100권을 자랑하는 스타 작가 히가시노 게이고의 대표작",
   },
 ];
 

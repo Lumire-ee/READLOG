@@ -1,4 +1,6 @@
-export type FlowScene = "searchFlow";
+export type FlowScene = "searchFlow" | "homeFlow";
+
+export type HomePhase = "empty" | "added";
 
 export type SearchPhase =
   | "centered"
