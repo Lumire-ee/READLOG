@@ -58,15 +58,15 @@ export default function SearchFlowScene({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="border-accent-indigo/65 bg-bg-surface absolute top-20 right-0 left-0 rounded-xl border-2 p-4"
+            className="border-accent-indigo/65 bg-bg-surface absolute top-20 right-0 left-0 overflow-hidden rounded-xl border-2 p-3 sm:p-4"
           >
             <div className="grid gap-4 lg:grid-cols-[1.25fr_0.95fr]">
-              <div className="space-y-2">
+              <div className="min-w-0 space-y-2">
                 {showResultRow ? (
                   <>
                     <motion.div
                       className={cn(
-                        "flex items-center gap-3 rounded-md px-2 py-2 text-left transition-colors",
+                        "flex w-full min-w-0 items-center gap-3 rounded-md px-2 py-2 text-left transition-colors",
                         isHoveringTarget ? "bg-bg-surface-hover" : undefined,
                       )}
                       animate={
@@ -103,7 +103,7 @@ export default function SearchFlowScene({
                     {Array.from({ length: 3 }).map((_, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-3 px-2 py-2"
+                        className="flex w-full min-w-0 items-center gap-3 px-2 py-2"
                       >
                         <div className="border-border-skeleton bg-bg-surface-subtitle h-16 w-12 rounded-md border border-dashed" />
                         <div className="flex-1 space-y-2">
