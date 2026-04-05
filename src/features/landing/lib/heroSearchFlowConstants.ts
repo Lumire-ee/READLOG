@@ -21,8 +21,25 @@ export const FLOW_TIMINGS = {
   added: 500,
   homeEmpty: 700,
   homeAdded: 1000,
-  loopPause: 900,
+  homeToDetailPause: 2000,
+  detailPrefilled: 1000,
+  detailPageTypingChar: 100,
+  detailPageTypedHold: 500,
+  detailProgressToRatingDelay: 1000,
+  detailRatingStep: 100,
+  detailRatingHold: 1000,
+  detailScroll: 500,
+  detailNotesTypingChar: 50,
+  detailNotesHold: 700,
+  loopPause: 1000,
 } as const;
+
+export const DEMO_DETAIL_INITIAL_STATUS = "reading";
+export const DEMO_DETAIL_PAGE_COUNT = 412;
+export const DEMO_DETAIL_START_DATE = "2026-03-20";
+export const DEMO_DETAIL_TARGET_CURRENT_PAGE_TEXT = "128";
+export const DEMO_DETAIL_TARGET_RATING = 4;
+export const DEMO_DETAIL_TARGET_NOTES = "재밌다 :)";
 
 export const DEMO_SEARCH_RESULTS: DemoSearchBook[] = [
   {

@@ -26,7 +26,7 @@ function ReadingBookCard({
   return (
     <motion.div
       layoutId={layoutId}
-      transition={{ duration: 0.4, ease: [0.25, 1, 0.35, 1] }}
+      transition={{ duration: 0.8, ease: [0.25, 1, 0.35, 1] }}
       className="border-border-skeleton bg-bg-elevated h-100 overflow-hidden rounded-xl border"
     >
       <div className="bg-bg-surface-subtitle relative h-3/5 overflow-hidden">

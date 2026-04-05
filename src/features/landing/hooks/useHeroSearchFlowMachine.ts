@@ -1,4 +1,7 @@
 import {
+  DEMO_DETAIL_TARGET_CURRENT_PAGE_TEXT,
+  DEMO_DETAIL_TARGET_NOTES,
+  DEMO_DETAIL_TARGET_RATING,
   DEMO_QUERY,
   DEMO_SEARCH_RESULTS,
   DEV_ONLY_SCENE,
@@ -6,6 +9,7 @@ import {
   INITIAL_BOOK_ID,
 } from "@/features/landing/lib/heroSearchFlowConstants";
 import type {
+  DetailPhase,
   FlowScene,
   HomePhase,
   SearchPhase,
@@ -20,8 +24,12 @@ export function useHeroSearchFlowMachine({ prefersReducedMotion }: Params) {
   const [scene, setScene] = useState<FlowScene>("searchFlow");
   const [searchPhase, setSearchPhase] = useState<SearchPhase>("centered");
   const [homePhase, setHomePhase] = useState<HomePhase>("empty");
+  const [detailPhase, setDetailPhase] = useState<DetailPhase>("prefilled");
   const [query, setQuery] = useState("");
   const [selectedBookId, setSelectedBookId] = useState(INITIAL_BOOK_ID);
+  const [detailCurrentPageText, setDetailCurrentPageText] = useState("");
+  const [detailRating, setDetailRating] = useState<number | null>(null);
+  const [detailNotes, setDetailNotes] = useState("");
 
   const selectedBook = useMemo(
     () =>
@@ -35,7 +43,19 @@ export function useHeroSearchFlowMachine({ prefersReducedMotion }: Params) {
     ? "added"
     : searchPhase;
   const renderHomePhase: HomePhase = prefersReducedMotion ? "added" : homePhase;
+  const renderDetailPhase: DetailPhase = prefersReducedMotion
+    ? "typingNotes"
+    : detailPhase;
   const renderQuery = prefersReducedMotion ? DEMO_QUERY : query;
+  const renderDetailCurrentPageText = prefersReducedMotion
+    ? DEMO_DETAIL_TARGET_CURRENT_PAGE_TEXT
+    : detailCurrentPageText;
+  const renderDetailRating = prefersReducedMotion
+    ? DEMO_DETAIL_TARGET_RATING
+    : detailRating;
+  const renderDetailNotes = prefersReducedMotion
+    ? DEMO_DETAIL_TARGET_NOTES
+    : detailNotes;
 
   useEffect(() => {
     if (prefersReducedMotion) return;
@@ -63,6 +83,13 @@ export function useHeroSearchFlowMachine({ prefersReducedMotion }: Params) {
         await sleep(delay);
       }
       return alive;
+    };
+
+    const resetDetailScene = () => {
+      setDetailPhase("prefilled");
+      setDetailCurrentPageText("");
+      setDetailRating(null);
+      setDetailNotes("");
     };
 
     const runSearchScene = async () => {
@@ -115,8 +142,63 @@ export function useHeroSearchFlowMachine({ prefersReducedMotion }: Params) {
       return true;
     };
 
+    const runDetailScene = async () => {
+      setScene("detailFlow");
+      resetDetailScene();
+
+      if (!(await wait(FLOW_TIMINGS.detailPrefilled))) return false;
+
+      setDetailPhase("typingPage");
+      if (
+        !(await typeText(
+          DEMO_DETAIL_TARGET_CURRENT_PAGE_TEXT,
+          setDetailCurrentPageText,
+          FLOW_TIMINGS.detailPageTypingChar,
+        ))
+      ) {
+        return false;
+      }
+      if (!(await wait(FLOW_TIMINGS.detailPageTypedHold))) return false;
+
+      setDetailPhase("changingRating");
+      if (!(await wait(FLOW_TIMINGS.detailProgressToRatingDelay))) return false;
+      for (let value = 1; value <= DEMO_DETAIL_TARGET_RATING; value += 1) {
+        if (!alive) return false;
+        setDetailRating(value);
+        await sleep(FLOW_TIMINGS.detailRatingStep);
+      }
+      if (!(await wait(FLOW_TIMINGS.detailRatingHold))) return false;
+
+      setDetailPhase("scrolling");
+      if (!(await wait(FLOW_TIMINGS.detailScroll))) return false;
+
+      setDetailPhase("typingNotes");
+      if (
+        !(await typeText(
+          DEMO_DETAIL_TARGET_NOTES,
+          setDetailNotes,
+          FLOW_TIMINGS.detailNotesTypingChar,
+        ))
+      ) {
+        return false;
+      }
+      if (!(await wait(FLOW_TIMINGS.detailNotesHold))) return false;
+
+      return true;
+    };
+
     async function runLoop() {
       while (alive) {
+        if (DEV_ONLY_SCENE === "detailFlow") {
+          setQuery(DEMO_QUERY);
+          setSearchPhase("added");
+          setHomePhase("added");
+          setSelectedBookId(INITIAL_BOOK_ID);
+          if (!(await runDetailScene())) return;
+          if (!(await wait(FLOW_TIMINGS.loopPause))) return;
+          continue;
+        }
+
         if (DEV_ONLY_SCENE === "homeFlow") {
           setQuery(DEMO_QUERY);
           setSearchPhase("added");
@@ -134,6 +216,8 @@ export function useHeroSearchFlowMachine({ prefersReducedMotion }: Params) {
 
         if (!(await runSearchScene())) return;
         if (!(await runHomeScene())) return;
+        if (!(await wait(FLOW_TIMINGS.homeToDetailPause))) return;
+        if (!(await runDetailScene())) return;
         if (!(await wait(FLOW_TIMINGS.loopPause))) return;
       }
     }
@@ -150,6 +234,10 @@ export function useHeroSearchFlowMachine({ prefersReducedMotion }: Params) {
     renderScene,
     renderSearchPhase,
     renderHomePhase,
+    renderDetailPhase,
     renderQuery,
+    renderDetailCurrentPageText,
+    renderDetailRating,
+    renderDetailNotes,
   };
 }

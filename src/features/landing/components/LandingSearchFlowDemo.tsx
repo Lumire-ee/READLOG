@@ -1,3 +1,4 @@
+import DetailFlowScene from "@/features/landing/components/DetailFlowScene";
 import HomeFlowScene from "@/features/landing/components/HomeFlowScene";
 import SearchFlowScene from "@/features/landing/components/SearchFlowScene";
 import { useHeroSearchFlowMachine } from "@/features/landing/hooks/useHeroSearchFlowMachine";
@@ -11,11 +12,15 @@ export default function LandingSearchFlowDemo() {
     renderScene,
     renderSearchPhase,
     renderHomePhase,
+    renderDetailPhase,
     renderQuery,
+    renderDetailCurrentPageText,
+    renderDetailRating,
+    renderDetailNotes,
   } = useHeroSearchFlowMachine({ prefersReducedMotion });
 
   return (
-    <div className="relative flex h-[clamp(420px,70vh,720px)] flex-col overflow-hidden rounded-2xl p-4 sm:p-5">
+    <div className="pointer-events-none relative flex h-[clamp(420px,70vh,720px)] flex-col overflow-hidden rounded-2xl p-4 sm:p-5">
       <div className="relative min-h-0 flex-1 overflow-hidden">
         <AnimatePresence mode="wait" initial={false}>
           <motion.section
@@ -38,6 +43,15 @@ export default function LandingSearchFlowDemo() {
               <HomeFlowScene
                 selectedBook={selectedBook}
                 homePhase={renderHomePhase}
+              />
+            ) : null}
+            {renderScene === "detailFlow" ? (
+              <DetailFlowScene
+                selectedBook={selectedBook}
+                detailPhase={renderDetailPhase}
+                detailCurrentPageText={renderDetailCurrentPageText}
+                detailRating={renderDetailRating}
+                detailNotes={renderDetailNotes}
               />
             ) : null}
           </motion.section>

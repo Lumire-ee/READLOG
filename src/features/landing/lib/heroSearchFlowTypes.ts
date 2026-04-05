@@ -1,6 +1,13 @@
-export type FlowScene = "searchFlow" | "homeFlow";
+export type FlowScene = "searchFlow" | "homeFlow" | "detailFlow";
 
 export type HomePhase = "empty" | "added";
+
+export type DetailPhase =
+  | "prefilled"
+  | "typingPage"
+  | "changingRating"
+  | "scrolling"
+  | "typingNotes";
 
 export type SearchPhase =
   | "centered"
