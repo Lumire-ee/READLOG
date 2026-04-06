@@ -8,6 +8,13 @@ export async function LoginWithEmail(email: string, password: string) {
   return supabase.auth.signInWithPassword({ email, password });
 }
 
+export async function reauthenticateWithPassword(
+  email: string,
+  password: string,
+) {
+  return supabase.auth.signInWithPassword({ email, password });
+}
+
 export async function Logout() {
   return supabase.auth.signOut();
 }
@@ -30,5 +37,15 @@ export async function signInWithOAuth(provider: "google" | "kakao") {
   return supabase.auth.signInWithOAuth({
     provider,
     options: { redirectTo: `${window.location.origin}/onboarding` },
+  });
+}
+
+export async function signInWithOAuthForReauth(
+  provider: "google" | "kakao",
+  redirectPath = "/home",
+) {
+  return supabase.auth.signInWithOAuth({
+    provider,
+    options: { redirectTo: `${window.location.origin}${redirectPath}` },
   });
 }

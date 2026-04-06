@@ -1,4 +1,5 @@
 import type { User } from "@supabase/supabase-js";
+import type { OAuthProvider } from "@/features/profile/lib/accountDeletion";
 
 function getString(value: unknown) {
   return typeof value === "string" && value.trim().length > 0 ? value : null;
@@ -36,21 +37,26 @@ function getUserBaseName(user: User | null) {
 }
 
 export function getUserAvatarImageUrl(user: User | null) {
-  const providers = Array.isArray(user?.app_metadata.providers)
-    ? user?.app_metadata.providers
-    : [];
-  const primaryProvider = getString(user?.app_metadata.provider);
-  const oauthProvider =
-    primaryProvider === "google" || primaryProvider === "kakao"
-      ? primaryProvider
-      : providers.includes("google")
-        ? "google"
-        : providers.includes("kakao")
-          ? "kakao"
-          : null;
+  const oauthProvider = getPrimaryOAuthProvider(user);
 
   const metadata = getObject(user?.user_metadata) ?? {};
   return oauthProvider !== null ? getAvatarImageFromMetadata(metadata) : null;
+}
+
+export function getPrimaryOAuthProvider(user: User | null): OAuthProvider | null {
+  const providers = Array.isArray(user?.app_metadata.providers)
+    ? user.app_metadata.providers
+    : [];
+  const primaryProvider = getString(user?.app_metadata.provider);
+
+  if (primaryProvider === "google" || primaryProvider === "kakao") {
+    return primaryProvider;
+  }
+
+  if (providers.includes("google")) return "google";
+  if (providers.includes("kakao")) return "kakao";
+
+  return null;
 }
 
 export function getUserTextAvatar(user: User | null) {

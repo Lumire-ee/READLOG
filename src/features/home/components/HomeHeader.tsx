@@ -19,6 +19,10 @@ import {
   getUserTextAvatar,
   resolveDisplayNickname,
 } from "@/features/profile/lib/avatar";
+import {
+  clearAccountDeletePending,
+  hasFreshAccountDeletePending,
+} from "@/features/profile/lib/accountDeletion";
 import { cn } from "@/lib/utils";
 
 type HomeHeaderProps = {
@@ -47,6 +51,7 @@ export default function HomeHeader({
   const email = getUserEmail(user);
   const { data: profileNickname } = useProfileNickname(user?.id ?? null);
   const displayNickname = resolveDisplayNickname(user, profileNickname ?? null);
+  const shouldResumeDeleteFlow = Boolean(user) && hasFreshAccountDeletePending();
 
   return (
     <>
@@ -154,10 +159,15 @@ export default function HomeHeader({
         </div>
       </header>
 
-      {user && isEditModalOpen ? (
+      {user && (isEditModalOpen || shouldResumeDeleteFlow) ? (
         <EditProfileModal
-          open={isEditModalOpen}
-          onOpenChange={setIsEditModalOpen}
+          open={isEditModalOpen || shouldResumeDeleteFlow}
+          onOpenChange={(nextOpen) => {
+            setIsEditModalOpen(nextOpen);
+            if (!nextOpen) {
+              clearAccountDeletePending();
+            }
+          }}
           user={user}
           currentNickname={displayNickname}
         />

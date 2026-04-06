@@ -17,9 +17,11 @@ app.use(express.json());
 
 const { thumbRoute } = await import("./thumbRoute.js");
 const { userBookRoute } = await import("./userBookRoute.js");
+const { accountRoute } = await import("./accountRoute.js");
 
 app.use("/api", thumbRoute);
 app.use("/api", userBookRoute);
+app.use("/api", accountRoute);
 
 // 네이버 API 프록시
 app.get("/api/books", async (req, res) => {
