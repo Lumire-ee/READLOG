@@ -21,8 +21,8 @@ export default function LandingPage() {
   if (loading || user) return null;
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-8xl mx-auto flex min-h-screen w-full flex-col gap-3 px-4 py-4 md:gap-6 md:px-6 md:py-6">
+    <div className="min-h-screen w-full">
+      <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-3 px-4 py-4 md:gap-6 md:px-6 md:py-6">
         <header className="bg-bg-surface sticky top-0 z-20 flex items-center justify-between rounded-2xl px-3 py-2.5 md:px-5 md:py-3">
           <Link to="/" className="flex items-center gap-3">
             <img
@@ -63,9 +63,9 @@ export default function LandingPage() {
         </header>
 
         <div className="flex flex-1 items-center">
-          <section className="relative h-[90%] w-full self-center overflow-hidden p-2 md:p-4 lg:p-6">
+          <section className="relative h-[90%] w-full self-center overflow-hidden p-2 md:p-4 lg:p-6 xl:min-w-5xl">
             <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-8">
-              <div className="order-1 min-w-0 space-y-8">
+              <div className="order-1 min-w-0 space-y-8 text-center lg:text-left">
                 <h1 className="typo-heading-xl text-text-primary text-3xl md:text-5xl">
                   읽는 순간,
                   <br />
@@ -79,7 +79,7 @@ export default function LandingPage() {
                   기록은 거기서부터 시작됩니다.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
                   <Button asChild variant="outline" className="rounded-full">
                     <Link to="/login">로그인</Link>
                   </Button>
