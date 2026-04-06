@@ -35,7 +35,7 @@ export function useStatsPageController(): UseStatsPageControllerResult {
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [authLoading, user, navigate]);
 
@@ -43,6 +43,7 @@ export function useStatsPageController(): UseStatsPageControllerResult {
     setIsLoggingOut(true);
     await Logout();
     setIsLoggingOut(false);
+    navigate("/", { replace: true });
   }
 
   const stats = useMemo(() => computeReadingStats(userBooks), [userBooks]);

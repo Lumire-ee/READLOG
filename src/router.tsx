@@ -29,7 +29,7 @@ export default function AppRouter() {
       <Route
         path="/home"
         element={
-          <AuthGuard>
+          <AuthGuard redirectTo="/">
             <HomePage />
           </AuthGuard>
         }
@@ -37,7 +37,7 @@ export default function AppRouter() {
       <Route
         path="/stats"
         element={
-          <AuthGuard>
+          <AuthGuard redirectTo="/">
             <StatsPage />
           </AuthGuard>
         }

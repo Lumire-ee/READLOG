@@ -37,7 +37,7 @@ export default function HomePage() {
     setIsLoggingOut(true);
     await Logout();
     setIsLoggingOut(false);
-    // TODO: "/" 리다이렉트
+    navigate("/", { replace: true });
   }
 
   async function handleRegister(book: SearchBook) {
@@ -93,5 +93,3 @@ export default function HomePage() {
     </HomeLayout>
   );
 }
-
-
