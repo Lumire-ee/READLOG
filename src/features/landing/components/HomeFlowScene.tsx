@@ -142,7 +142,10 @@ function LibraryBookRow({ selectedBook }: { selectedBook: DemoSearchBook }) {
 export default function HomeFlowScene({ selectedBook, homePhase }: Props) {
   const isAdded = homePhase === "added";
   const libraryRowBook = DEMO_SEARCH_RESULTS[1] ?? selectedBook;
-  const desktopReadingCardOrder: ReadingCardKey[] = isAdded
+  const desktopReadingCardOrderMd: ReadingCardKey[] = isAdded
+    ? ["book", "skeleton-a"]
+    : ["skeleton-a", "spacer"];
+  const desktopReadingCardOrderXl: ReadingCardKey[] = isAdded
     ? ["book", "skeleton-a", "skeleton-b"]
     : ["skeleton-a", "skeleton-b", "spacer"];
 
@@ -167,7 +170,7 @@ export default function HomeFlowScene({ selectedBook, homePhase }: Props) {
         <section className="bg-bg-surface rounded-xl p-4 sm:p-5">
           <h2 className="typo-heading-sm text-text-primary">나의 독서</h2>
           <div className="mt-4">
-            <div className="lg:hidden">
+            <div className="md:hidden">
               <AnimatePresence mode="wait" initial={false}>
                 {isAdded ? (
                   <motion.div
@@ -193,9 +196,40 @@ export default function HomeFlowScene({ selectedBook, homePhase }: Props) {
               </AnimatePresence>
             </div>
 
-            <div className="hidden gap-3 lg:grid lg:grid-cols-3">
+            <div className="hidden gap-3 md:grid md:grid-cols-2 xl:hidden">
               <AnimatePresence initial={false} mode="popLayout">
-                {desktopReadingCardOrder.map((cardKey) => (
+                {desktopReadingCardOrderMd.map((cardKey) => (
+                  <motion.div
+                    key={cardKey}
+                    layout="position"
+                    initial={
+                      cardKey === "book"
+                        ? { opacity: 0, scale: 0.7 }
+                        : { opacity: 0, scale: 1 }
+                    }
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1 }}
+                    transition={{
+                      duration: cardKey === "book" ? 0.35 : 0.25,
+                      ease: "easeOut",
+                      layout: { duration: 0.5, ease: [0.25, 1, 0.35, 1] },
+                    }}
+                  >
+                    {cardKey === "spacer" ? (
+                      <SpacerReadingSlot />
+                    ) : cardKey === "book" ? (
+                      <ReadingBookCard selectedBook={selectedBook} />
+                    ) : (
+                      <PlaceholderReadingCard />
+                    )}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            <div className="hidden gap-3 xl:grid xl:grid-cols-3">
+              <AnimatePresence initial={false} mode="popLayout">
+                {desktopReadingCardOrderXl.map((cardKey) => (
                   <motion.div
                     key={cardKey}
                     layout="position"
