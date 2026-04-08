@@ -83,7 +83,7 @@ thumbRoute.get("/thumb", async (req, res) => {
       redirect: "follow",
       headers: {
         accept: "image/*",
-        "user-agent": "ReadLogThumbProxy/1.0",
+        "user-agent": "BookLogThumbProxy/1.0",
       },
     });
   } catch {
