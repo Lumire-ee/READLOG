@@ -23,7 +23,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen w-full">
       <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-3 px-4 py-4 md:gap-6 md:px-6 md:py-6">
-        <header className="bg-bg-surface sticky top-0 z-20 flex items-center justify-between rounded-2xl px-3 py-2.5 md:px-5 md:py-3">
+        <header className="sticky top-0 z-20 flex items-center justify-between rounded-2xl bg-transparent px-3 py-2.5 md:px-5 md:py-3">
           <Link to="/" className="flex items-center gap-3">
             <img
               src={MainSymbol}
