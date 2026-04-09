@@ -232,11 +232,27 @@ export default function HomeLibrarySection({
   }
 
   function renderRight(item: UserBookWithInfo) {
-    if (item.status === "reading") return null;
+    const badge =
+      item.status === "reading" ? null : (
+        <Badge variant={item.status}>{STATUS_LABEL[item.status]}</Badge>
+      );
+
+    if (isEditMode) {
+      return badge ? <div className="flex items-center">{badge}</div> : null;
+    }
 
     return (
-      <div className="flex items-center">
-        <Badge variant={item.status}>{STATUS_LABEL[item.status]}</Badge>
+      <div className="flex shrink-0 items-center gap-1.5">
+        {badge}
+        <div className="sm:hidden">
+          <BookItemMenu
+            bookTitle={item.book.title}
+            onEdit={() => onOpenBook(item.id)}
+            onDelete={() => removeBook(item.id)}
+            isDeleting={isSingleDeleting && deletingBookId === item.id}
+            triggerClassName="pointer-events-auto opacity-100"
+          />
+        </div>
       </div>
     );
   }
@@ -276,13 +292,15 @@ export default function HomeLibrarySection({
         )}
         topRight={
           !isEditMode ? (
-            <BookItemMenu
-              bookTitle={item.book.title}
-              onEdit={() => onOpenBook(item.id)}
-              onDelete={() => removeBook(item.id)}
-              isDeleting={isSingleDeleting && deletingBookId === item.id}
-              triggerClassName="opacity-0 pointer-events-none transition-opacity group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
-            />
+            <div className="hidden sm:block">
+              <BookItemMenu
+                bookTitle={item.book.title}
+                onEdit={() => onOpenBook(item.id)}
+                onDelete={() => removeBook(item.id)}
+                isDeleting={isSingleDeleting && deletingBookId === item.id}
+                triggerClassName="pointer-events-none opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
+              />
+            </div>
           ) : undefined
         }
       />
@@ -384,7 +402,7 @@ export default function HomeLibrarySection({
                             }
                           }}
                           className={cn(
-                            "border-border-default bg-bg-elevated hover:bg-bg-surface-hover group relative flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
+                            "border-border-default bg-bg-elevated hover:bg-bg-surface-hover has-[button[data-item-menu='true']:hover]:bg-transparent group relative flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors",
                             isExpanded
                               ? "bg-bg-surface-hover ring-accent-indigo/40 ring-1"
                               : undefined,
@@ -416,7 +434,7 @@ export default function HomeLibrarySection({
                             className={cn(
                               "text-text-secondary ml-auto flex shrink-0 items-center transition-[margin] duration-150 ease-out",
                               !isEditMode
-                                ? "group-focus-within:mr-10 group-hover:mr-10"
+                                ? "mr-10 sm:mr-0 sm:group-focus-within:mr-10 sm:group-hover:mr-10"
                                 : undefined,
                             )}
                           >
@@ -440,7 +458,7 @@ export default function HomeLibrarySection({
                                     size="icon-sm"
                                     data-item-menu="true"
                                     aria-label={`${folder.name} 메뉴 열기`}
-                                    className="hover:bg-bg-surface-hover text-text-primary pointer-events-none border-0 bg-transparent opacity-0 shadow-none transition-opacity group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:opacity-100"
+                                    className="hover:bg-bg-surface-hover text-text-primary pointer-events-auto border-0 bg-transparent opacity-100 shadow-none transition-opacity sm:pointer-events-none sm:opacity-0 sm:group-focus-within:pointer-events-auto sm:group-focus-within:opacity-100 sm:group-hover:pointer-events-auto sm:group-hover:opacity-100"
                                   >
                                     <EllipsisVertical className="size-4" />
                                   </Button>
@@ -449,7 +467,9 @@ export default function HomeLibrarySection({
                                   <DropdownMenuItem
                                     onClick={() => {
                                       setFolderRenameTarget(folder);
-                                      setRenameDialogSession((prev) => prev + 1);
+                                      setRenameDialogSession(
+                                        (prev) => prev + 1,
+                                      );
                                       setIsFolderRenameDialogOpen(true);
                                     }}
                                   >

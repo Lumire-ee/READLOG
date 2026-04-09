@@ -98,7 +98,7 @@ function BookListRowContent({
           className={cn(
             "ml-auto flex shrink-0 flex-col items-end",
             hasTopRight
-              ? "transition-[margin] duration-150 ease-out group-hover:mr-10 group-focus-within:mr-10"
+              ? "transition-[margin] duration-150 ease-out sm:group-hover:mr-10 sm:group-focus-within:mr-10"
               : "",
           )}
         >
