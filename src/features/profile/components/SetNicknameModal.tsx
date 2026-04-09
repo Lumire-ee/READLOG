@@ -9,7 +9,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { nicknameRules } from "../lib/validation";
 
 type SubmitResult = { ok: true } | { ok: false; message: string };
@@ -54,11 +53,8 @@ export default function SetNicknameModal({
         </DialogHeader>
 
         <div className="space-y-2">
-          <Label htmlFor="nickname" className="typo-label-sm text-text-primary">
-            닉네임
-          </Label>
           <Input
-            className="border-border-subtitle typo-label-sm w-full rounded-md border"
+            variant="interactiveRow"
             id="nickname"
             value={value}
             onChange={(e) => {
@@ -95,4 +91,3 @@ export default function SetNicknameModal({
     </Dialog>
   );
 }
-
