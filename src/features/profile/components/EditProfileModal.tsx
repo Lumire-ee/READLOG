@@ -103,7 +103,13 @@ export default function EditProfileModal({
   const email = getUserEmail(user);
   const canResetPassword = isEmailPasswordUser(user) && email.length > 0;
   const oauthProvider = getPrimaryOAuthProvider(user);
-  const oauthProviderLabel = oauthProvider === "google" ? "Google" : "Kakao";
+  const oauthProviderLabel =
+    oauthProvider === "google"
+      ? "Google"
+      : oauthProvider === "kakao"
+        ? "Kakao"
+        : "OAuth";
+  const shouldDeleteWithPassword = canResetPassword && !oauthProvider;
   const hasRecentReauth = isRecentSignIn(user.last_sign_in_at);
   const isNicknameDirty =
     normalizeNickname(nickname) !== normalizeNickname(currentNickname);
@@ -112,14 +118,14 @@ export default function EditProfileModal({
   );
 
   const canSubmitDelete = useMemo(() => {
-    if (canResetPassword) {
+    if (shouldDeleteWithPassword) {
       return deletePassword.trim().length > 0;
     }
 
     if (!oauthProvider) return false;
 
     return true;
-  }, [canResetPassword, deletePassword, oauthProvider]);
+  }, [deletePassword, oauthProvider, shouldDeleteWithPassword]);
 
   const shouldResumeDeleteConfirm = Boolean(
     open && getFreshAccountDeletePending(oauthProvider),
@@ -398,7 +404,7 @@ export default function EditProfileModal({
             </DialogHeader>
 
             <div className="space-y-3">
-              {canResetPassword ? (
+              {shouldDeleteWithPassword ? (
                 <div className="space-y-2">
                   <p className="typo-label-sm text-text-secondary">
                     본인 확인을 위해 비밀번호를 입력해 주세요.
@@ -440,7 +446,7 @@ export default function EditProfileModal({
                   !canSubmitDelete || isDeleting || isRedirectingForOAuth
                 }
                 onClick={() => {
-                  if (canResetPassword) {
+                  if (shouldDeleteWithPassword) {
                     void handleDeleteWithPassword();
                     return;
                   }
