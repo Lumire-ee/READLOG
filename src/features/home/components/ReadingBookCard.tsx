@@ -56,7 +56,7 @@ export default function ReadingBookCard({
     >
       <div className="grid h-full w-full grid-rows-5">
         <div className="bg-bg-surface-subtitle relative row-span-3 w-full overflow-hidden">
-          <div className="absolute top-2 right-2 z-20 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
+          <div className="absolute top-2 right-2 z-20 pointer-events-auto opacity-100 transition-opacity sm:pointer-events-none sm:opacity-0 sm:group-focus-within:pointer-events-auto sm:group-focus-within:opacity-100 sm:group-hover:pointer-events-auto sm:group-hover:opacity-100">
             <BookItemMenu
               bookTitle={item.book.title}
               onEdit={() => onOpenBook(item.id)}
