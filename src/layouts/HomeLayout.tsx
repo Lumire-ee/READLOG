@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import AppFooter from "@/components/AppFooter";
 
 type HomeLayoutProps = {
   header: ReactNode;
@@ -12,6 +13,7 @@ export default function HomeLayout({ header, children }: HomeLayoutProps) {
         <div className="space-y-8">
           {header}
           {children}
+          <AppFooter />
         </div>
       </div>
     </div>

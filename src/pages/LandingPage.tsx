@@ -1,5 +1,6 @@
 ﻿import MainSymbol from "@/assets/main_symbol.svg";
 import MainSymbolDark from "@/assets/main_symbol_dark.svg";
+import AppFooter from "@/components/AppFooter";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import ThemeToggleButton from "@/features/home/components/ThemeToggleButton";
@@ -99,6 +100,7 @@ export default function LandingPage() {
             </div>
           </section>
         </div>
+        <AppFooter />
       </div>
     </div>
   );
