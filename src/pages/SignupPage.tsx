@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SignupWithEmail } from "../features/auth/api/authApi";
 import { Button } from "@/components/ui/button";
 import { mapAuthErrorToKorean } from "../features/auth/lib/mapAuthErrorToKorean";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { FormValues, Feedback } from "../features/auth/lib/types";
 import UserLayout from "../layouts/UserLayout";
 import {
@@ -59,14 +59,24 @@ export default function SignupPage() {
       title="booklog 회원가입"
       subtitle="독서 기록을 시작해보세요"
       footer={
-        <div className="mt-4 flex items-center justify-center space-x-2">
-          <p className="typo-label-sm text-text-secondary">
-            이미 계정이 있으신가요?
-          </p>
-          <Button variant="authText" onClick={() => navigate("/login")}>
-            로그인
-          </Button>
-        </div>
+        <>
+          <div className="mt-4 flex items-center justify-center space-x-2">
+            <p className="typo-label-sm text-text-secondary">
+              이미 계정이 있으신가요?
+            </p>
+            <Button variant="authText" onClick={() => navigate("/login")}>
+              로그인
+            </Button>
+          </div>
+          <div className="mt-2 flex items-center justify-center">
+            <Link
+              to="/privacy-policy"
+              className="typo-label-sm text-text-primary hover:bg-transparent hover:underline"
+            >
+              개인정보 처리방침
+            </Link>
+          </div>
+        </>
       }
     >
       <form

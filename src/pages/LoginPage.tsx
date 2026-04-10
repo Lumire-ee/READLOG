@@ -4,7 +4,7 @@ import { mapAuthErrorToKorean } from "../features/auth/lib/mapAuthErrorToKorean"
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import type { FormValues, Feedback } from "../features/auth/lib/types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import googleG from "@/assets/google_g.svg";
 import KakaoSymbol from "@/assets/kakao_symbol.svg";
 import UserLayout from "../layouts/UserLayout";
@@ -69,6 +69,14 @@ export default function LoginPage() {
             <Button variant="authText" onClick={() => navigate("/signup")}>
               회원가입
             </Button>
+          </div>
+          <div className="mt-2 flex items-center justify-center">
+            <Link
+              to="/privacy-policy"
+              className="typo-label-sm text-text-primary hover:bg-transparent hover:underline"
+            >
+              개인정보 처리방침
+            </Link>
           </div>
         </>
       }
