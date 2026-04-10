@@ -328,7 +328,7 @@ export default function EditProfileModal({
 
           <Separator />
 
-          {canResetPassword ? (
+          {shouldDeleteWithPassword ? (
             <FormRow className="items-center">
               <FormLabel className="inline-flex items-center gap-1.5">
                 <KeyRound className="size-3.5" />
