@@ -15,6 +15,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/healthz", (_req, res) => {
+  res.status(200).json({
+    ok: true,
+    service: "booklog-api",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 const { thumbRoute } = await import("./thumbRoute.js");
 const { userBookRoute } = await import("./userBookRoute.js");
 const { accountRoute } = await import("./accountRoute.js");
@@ -51,4 +59,8 @@ app.get("/api/books", async (req, res) => {
   }
 });
 
-app.listen(5000);
+const PORT = Number(process.env.PORT ?? 5000);
+
+app.listen(PORT, () => {
+  console.log(`BookLog 백엔드 서버가 포트 ${PORT}에서 실행 중입니다.`);
+});
