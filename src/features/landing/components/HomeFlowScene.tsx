@@ -27,7 +27,7 @@ function ReadingBookCard({
     <motion.div
       layoutId={layoutId}
       transition={{ duration: 0.8, ease: [0.25, 1, 0.35, 1] }}
-      className="border-border-skeleton bg-bg-elevated h-100 overflow-hidden rounded-xl border"
+      className="border-border-skeleton bg-bg-elevated h-72 overflow-hidden rounded-xl border md:h-100"
     >
       <div className="bg-bg-surface-subtitle relative h-3/5 overflow-hidden">
         <DemoBookCover
@@ -171,29 +171,7 @@ export default function HomeFlowScene({ selectedBook, homePhase }: Props) {
           <h2 className="typo-heading-sm text-text-primary">나의 독서</h2>
           <div className="mt-4">
             <div className="md:hidden">
-              <AnimatePresence mode="wait" initial={false}>
-                {isAdded ? (
-                  <motion.div
-                    key="mobile-book"
-                    initial={{ opacity: 0, scale: 0.75 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                  >
-                    <ReadingBookCard selectedBook={selectedBook} />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="mobile-slot"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                  >
-                    <PlaceholderReadingCard />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <ReadingBookCard selectedBook={selectedBook} />
             </div>
 
             <div className="hidden gap-3 md:grid md:grid-cols-2 xl:hidden">
