@@ -44,20 +44,17 @@ export default function LandingPage() {
               variant="outline"
               className="bg-text-primary text-text-inverse hover:bg-action-primary-hover rounded-full border-0 md:hidden"
             >
-              <Link to="/signup">시작하기</Link>
+              <Link to="/login">시작하기</Link>
             </Button>
 
             <div className="hidden items-center gap-2 md:flex">
               <ThemeToggleButton />
-              <Button asChild variant="outline" className="rounded-full">
-                <Link to="/login">로그인</Link>
-              </Button>
               <Button
                 asChild
                 variant="outline"
                 className="bg-text-primary text-text-inverse hover:bg-action-primary-hover rounded-full border-0"
               >
-                <Link to="/signup">시작하기</Link>
+                <Link to="/login">시작하기</Link>
               </Button>
             </div>
           </div>
@@ -81,15 +78,12 @@ export default function LandingPage() {
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-                  <Button asChild variant="outline" className="rounded-full">
-                    <Link to="/login">로그인</Link>
-                  </Button>
                   <Button
                     asChild
                     variant="outline"
                     className="bg-text-primary text-text-inverse hover:bg-action-primary-hover rounded-full border-0"
                   >
-                    <Link to="/signup">지금 시작하기</Link>
+                    <Link to="/login">지금 시작하기</Link>
                   </Button>
                 </div>
               </div>
